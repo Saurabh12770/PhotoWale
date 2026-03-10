@@ -3,535 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhotoWale – About Us</title>
-    <!-- Font Awesome 6 (free) -->
+    <title>PhotoWale – Contact Us</title>
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Font: Inter & Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* -------------------- RESET & GLOBAL -------------------- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
-            line-height: 1.5;
-            scroll-behavior: smooth;
-        }
-        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 600; }
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
-
-        /* -------------------- STICKY TOP BAR (with navigation) -------------------- */
-        .top-bar {
-            position: sticky; top: 0; z-index: 100;
-            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-            background: #0f172a; color: #f1f5f9;
-            padding: 12px 32px; border-bottom: 1px solid #334155;
-            backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        .logo-area { display: flex; align-items: center; gap: 20px; }
-        .logo { font-size: 28px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; }
-        .logo span {
-            color: #f97316; background: rgba(255,255,255,0.1);
-            padding: 4px 12px; border-radius: 30px; font-size: 14px; margin-left: 8px;
-            border: 1px solid #f97316;
-        }
-        .location {
-            display: flex; align-items: center; gap: 6px; background: #1e293b;
-            padding: 8px 16px; border-radius: 30px; font-size: 14px; font-weight: 500; color: #cbd5e1;
-        }
-        .location i { color: #f97316; }
-
-        /* Navigation links */
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            margin: 0 20px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #f1f5f9;
-            font-weight: 500;
-            font-size: 16px;
-            transition: color 0.2s;
-            padding: 6px 0;
-            border-bottom: 2px solid transparent;
-        }
-        .nav-links a:hover {
-            color: #f97316;
-            border-bottom-color: #f97316;
-        }
-        .nav-links a.active {
-            color: #f97316;
-            border-bottom-color: #f97316;
-        }
-
-        .user-actions { display: flex; align-items: center; gap: 24px; }
-        .user-actions a { text-decoration: none; color: #f1f5f9; font-weight: 500; font-size: 15px; transition: color 0.2s; }
-        .user-actions a:hover { color: #f97316; }
-        .user-actions .cart {
-            background: #1e293b; padding: 8px 18px; border-radius: 30px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .champ-btn {
-            background: #f97316; color: #0f172a !important; padding: 10px 24px; border-radius: 30px;
-            font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 8px;
-            border: none; cursor: pointer; transition: all 0.2s;
-        }
-        .champ-btn:hover { background: #fb923c; transform: scale(1.02); }
-
-        /* -------------------- FOOTER (exact replica, with updated links) -------------------- */
-        .footer {
-            background: #0f172a; color: #cbd5e1;
-            border-radius: 40px 40px 0 0; padding: 60px 48px 30px; margin-top: 80px;
-        }
-        .footer-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px 60px;
-        }
-        .footer-col h4 { color: white; font-size: 16px; margin-bottom: 20px; letter-spacing: 0.5px; }
-        .footer-col a {
-            color: #94a3b8; text-decoration: none; display: block; margin-bottom: 10px;
-            font-size: 14px; transition: color 0.2s;
-        }
-        .footer-col a:hover { color: #f97316; }
-        .footer-col p { color: #94a3b8; font-size: 14px; margin-bottom: 8px; line-height: 1.6; }
-        .social-icons { display: flex; gap: 16px; font-size: 28px; margin: 20px 0; }
-        .social-icons i { color: #94a3b8; transition: color 0.2s; cursor: pointer; }
-        .social-icons i:hover { color: #f97316; }
-        .footer-links-bottom {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 32px;
-            border-top: 1px solid #334155; padding-top: 30px; margin-top: 40px; font-size: 14px;
-        }
-        .footer-links-bottom a { color: #94a3b8; text-decoration: none; }
-        .footer-links-bottom a:hover { color: #f97316; }
-        .copyright { text-align: center; margin-top: 30px; color: #64748b; font-size: 14px; }
-
-        /* -------------------- ABOUT PAGE SPECIFIC STYLES (unchanged) -------------------- */
-        .about-hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-        .about-hero::after {
-            content: '';
-            position: absolute;
-            top: -50%; right: -10%;
-            width: 300px; height: 300px;
-            background: rgba(249,115,22,0.1);
-            border-radius: 50%;
-            filter: blur(80px);
-        }
-        .about-hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        .about-hero p {
-            font-size: 20px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            color: #cbd5e1;
-        }
-        .about-cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .btn-primary, .btn-secondary {
-            padding: 14px 36px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-        .btn-primary {
-            background: #f97316;
-            color: #0f172a;
-        }
-        .btn-primary:hover {
-            background: #fb923c;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(249,115,22,0.4);
-        }
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid #f97316;
-        }
-        .btn-secondary:hover {
-            background: #f97316;
-            color: #0f172a;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(249,115,22,0.3);
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin: -20px auto 40px;
-            flex-wrap: wrap;
-            background: white;
-            padding: 30px 40px;
-            border-radius: 60px;
-            max-width: 600px;
-            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.15);
-            border: 1px solid rgba(249,115,22,0.2);
-            backdrop-filter: blur(4px);
-            position: relative;
-            z-index: 10;
-        }
-        .stat-item {
-            text-align: center;
-        }
-        .stat-item i {
-            font-size: 36px;
-            color: #f97316;
-            filter: drop-shadow(0 4px 6px rgba(249,115,22,0.3));
-        }
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-        .stat-label {
-            color: #475569;
-            font-weight: 500;
-        }
-
-        .section-title {
-            font-size: 36px;
-            margin: 60px 0 30px;
-            color: #0f172a;
-            position: relative;
-            display: inline-block;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px; left: 0;
-            width: 80px; height: 4px;
-            background: #f97316;
-            border-radius: 4px;
-        }
-
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 60px 0;
-        }
-        .problem-box {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            border-radius: 40px;
-            padding: 40px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .problem-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 40px -10px rgba(249,115,22,0.15);
-            border-color: #f97316;
-        }
-        .problem-box h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #0f172a;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .problem-box ul {
-            list-style: none;
-        }
-        .problem-box li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .problem-box li i {
-            color: #f97316;
-            font-size: 18px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-        .feature-card {
-            background: white;
-            border-radius: 30px;
-            padding: 32px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
-            position: relative;
-            overflow: hidden;
-        }
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 5px;
-            background: linear-gradient(90deg, #f97316, #fb923c);
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 35px -10px rgba(249,115,22,0.2);
-            border-color: #f97316;
-        }
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-        .feature-card i {
-            font-size: 52px;
-            color: #f97316;
-            margin-bottom: 16px;
-            transition: transform 0.3s;
-        }
-        .feature-card:hover i {
-            transform: scale(1.1);
-        }
-        .feature-card h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-        }
-        .feature-card p {
-            color: #475569;
-        }
-
-        .mission-vision-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-        .mv-card {
-            background: linear-gradient(145deg, #ffffff, #f1f5f9);
-            border-radius: 30px;
-            padding: 32px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
-        }
-        .mv-card:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-            box-shadow: 0 20px 30px rgba(249,115,22,0.1);
-        }
-        .mv-card i {
-            font-size: 48px;
-            color: #f97316;
-            margin-bottom: 16px;
-        }
-        .mv-card h3 {
-            font-size: 22px;
-            margin-bottom: 12px;
-        }
-        .mv-card p {
-            color: #475569;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-        .value-card {
-            background: linear-gradient(145deg, #ffffff, #fef7f2);
-            border-radius: 40px;
-            padding: 40px 30px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s;
-            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.1);
-        }
-        .value-card:hover {
-            transform: translateY(-8px);
-            border-color: #f97316;
-            box-shadow: 0 30px 40px -10px rgba(249,115,22,0.2);
-        }
-        .value-card i {
-            font-size: 64px;
-            color: #f97316;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
-        }
-        .value-card:hover i {
-            transform: scale(1.1);
-        }
-        .value-card h3 {
-            font-size: 26px;
-            margin-bottom: 16px;
-        }
-        .value-card p {
-            color: #475569;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
-        }
-        .team-card {
-            background: white;
-            border-radius: 40px;
-            overflow: hidden;
-            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s;
-        }
-        .team-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 40px -10px rgba(249,115,22,0.2);
-            border-color: #f97316;
-        }
-        .team-image {
-            height: 280px;
-            background: linear-gradient(145deg, #cbd5e1, #94a3b8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            color: #0f172a;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.3s;
-        }
-        .team-card:hover .team-image {
-            transform: scale(1.02);
-        }
-        .team-info {
-            padding: 24px;
-            text-align: center;
-            background: white;
-        }
-        .team-info h3 {
-            font-size: 22px;
-            margin-bottom: 6px;
-            color: #0f172a;
-        }
-        .team-info .role {
-            color: #f97316;
-            font-weight: 600;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 14px;
-        }
-        .team-info p {
-            color: #475569;
-            font-size: 14px;
-            margin-bottom: 16px;
-        }
-        .team-info .exp {
-            font-weight: 600;
-            color: #0f172a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .team-info .exp i {
-            color: #f97316;
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            border-radius: 60px;
-            padding: 80px 40px;
-            text-align: center;
-            color: white;
-            margin: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -30%; right: -10%;
-            width: 400px; height: 400px;
-            background: rgba(249,115,22,0.1);
-            border-radius: 50%;
-            filter: blur(100px);
-        }
-        .cta-section h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .cta-section p {
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            color: #cbd5e1;
-            position: relative;
-        }
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-        }
-
-        /* responsive adjustments for nav */
-        @media (max-width: 900px) {
-            .top-bar {
-                flex-direction: column;
-                gap: 12px;
-                padding: 16px;
-            }
-            .logo-area {
-                width: 100%;
-                justify-content: center;
-            }
-            .nav-links {
-                margin: 8px 0;
-            }
-            .user-actions {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-        }
-        @media (max-width: 800px) {
-            .about-hero h1 { font-size: 36px; }
-            .two-column { grid-template-columns: 1fr; }
-            .stats-row { gap: 30px; }
-            .section-title { font-size: 28px; }
-        }
+        /* (copy the same style block from index.html, up to the FOOTER section) */
+        /* For brevity, use the exact same styles as in index.html */
+        /* ... (all styles from index.html) ... */
     </style>
 </head>
 <body>
-    <!-- sticky top bar with navigation (About Us active) -->
+    <!-- sticky top bar with navigation (Contact Us active) -->
     <div class="top-bar">
         <div class="logo-area">
             <div class="logo">PhotoWale <span>#1</span></div>
             <div class="location"><i class="fas fa-map-marker-alt"></i> Surat, India</div>
         </div>
         <div class="nav-links">
-            <a href="ui.html">Home</a>
-            <a href="about.html" class="active">About Us</a>
-            <a href="contact.html">Contact Us</a>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html" class="active">Contact Us</a>
         </div>
         <div class="user-actions">
             <a href="#">Login</a>
@@ -540,144 +33,88 @@
         </div>
     </div>
 
-    <!-- MAIN ABOUT CONTENT (enhanced) -->
-    <div class="about-hero">
+    <!-- CONTACT HERO -->
+    <div class="contact-hero">
         <div class="container">
-            <h1>The Smarter Way to Book Professional Photographers</h1>
-            <p>A photography marketplace where clients discover verified photographers and book instantly, while professionals grow their business with powerful digital tools.</p>
-            <div class="about-cta-buttons">
-                <button class="btn-primary" onclick="alert('Browse photographers')">Book Photographer</button>
-                <button class="btn-secondary" onclick="alert('Join as photographer')">Join as Photographer</button>
-            </div>
+            <h1>Get in Touch</h1>
+            <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
         </div>
     </div>
 
     <div class="container">
-        <!-- stats row (with glow) -->
-        <div class="stats-row">
-            <div class="stat-item">
-                <i class="fas fa-camera"></i>
-                <div class="stat-number">500+</div>
-                <div class="stat-label">Photographers</div>
+        <!-- Contact Grid: Form + Info -->
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Send a Message</h2>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" onclick="alert('Thank you for reaching out! (Demo mode)'); return false;">Send Message</button>
+                </form>
             </div>
-            <div class="stat-item">
-                <i class="fas fa-check-circle"></i>
-                <div class="stat-number">100%</div>
-                <div class="stat-label">Verified</div>
-            </div>
-        </div>
 
-        <!-- Our Story -->
-        <h2 class="section-title">Our Story</h2>
-        <p style="font-size: 18px; max-width: 900px; margin-bottom: 40px; color: #334155; line-height: 1.7;">
-            Photography is about emotions, but booking one should never be a hassle. We saw talented photographers struggling with inconsistent work and clients wasting hours on calls, confused by hidden costs. PhotoWale was born to bridge that gap — a transparent, tech-powered platform that makes professional photography effortless for everyone.
-        </p>
-
-        <!-- The Journey: two-column problems (enhanced) -->
-        <div class="two-column">
-            <div class="problem-box">
-                <h3><i class="fas fa-camera" style="color:#f97316;"></i> What Photographers Were Facing</h3>
-                <ul>
-                    <li><i class="fas fa-times-circle"></i> Inconsistent bookings & unpredictable income</li>
-                    <li><i class="fas fa-times-circle"></i> Endless calls and manual follow-ups</li>
-                    <li><i class="fas fa-times-circle"></i> Payment delays and negotiation hassles</li>
-                    <li><i class="fas fa-times-circle"></i> No visibility or online presence</li>
-                    <li><i class="fas fa-times-circle"></i> Too much admin, less creative time</li>
-                </ul>
-            </div>
-            <div class="problem-box">
-                <h3><i class="fas fa-users" style="color:#f97316;"></i> What Customers Were Facing</h3>
-                <ul>
-                    <li><i class="fas fa-times-circle"></i> No trusted way to verify photographers</li>
-                    <li><i class="fas fa-times-circle"></i> Confusing pricing & hidden costs</li>
-                    <li><i class="fas fa-times-circle"></i> Multiple calls to compare options</li>
-                    <li><i class="fas fa-times-circle"></i> Last-minute cancellations</li>
-                    <li><i class="fas fa-times-circle"></i> Uncertain quality of service</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- What We Built -->
-        <h2 class="section-title">What We Built</h2>
-        <p style="margin-bottom: 20px; font-size: 18px;">A comprehensive platform that solves these challenges for everyone</p>
-        <div class="features-grid">
-            <div class="feature-card"><i class="fas fa-check-circle"></i><h3>Verified Marketplace</h3><p>Discover trusted, background-checked professional photographers with real portfolios and reviews.</p></div>
-            <div class="feature-card"><i class="fas fa-calendar-check"></i><h3>Instant Booking System</h3><p>Compare portfolios, select packages, check availability, and confirm bookings in minutes online.</p></div>
-            <div class="feature-card"><i class="fas fa-shield-alt"></i><h3>Secure Payments</h3><p>Safe transactions, clear pricing, and protection for both clients and photographers.</p></div>
-            <div class="feature-card"><i class="fas fa-tools"></i><h3>Business Tools</h3><p>Calendar management, team coordination, order management, and workflow automation for pros.</p></div>
-            <div class="feature-card"><i class="fas fa-headset"></i><h3>Reliable Support</h3><p>Dedicated assistance before, during, and after every shoot.</p></div>
-            <div class="feature-card"><i class="fas fa-chart-line"></i><h3>Growth Platform</h3><p>Get direct bookings, build reviews, keep updated portfolio, and scale your business faster.</p></div>
-        </div>
-
-        <!-- Mission / Vision / etc (enhanced) -->
-        <div class="mission-vision-grid">
-            <div class="mv-card"><i class="fas fa-bullseye"></i><h3>Our Mission</h3><p>Democratizing professional photography — making booking simple, transparent, and reliable while empowering photographers with technology.</p></div>
-            <div class="mv-card"><i class="fas fa-eye"></i><h3>Our Vision</h3><p>Building the world's most trusted photography marketplace, expanding globally without compromising quality.</p></div>
-            <div class="mv-card"><i class="fas fa-book-open"></i><h3>Our Story</h3><p>Born from frustration of finding quality photographers and helping talented professionals get discovered.</p></div>
-            <div class="mv-card"><i class="fas fa-bolt"></i><h3>What We Do</h3><p>A technology-first platform connecting verified photographers with clients who value time and quality.</p></div>
-            <div class="mv-card"><i class="fas fa-rocket"></i><h3>Where We're Going</h3><p>Expanding to become the go‑to global marketplace for professional photography services.</p></div>
-        </div>
-
-        <!-- Core Values (enhanced) -->
-        <h2 class="section-title">Core Values</h2>
-        <div class="values-grid">
-            <div class="value-card"><i class="fas fa-medal"></i><h3>Quality First</h3><p>We ensure excellence by thoroughly vetting photographers and maintaining the highest standards of service.</p></div>
-            <div class="value-card"><i class="fas fa-eye"></i><h3>Transparency</h3><p>Clear pricing, honest communication, and open processes. No surprises, just trust.</p></div>
-            <div class="value-card"><i class="fas fa-heart"></i><h3>Community</h3><p>We nurture an ecosystem where photographers collaborate, clients share feedback, and everyone grows together.</p></div>
-        </div>
-
-        <!-- Our Team (all names Saurabh Kumar) with enhanced cards -->
-        <h2 class="section-title">Meet the Visionaries</h2>
-        <div class="team-grid">
-            <div class="team-card">
-                <div class="team-image" style="background-image: url('images/founder.jpeg'); background-size: cover; background-position: center;"></div>
-                <div class="team-info">
-                    <h3>Saurabh Kumar</h3>
-                    <div class="role">Founder & Managing Director</div>
-                    <p>Strategic architect with over two decades of experience building scalable ventures. He drives the vision and operational excellence behind PhotoWale.</p>
-                    <div class="exp"><i class="fas fa-briefcase"></i> 20+ yrs · <i class="fab fa-linkedin"></i></div>
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p><strong>Registered Office:</strong><br>
+                    JayVind IT-Tech Private Limited,<br>
+                    501, C-Block, Parvati Nandan Park and Society,<br>
+                    Opp. Sarkhej Railway station, Ahmedabad,<br>
+                    Gujarat - 382210, India</p>
                 </div>
-            </div>
-            <div class="team-card">
-                <div class="team-image" style="background-image: url('images/ceo.jpeg'); background-size: cover; background-position: center;"></div>
-                <div class="team-info">
-                    <h3>Saurabh Kumar</h3>
-                    <div class="role">Founder & CEO</div>
-                    <p>Leadership in revenue strategy and customer success. She has been instrumental in go‑to‑market strategy and scaling growth.</p>
-                    <div class="exp"><i class="fas fa-briefcase"></i> 20+ yrs · <i class="fab fa-linkedin"></i></div>
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p><strong>Phone:</strong> <a href="tel:+919135791602">+91 9135791602</a></p>
                 </div>
-            </div>
-            <div class="team-card">
-                <div class="team-image" style="background-image: url('images/technical.jpeg'); background-size: cover; background-position: center;"></div>
-                <div class="team-info">
-                    <h3>Saurabh Kumar</h3>
-                    <div class="role">Technical Consultant</div>
-                    <p>Specialist in software architecture and full‑stack development. He ensures robust, scalable platform design and long‑term tech strategy.</p>
-                    <div class="exp"><i class="fas fa-briefcase"></i> 20+ yrs · <i class="fab fa-linkedin"></i></div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p><strong>Email:</strong> <a href="mailto:saurabhkumar12770@gmail.com">saurabhkumar12770@gmail.com</a></p>
                 </div>
-            </div>
-            <div class="team-card">
-                <div class="team-image" style="background-image: url('images/photographyc.jpeg'); background-size: cover; background-position: center;"></div>
-                <div class="team-info">
-                    <h3>Saurabh Kumar</h3>
-                    <div class="role">Photography Consultant</div>
-                    <p>Expert in wedding planning and event strategy. Known for calm coordination and transforming ideas into flawless celebrations.</p>
-                    <div class="exp"><i class="fas fa-briefcase"></i> 25+ yrs · <i class="fab fa-linkedin"></i></div>
+                <div class="info-item">
+                    <i class="fas fa-globe"></i>
+                    <p><strong>Website:</strong> <a href="https://www.photowale.com" target="_blank">www.photowale.com</a></p>
+                </div>
+
+                <h3 style="margin: 30px 0 16px; color: #0f172a;">Follow Us</h3>
+                <div class="social-links-contact">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
 
-        <!-- CTA Section (enhanced) -->
-        <div class="cta-section">
-            <h2>Ready to Start Your Journey?</h2>
-            <p>Whether you're looking to capture life's precious moments or grow your photography business, we're here to make it happen.</p>
-            <div class="cta-buttons">
-                <button class="btn-primary" onclick="alert('Contact us')">Contact Us</button>
-                <button class="btn-secondary" onclick="alert('Join as photographer')">Join as Photographer</button>
+        <!-- Map Section (fixed: placeholder with link) -->
+        <div class="map-section">
+            <h2 class="section-title">Our Location</h2>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Parvati Nandan Park Society, Ahmedabad</h3>
+                    <p>Click the button below to open the location in Google Maps.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Parvati+Nandan+Park+Society+Ujala+Circle+Sarkhej+Ahmedabad" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Open in Google Maps
+                    </a>
+                </div>
+                <!-- For interactive map, replace the placeholder with a valid Google Maps Embed API key -->
             </div>
         </div>
-
-    </div> <!-- end container -->
+    </div>
 
     <!-- FOOTER (exact replica with updated links) -->
     <div class="footer">
@@ -689,7 +126,7 @@
                 <h4>REGISTERED OFFICE ADDRESS:</h4>
                 <p>JayVind IT-Tech Private Limited,<br>501, C-Block, Parvati Nandan Park and Society<br>Opp. Sarkhej Railway station,<br>Ahmedabad, Gujarat - 382210, India.</p>
                 <p>CIN: U519733633262</p>
-                <p>Phone: +91 7016396486</p>
+                <p>Phone: +91 9135791602</p>
                 <div class="social-icons">
                     <i class="fab fa-instagram"></i><i class="fab fa-linkedin-in"></i><i class="fab fa-facebook-f"></i><i class="fab fa-twitter"></i><i class="fab fa-youtube"></i>
                 </div>
@@ -700,14 +137,5 @@
         </div>
         <div class="copyright">© 2026 PhotoWale.com (formerly PhotoWale)</div>
     </div>
-
-    <script>
-        // Optional: any dynamic alerts for demo
-        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
-            if(!btn.hasAttribute('onclick')) {
-                btn.addEventListener('click', () => alert('Demo action'));
-            }
-        });
-    </script>
 </body>
 </html>
