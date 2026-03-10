@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoWale – Contact Us</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* -------------------- RESET & GLOBAL -------------------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 600; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+        /* -------------------- STICKY TOP BAR (with navigation) -------------------- */
+        .top-bar {
+            position: sticky; top: 0; z-index: 100;
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            background: #0f172a; color: #f1f5f9;
+            padding: 12px 32px; border-bottom: 1px solid #334155;
+            backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .logo-area { display: flex; align-items: center; gap: 20px; }
+        .logo { font-size: 28px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; }
+        .logo span {
+            color: #f97316; background: rgba(255,255,255,0.1);
+            padding: 4px 12px; border-radius: 30px; font-size: 14px; margin-left: 8px;
+            border: 1px solid #f97316;
+        }
+        .location {
+            display: flex; align-items: center; gap: 6px; background: #1e293b;
+            padding: 8px 16px; border-radius: 30px; font-size: 14px; font-weight: 500; color: #cbd5e1;
+        }
+        .location i { color: #f97316; }
+
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            margin: 0 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #f1f5f9;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.2s;
+            padding: 6px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-links a:hover {
+            color: #f97316;
+            border-bottom-color: #f97316;
+        }
+        .nav-links a.active {
+            color: #f97316;
+            border-bottom-color: #f97316;
+        }
+
+        .user-actions { display: flex; align-items: center; gap: 24px; }
+        .user-actions a { text-decoration: none; color: #f1f5f9; font-weight: 500; font-size: 15px; transition: color 0.2s; }
+        .user-actions a:hover { color: #f97316; }
+        .user-actions .cart {
+            background: #1e293b; padding: 8px 18px; border-radius: 30px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .champ-btn {
+            background: #f97316; color: #0f172a !important; padding: 10px 24px; border-radius: 30px;
+            font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 8px;
+            border: none; cursor: pointer; transition: all 0.2s;
+        }
+        .champ-btn:hover { background: #fb923c; transform: scale(1.02); }
+
+        /* -------------------- FOOTER (exact replica with updated links) -------------------- */
+        .footer {
+            background: #0f172a; color: #cbd5e1;
+            border-radius: 40px 40px 0 0; padding: 60px 48px 30px; margin-top: 80px;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px 60px;
+        }
+        .footer-col h4 { color: white; font-size: 16px; margin-bottom: 20px; letter-spacing: 0.5px; }
+        .footer-col a {
+            color: #94a3b8; text-decoration: none; display: block; margin-bottom: 10px;
+            font-size: 14px; transition: color 0.2s;
+        }
+        .footer-col a:hover { color: #f97316; }
+        .footer-col p { color: #94a3b8; font-size: 14px; margin-bottom: 8px; line-height: 1.6; }
+        .social-icons { display: flex; gap: 16px; font-size: 28px; margin: 20px 0; }
+        .social-icons i { color: #94a3b8; transition: color 0.2s; cursor: pointer; }
+        .social-icons i:hover { color: #f97316; }
+        .footer-links-bottom {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 32px;
+            border-top: 1px solid #334155; padding-top: 30px; margin-top: 40px; font-size: 14px;
+        }
+        .footer-links-bottom a { color: #94a3b8; text-decoration: none; }
+        .footer-links-bottom a:hover { color: #f97316; }
+        .copyright { text-align: center; margin-top: 30px; color: #64748b; font-size: 14px; }
+
+        /* -------------------- CONTACT PAGE SPECIFIC STYLES -------------------- */
+        .contact-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-hero::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -10%;
+            width: 300px; height: 300px;
+            background: rgba(249,115,22,0.1);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+        .contact-hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .contact-hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #cbd5e1;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 50px 0;
+        }
+        .contact-form {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+        }
+        .contact-form h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 16px;
+            transition: border 0.2s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #f97316;
+        }
+        .submit-btn {
+            background: #f97316;
+            color: #0f172a;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(249,115,22,0.2);
+        }
+        .submit-btn:hover {
+            background: #fb923c;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(249,115,22,0.4);
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+        }
+        .contact-info h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #0f172a;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .info-item i {
+            font-size: 24px;
+            color: #f97316;
+            width: 32px;
+        }
+        .info-item p {
+            color: #334155;
+            line-height: 1.6;
+        }
+        .info-item a {
+            color: #334155;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .info-item a:hover {
+            color: #f97316;
+        }
+        .social-links-contact {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .social-links-contact a {
+            background: #f1f5f9;
+            color: #0f172a;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.2s;
+        }
+        .social-links-contact a:hover {
+            background: #f97316;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .map-section {
+            margin: 50px 0;
+        }
+        .map-container {
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            background: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 350px;
+        }
+        .map-placeholder {
+            text-align: center;
+            padding: 40px;
+            color: #334155;
+        }
+        .map-placeholder i {
+            font-size: 48px;
+            color: #f97316;
+            margin-bottom: 16px;
+        }
+        .map-placeholder a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #f97316;
+            color: #0f172a;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .map-placeholder a:hover {
+            background: #fb923c;
+        }
+
+        /* responsive adjustments for nav */
+        @media (max-width: 900px) {
+            .top-bar {
+                flex-direction: column;
+                gap: 12px;
+                padding: 16px;
+            }
+            .logo-area {
+                width: 100%;
+                justify-content: center;
+            }
+            .nav-links {
+                margin: 8px 0;
+            }
+            .user-actions {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+        @media (max-width: 800px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .contact-hero h1 { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- sticky top bar with navigation (Contact Us active) -->
+    <div class="top-bar">
+        <div class="logo-area">
+            <div class="logo">PhotoWale <span>#1</span></div>
+            <div class="location"><i class="fas fa-map-marker-alt"></i> Surat, India</div>
+        </div>
+        <div class="nav-links">
+            <a href="ui.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html" class="active">Contact Us</a>
+        </div>
+        <div class="user-actions">
+            <a href="#">Login</a>
+            <a href="#" class="cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+            <a href="#" class="champ-btn" onclick="alert('Become a PhotoWale Pro')"><i class="fas fa-crown"></i> Become Pro</a>
+        </div>
+    </div>
+
+    <!-- CONTACT HERO -->
+    <div class="contact-hero">
+        <div class="container">
+            <h1>Get in Touch</h1>
+            <p>Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Contact Grid: Form + Info -->
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Send a Message</h2>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" onclick="alert('Thank you for reaching out! (Demo mode)'); return false;">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p><strong>Registered Office:</strong><br>
+                    JayVind IT-Tech Private Limited,<br>
+                    501, C-Block, Parvati Nandan Park and Society,<br>
+                    Opp. Sarkhej Railway station, Ahmedabad,<br>
+                    Gujarat - 382210, India</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p><strong>Phone:</strong> <a href="tel:+919135791602">+91 9135791602</a></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p><strong>Email:</strong> <a href="mailto:saurabhkumar12770@gmail.com">saurabhkumar12770@gmail.com</a></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-globe"></i>
+                    <p><strong>Website:</strong> <a href="https://www.photowale.com" target="_blank">www.photowale.com</a></p>
+                </div>
+
+                <h3 style="margin: 30px 0 16px; color: #0f172a;">Follow Us</h3>
+                <div class="social-links-contact">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section (fixed: placeholder with link) -->
+        <div class="map-section">
+            <h2 class="section-title">Our Location</h2>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Parvati Nandan Park Society, Ahmedabad</h3>
+                    <p>Click the button below to open the location in Google Maps.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Parvati+Nandan+Park+Society+Ujala+Circle+Sarkhej+Ahmedabad" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Open in Google Maps
+                    </a>
+                </div>
+                <!-- For interactive map, replace the placeholder with a valid Google Maps Embed API key -->
+                <!-- Example with iframe (requires valid API key):
+                <iframe 
+                    src="https://www.google.com/maps/embed/v1/place?key=YOUR_VALID_API_KEY&q=Parvati+Nandan+Park+Society+Ujala+Circle+Sarkhej+Ahmedabad" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    style="width:100%; height:400px; border:0;">
+                </iframe>
+                -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER (exact replica with updated links) -->
+    <div class="footer">
+        <div class="footer-grid">
+            <div class="footer-col"><h4>ABOUT</h4><a href="about.html">About Us</a><a href="contact.html">Contact Us</a><a href="#">Careers</a><a href="#">Stories</a><a href="#">Press</a><a href="#">Blog</a></div>
+            <div class="footer-col"><h4>HELP</h4><a href="#">Payments</a><a href="#">Selection & Delivery</a><a href="#">Reschedule</a><a href="#">FAQ</a></div>
+            <div class="footer-col"><h4>CONSUMER POLICY</h4><a href="#">Terms Of Use</a><a href="#">Privacy Policy</a><a href="#">Cancellation Policy</a><a href="#">Refund Policy</a><a href="#">Sitemap</a></div>
+            <div class="footer-col">
+                <h4>REGISTERED OFFICE ADDRESS:</h4>
+                <p>JayVind IT-Tech Private Limited,<br>501, C-Block, Parvati Nandan Park and Society<br>Opp. Sarkhej Railway station,<br>Ahmedabad, Gujarat - 382210, India.</p>
+                <p>CIN: U519733633262</p>
+                <p>Phone: +91 9135791602</p>
+                <div class="social-icons">
+                    <i class="fab fa-instagram"></i><i class="fab fa-linkedin-in"></i><i class="fab fa-facebook-f"></i><i class="fab fa-twitter"></i><i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-links-bottom">
+            <a href="#">Become a PhotoWale Pro</a><a href="#">Gift Cards</a><a href="#">Help Center</a>
+        </div>
+        <div class="copyright">© 2026 PhotoWale.com (formerly PhotoWale)</div>
+    </div>
+</body>
+</html>
