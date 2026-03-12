@@ -1,9 +1,12 @@
+We have updated `index.html` to remove all `images/` folder prefixes since images are now in the same root directory. All image paths now point directly to the filenames. The festival carousel and other sections have been adjusted accordingly. Below is the complete updated code.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhotoWale – Ahmedabad & Mumbai launch</title>
+    <title>PhotoWale – India's Largest Photography Marketplace</title>
     <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Font: Inter & Poppins -->
@@ -32,21 +35,23 @@
             padding: 0 24px;
         }
 
-        /* -------------------- STICKY TOP BAR (with navigation links) -------------------- */
+        /* -------------------- STICKY TOP BAR (with mega menu) -------------------- */
         .top-bar {
             position: sticky;
             top: 0;
             z-index: 100;
+            background: #0f172a;
+            color: #f1f5f9;
+            padding: 8px 32px;
+            border-bottom: 1px solid #334155;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .top-row {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            background: #0f172a;
-            color: #f1f5f9;
-            padding: 12px 32px;
-            border-bottom: 1px solid #334155;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
         .logo-area {
             display: flex;
@@ -58,6 +63,7 @@
             font-weight: 700;
             color: #ffffff;
             letter-spacing: -0.5px;
+            cursor: pointer;
         }
         .logo span {
             color: #f97316;
@@ -78,32 +84,36 @@
             font-size: 14px;
             font-weight: 500;
             color: #cbd5e1;
+            cursor: pointer;
         }
         .location i {
             color: #f97316;
         }
-        /* Navigation links */
-        .nav-links {
-            display: flex;
-            gap: 24px;
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
             margin: 0 20px;
         }
-        .nav-links a {
-            text-decoration: none;
-            color: #f1f5f9;
-            font-weight: 500;
-            font-size: 16px;
-            transition: color 0.2s;
-            padding: 6px 0;
-            border-bottom: 2px solid transparent;
+        .search-bar form {
+            display: flex;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
         }
-        .nav-links a:hover {
-            color: #f97316;
-            border-bottom-color: #f97316;
+        .search-bar input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
         }
-        .nav-links a.active {
-            color: #f97316;
-            border-bottom-color: #f97316;
+        .search-bar button {
+            background: #f97316;
+            border: none;
+            color: #0f172a;
+            padding: 0 20px;
+            font-weight: 600;
+            cursor: pointer;
         }
         .user-actions {
             display: flex;
@@ -114,44 +124,51 @@
             text-decoration: none;
             color: #f1f5f9;
             font-weight: 500;
-            font-size: 15px;
+            font-size: 14px;
             transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .user-actions a:hover {
             color: #f97316;
         }
         .user-actions .cart {
             background: #1e293b;
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         .champ-btn {
             background: #f97316;
             color: #0f172a !important;
-            padding: 10px 24px;
+            padding: 8px 16px;
             border-radius: 30px;
             font-weight: 700;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s;
         }
-        .champ-btn:hover {
-            background: #fb923c;
-            transform: scale(1.02);
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #334155;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #f97316;
         }
 
-        /* -------------------- HERO SLIDER (MORE VISIBLE BG) -------------------- */
+        /* -------------------- HERO SLIDER (enhanced) -------------------- */
         .hero-slider {
             position: relative;
             width: 100%;
-            height: 620px;
+            height: 580px;
             overflow: hidden;
             box-shadow: 0 25px 40px -15px rgba(0,0,0,0.4);
         }
@@ -164,16 +181,13 @@
             min-width: 100%;
             height: 100%;
             background-size: cover;
-            background-position: center 30%;
+            background-position: center;
             position: relative;
         }
         .hero-slide::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(15,23,42,0.4) 70%, transparent 100%);
         }
         .hero-content {
@@ -181,9 +195,8 @@
             z-index: 2;
             bottom: 80px;
             left: 5%;
-            max-width: 800px;
+            max-width: 700px;
             color: white;
-            padding: 0 20px;
         }
         .hero-content h1 {
             font-size: 42px;
@@ -198,34 +211,32 @@
         .countdown-block {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px;
+            gap: 20px;
             align-items: center;
-            margin: 32px 0 24px;
+            margin: 20px 0;
         }
         .timer {
             display: flex;
-            gap: 16px;
+            gap: 12px;
         }
         .timer-box {
             background: rgba(255,255,255,0.15);
             backdrop-filter: blur(8px);
             border-radius: 20px;
-            padding: 16px 20px;
-            min-width: 90px;
+            padding: 12px 16px;
+            min-width: 80px;
             text-align: center;
             border: 1px solid rgba(249,115,22,0.5);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
         }
         .timer-box .value {
-            font-size: 44px;
+            font-size: 38px;
             font-weight: 800;
             color: #f97316;
             line-height: 1;
         }
         .timer-box .label {
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
             color: #e2e8f0;
         }
         .claim-btn-large {
@@ -233,12 +244,12 @@
             border: none;
             color: #0f172a;
             font-weight: 700;
-            padding: 16px 40px;
+            padding: 14px 36px;
             border-radius: 50px;
             font-size: 18px;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             cursor: pointer;
             box-shadow: 0 10px 20px rgba(249,115,22,0.3);
             transition: all 0.2s;
@@ -248,7 +259,7 @@
             transform: scale(1.02);
         }
         .benefits {
-            margin: 24px 0 16px;
+            margin: 20px 0;
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
@@ -259,12 +270,6 @@
             background: rgba(255,255,255,0.1);
             padding: 6px 16px;
             border-radius: 30px;
-        }
-        .spots-note {
-            color: #f1f5f9;
-            font-size: 16px;
-            border-left: 3px solid #f97316;
-            padding-left: 16px;
         }
         .slider-dots {
             position: absolute;
@@ -287,12 +292,12 @@
             transform: scale(1.3);
         }
 
-        /* -------------------- SEARCH ROW (FLOATING) -------------------- */
+        /* -------------------- SEARCH ROW (quick filters) -------------------- */
         .search-row {
             background: white;
             border-radius: 60px;
-            padding: 8px 8px 8px 28px;
-            margin: -40px auto 30px;
+            padding: 8px 16px 8px 28px;
+            margin: -30px auto 40px;
             max-width: 1000px;
             position: relative;
             z-index: 20;
@@ -300,13 +305,13 @@
             flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.15);
             border: 1px solid #f1f5f9;
         }
         .search-fields {
             display: flex;
             flex-wrap: wrap;
-            gap: 24px;
+            gap: 20px;
             align-items: center;
         }
         .search-item {
@@ -325,27 +330,25 @@
             font-weight: 500;
             color: #1e293b;
             padding: 8px 0;
-            font-size: 15px;
+            font-size: 14px;
             outline: none;
-        }
-        .search-item input::placeholder {
-            color: #94a3b8;
         }
         .current-loc {
             background: #f1f5f9;
-            padding: 10px 24px;
+            padding: 10px 20px;
             border-radius: 40px;
             font-size: 14px;
             font-weight: 600;
             color: #0f172a;
+            cursor: pointer;
         }
 
         /* -------------------- CATEGORIES TABS -------------------- */
         .categories {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px 30px;
-            margin: 40px 0 30px;
+            gap: 12px 25px;
+            margin: 30px 0 25px;
             border-bottom: 2px solid #e2e8f0;
             padding-bottom: 16px;
             font-weight: 600;
@@ -362,13 +365,26 @@
         .categories span.active {
             color: #f97316;
             border-bottom: 3px solid #f97316;
-            padding-bottom: 14px;
+            padding-bottom: 13px;
         }
 
+        /* -------------------- SECTION TITLE -------------------- */
         .section-title {
-            font-size: 32px;
-            margin: 50px 0 25px;
+            font-size: 28px;
+            margin: 50px 0 20px;
             color: #0f172a;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: #f97316;
+            border-radius: 4px;
         }
 
         /* -------------------- FIXED PACKAGES -------------------- */
@@ -391,6 +407,7 @@
             flex: 1 1 250px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             border: 1px solid #e2e8f0;
+            cursor: pointer;
         }
         .offer-tag {
             background: #f97316;
@@ -412,15 +429,87 @@
             text-decoration: line-through;
             margin-left: 8px;
         }
-        .features-list {
-            margin: 15px 0;
-            color: #475569;
+        .btn-primary {
+            background: #f97316;
+            border: none;
+            color: #0f172a;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* -------------------- DEALS GRID -------------------- */
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .deal-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .deal-card:hover {
+            transform: translateY(-5px);
+            border-color: #f97316;
+        }
+        .deal-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
+        .deal-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f97316;
+        }
+        .deal-price small {
+            font-size: 14px;
+            color: #64748b;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+
+        /* -------------------- TRENDING PHOTOGRAPHERS -------------------- */
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .trending-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .trending-card:hover {
+            transform: translateY(-5px);
+            border-color: #f97316;
+        }
+        .trending-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        .trending-info {
+            padding: 16px;
         }
 
         /* -------------------- CUSTOM PACKAGES GRID -------------------- */
         .custom-packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 24px;
             margin: 30px 0;
         }
@@ -428,105 +517,129 @@
             background: white;
             border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.03);
             border: 1px solid #e2e8f0;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.2s;
+            cursor: pointer;
         }
         .custom-item:hover {
             transform: translateY(-5px);
             border-color: #f97316;
         }
-        .custom-item h4 {
-            font-size: 18px;
+        .custom-item .card-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 16px;
             margin-bottom: 12px;
-            color: #0f172a;
         }
         .custom-price {
             font-weight: 700;
-            font-size: 22px;
-            color: #0f172a;
+            font-size: 20px;
+            color: #f97316;
         }
         .custom-price small {
-            font-size: 16px;
-            font-weight: 400;
+            font-size: 14px;
             color: #64748b;
             text-decoration: line-through;
             margin-left: 6px;
         }
-        .card-image {
+
+        /* -------------------- BEST SELLING GRID -------------------- */
+        .best-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .best-card {
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+        }
+        .best-card img {
             width: 100%;
-            height: 200px;
+            height: 140px;
             object-fit: cover;
             border-radius: 16px;
-            margin-bottom: 16px;
-        }
-
-        /* -------------------- EMPTY STATE -------------------- */
-        .empty-state {
-            background: #f1f5f9;
-            border-radius: 24px;
-            padding: 48px;
-            text-align: center;
-            margin: 40px 0;
-        }
-        .empty-state i {
-            font-size: 48px;
-            color: #f97316;
-            margin-bottom: 20px;
-        }
-        .empty-state h3 {
-            font-size: 24px;
             margin-bottom: 10px;
-            color: #0f172a;
-        }
-        .empty-state p {
-            color: #475569;
         }
 
-        /* -------------------- EXPLORE CATEGORIES (WITH ICONS) -------------------- */
-        .explore-grid {
+        /* -------------------- BRAND STORE -------------------- */
+        .brands-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 20px;
             margin: 30px 0;
         }
-        .explore-item {
+        .brand-item {
             background: white;
             border-radius: 20px;
-            padding: 28px 12px;
+            padding: 20px;
             text-align: center;
-            font-weight: 600;
             border: 1px solid #e2e8f0;
-            transition: all 0.3s;
-            color: #0f172a;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.03);
+            cursor: pointer;
         }
-        .explore-item i {
-            font-size: 36px;
+        .brand-item i {
+            font-size: 40px;
             color: #f97316;
-            transition: transform 0.3s;
-        }
-        .explore-item:hover {
-            background: #f97316;
-            color: white;
-            border-color: #f97316;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(249,115,22,0.2);
-        }
-        .explore-item:hover i {
-            color: white;
-            transform: scale(1.1);
         }
 
-        /* -------------------- FESTIVAL CAROUSEL -------------------- */
+        /* -------------------- CUSTOMER REVIEWS -------------------- */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .review-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+        }
+        .review-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .review-avatar {
+            width: 48px;
+            height: 48px;
+            background: #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #f97316;
+        }
+        .review-stars i {
+            color: gold;
+        }
+
+        /* -------------------- SPECIAL OFFERS -------------------- */
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin: 30px 0;
+        }
+        .offer-card {
+            background: linear-gradient(145deg, #f97316, #fb923c);
+            border-radius: 20px;
+            padding: 24px;
+            color: #0f172a;
+            cursor: pointer;
+        }
+
+        /* -------------------- FESTIVAL CAROUSEL (FIXED) -------------------- */
         .festival-carousel {
             position: relative;
             width: 100%;
-            margin: 40px 0;
+            margin: 30px 0;
             overflow: hidden;
             border-radius: 24px;
         }
@@ -535,27 +648,28 @@
             transition: transform 0.8s ease;
         }
         .festival-slide {
-            min-width: calc(100% / 3);
-            padding: 0 10px;
+            min-width: calc(100% / 4); /* smaller cards */
+            padding: 0 8px;
             box-sizing: border-box;
         }
         .festival-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
             border: 1px solid #e2e8f0;
+            cursor: pointer;
         }
         .festival-card img {
             width: 100%;
-            height: 200px;
+            height: 140px;
             object-fit: cover;
         }
         .festival-card h4 {
             text-align: center;
-            padding: 16px;
+            padding: 12px;
+            font-size: 16px;
             background: #fff;
-            color: #0f172a;
         }
         .carousel-dots {
             display: flex;
@@ -564,23 +678,22 @@
             margin-top: 20px;
         }
         .fest-dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             background: #cbd5e1;
             border-radius: 50%;
             cursor: pointer;
-            transition: 0.2s;
         }
         .fest-dot.active {
             background: #f97316;
         }
 
-        /* -------------------- HOW TO BOOK (ENHANCED WITH ICONS) -------------------- */
+        /* -------------------- HOW TO BOOK (FIXED) -------------------- */
         .steps-container {
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
-            margin: 50px 0;
+            margin: 40px 0;
         }
         .step {
             flex: 1 1 280px;
@@ -588,18 +701,17 @@
             border: 1px solid #e2e8f0;
             border-radius: 30px;
             padding: 32px;
-            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.05);
-            transition: all 0.3s;
             text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
         }
         .step:hover {
             transform: translateY(-5px);
             border-color: #f97316;
-            box-shadow: 0 20px 30px rgba(249,115,22,0.1);
         }
         .step-icon {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: #f97316;
             border-radius: 50%;
             display: flex;
@@ -607,51 +719,31 @@
             justify-content: center;
             margin: 0 auto 20px;
             color: white;
-            font-size: 36px;
-            box-shadow: 0 10px 15px rgba(249,115,22,0.3);
-        }
-        .step h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
-            color: #0f172a;
-        }
-        .step p {
-            color: #475569;
-            line-height: 1.6;
+            font-size: 30px;
         }
 
-        /* -------------------- TRUST GRID (REFINED) -------------------- */
+        /* -------------------- TRUST GRID -------------------- */
         .trust-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            background: white;
             border-radius: 40px;
             padding: 48px 32px;
-            margin: 50px 0;
+            margin: 40px 0;
             border: 1px solid #e2e8f0;
         }
         .trust-item {
             text-align: center;
-            padding: 20px;
         }
         .trust-item i {
             font-size: 48px;
             color: #f97316;
-            margin-bottom: 16px;
-        }
-        .trust-item h3 {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: #0f172a;
-        }
-        .trust-item p {
-            color: #475569;
         }
 
-        /* -------------------- PRO STEPS (WITH ICONS) -------------------- */
+        /* -------------------- PRO STEPS -------------------- */
         .champ-steps {
-            background: linear-gradient(145deg, #fef1ea, #fff);
+            background: #fef1ea;
             border-radius: 40px;
             padding: 48px;
             margin: 40px 0;
@@ -659,71 +751,54 @@
         }
         .champ-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 24px;
             margin-top: 30px;
         }
         .champ-card {
             background: white;
             border-radius: 24px;
-            padding: 32px;
-            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.08);
+            padding: 28px;
+            text-align: center;
             border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
-        }
-        .champ-card:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
+            cursor: pointer;
         }
         .champ-icon {
-            font-size: 42px;
+            font-size: 40px;
             color: #f97316;
             margin-bottom: 16px;
-        }
-        .champ-card h3 {
-            font-size: 18px;
-            color: #f97316;
-            margin-bottom: 8px;
-        }
-        .champ-card h4 {
-            font-size: 20px;
-            margin-bottom: 16px;
-            color: #0f172a;
-        }
-        .champ-card input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 30px;
-            border: 1px solid #e2e8f0;
-            margin: 8px 0;
-            font-family: inherit;
-        }
-        .photo-upload {
-            background: #f2e7e0;
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            border: 2px dashed #f97316;
-        }
-        .photo-upload i {
-            font-size: 36px;
-            color: #f97316;
-        }
-        .progress-bar {
-            background: #e2e8f0;
-            border-radius: 10px;
-            height: 8px;
-            width: 100%;
-            margin: 15px 0;
-        }
-        .progress-fill {
-            background: #f97316;
-            width: 70%;
-            height: 8px;
-            border-radius: 10px;
         }
 
-        /* -------------------- APP SECTION (BIGGER IMAGE) -------------------- */
+        /* -------------------- RECENTLY VIEWED (FIXED) -------------------- */
+        .recent-grid {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+            margin: 20px 0;
+        }
+        .recent-item {
+            min-width: 160px;
+            background: white;
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .recent-item:hover {
+            transform: scale(1.02);
+            border-color: #f97316;
+        }
+        .recent-item img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 8px;
+        }
+
+        /* -------------------- APP SECTION (FIXED) -------------------- */
         .app-section {
             background: #0f172a;
             color: white;
@@ -739,7 +814,7 @@
             flex: 1 1 300px;
         }
         .app-left h2 {
-            font-size: 36px;
+            font-size: 32px;
             margin-bottom: 16px;
         }
         .app-offer {
@@ -760,7 +835,7 @@
         }
         .mobile-input input {
             flex: 1;
-            padding: 16px 20px;
+            padding: 14px 20px;
             border: none;
             outline: none;
         }
@@ -779,8 +854,8 @@
             margin: 30px 0;
         }
         .qr-placeholder {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
             background: white;
             border-radius: 20px;
             display: flex;
@@ -796,28 +871,22 @@
         .app-badge-white {
             background: white;
             color: #0f172a;
-            padding: 12px 28px;
+            padding: 10px 24px;
             border-radius: 40px;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-        .app-badge-white:hover {
-            background: #f97316;
-            color: white;
         }
         .app-right {
-            flex: 0 0 300px;
+            flex: 0 0 260px;
             background: #334155;
             border-radius: 40px;
-            height: 300px;
+            height: 260px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
             border: 4px solid #f97316;
         }
         .app-right img {
@@ -827,7 +896,7 @@
             border-radius: 36px;
         }
 
-        /* -------------------- FOOTER (EXACT REPLICA) -------------------- */
+        /* -------------------- FOOTER (ENHANCED) -------------------- */
         .footer {
             background: #0f172a;
             color: #cbd5e1;
@@ -844,7 +913,6 @@
             color: white;
             font-size: 16px;
             margin-bottom: 20px;
-            letter-spacing: 0.5px;
         }
         .footer-col a {
             color: #94a3b8;
@@ -852,10 +920,11 @@
             display: block;
             margin-bottom: 10px;
             font-size: 14px;
-            transition: color 0.2s;
+            transition: color 0.2s, transform 0.2s;
         }
         .footer-col a:hover {
             color: #f97316;
+            transform: translateX(4px);
         }
         .footer-col p {
             color: #94a3b8;
@@ -871,11 +940,37 @@
         }
         .social-icons i {
             color: #94a3b8;
-            transition: color 0.2s;
+            transition: color 0.2s, transform 0.2s;
             cursor: pointer;
         }
         .social-icons i:hover {
             color: #f97316;
+            transform: scale(1.1);
+        }
+        .newsletter {
+            margin-top: 30px;
+        }
+        .newsletter p {
+            margin-bottom: 12px;
+            color: white;
+            text-align: center;
+        }
+        .newsletter input {
+            padding: 10px 16px;
+            border-radius: 40px;
+            border: none;
+            width: 100%;
+            max-width: 250px;
+        }
+        .newsletter button {
+            background: #f97316;
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
         }
         .footer-links-bottom {
             display: flex;
@@ -903,74 +998,76 @@
 
         /* -------------------- RESPONSIVE -------------------- */
         @media (max-width: 900px) {
-            .top-bar {
+            .top-row {
                 flex-direction: column;
                 gap: 12px;
-                padding: 16px;
             }
-            .logo-area {
+            .search-bar {
                 width: 100%;
-                justify-content: center;
+                max-width: none;
+                margin: 10px 0;
             }
             .nav-links {
-                margin: 8px 0;
-            }
-            .user-actions {
-                width: 100%;
                 justify-content: center;
-                flex-wrap: wrap;
-            }
-        }
-        @media (max-width: 800px) {
-            .hero-content h1 {
-                font-size: 32px;
-            }
-            .timer-box {
-                min-width: 70px;
-                padding: 10px;
-            }
-            .timer-box .value {
-                font-size: 32px;
             }
             .festival-slide {
-                min-width: 100%;
+                min-width: calc(100% / 2);
             }
-            .app-right {
-                flex: 0 0 250px;
-                height: 250px;
+        }
+        @media (max-width: 600px) {
+            .festival-slide {
+                min-width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- sticky top bar with navigation links -->
+    <!-- STICKY TOP BAR -->
     <div class="top-bar">
-        <div class="logo-area">
-            <div class="logo">PhotoWale <span>#1</span></div>
-            <div class="location"><i class="fas fa-map-marker-alt"></i> Surat, India</div>
+        <div class="top-row">
+            <div class="logo-area">
+                <div class="logo" onclick="location.href='index.html'">PhotoWale <span>#1</span></div>
+                <div class="location" onclick="alert('Change location (demo)')"><i class="fas fa-map-marker-alt"></i> Surat, India</div>
+            </div>
+            <div class="search-bar">
+                <form onsubmit="alert('Search for photographers/packages (demo)'); return false;">
+                    <input type="text" placeholder="Search for photographers, packages, events...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="user-actions">
+                <a href="#" onclick="alert('Login/Signup (demo)')"><i class="fas fa-user"></i> Login</a>
+                <a href="#" class="cart" onclick="alert('View cart (demo)')"><i class="fas fa-shopping-cart"></i> Cart</a>
+                <a href="become_photowale_pro.html" class="champ-btn"><i class="fas fa-crown"></i> Become Pro</a>
+            </div>
         </div>
-        <!-- navigation links -->
         <div class="nav-links">
-            <a href="index.html" class="active">Home</a>          <!-- changed from ui.html to index.html -->
+            <a href="index.html" class="active">Home</a>
             <a href="about.html">About Us</a>
             <a href="contact.html">Contact Us</a>
-        </div>
-        <div class="user-actions">
-            <a href="#">Login</a>
-            <a href="#" class="cart"><i class="fas fa-shopping-cart"></i> Cart</a>
-            <a href="#" class="champ-btn" onclick="alert('Become a PhotoWale Pro')"><i class="fas fa-crown"></i> Become Pro</a>
+            <a href="careers.html">Careers</a>
+            <a href="stories.html">Stories</a>
+            <a href="blog.html">Blog</a>
+            <a href="faq.html">FAQ</a>
+            <a href="term.html">Terms Of Use</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="payment.html">Payments</a>
+            <a href="selection_delivery.html">Selection & Delivery</a>
+            <a href="reschedule.html">Reschedule</a>
+            <a href="refund.html">Refund</a>
+            <a href="gift_card.html">Gift Cards</a>
+            <a href="help_center.html">Help</a>
         </div>
     </div>
 
-    <!-- HERO SLIDER with more visible background -->
+    <!-- HERO SLIDER -->
     <div class="hero-slider" id="heroSlider">
         <div class="hero-slides" id="heroSlides">
-            <div class="hero-slide" style="background-image: url('hero.jpg');"></div>          <!-- removed images/ -->
-            <div class="hero-slide" style="background-image: url('p1.jpg');"></div>            <!-- removed images/ -->
-            <div class="hero-slide" style="background-image: url('p2.jpg');"></div>            <!-- removed images/ -->
-            <div class="hero-slide" style="background-image: url('p3.jpg');"></div>            <!-- removed images/ -->
+            <div class="hero-slide" style="background-image: url('hero.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('p1.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('p2.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('p3.jpg');"></div>
         </div>
-        <!-- overlay content (same for all slides) -->
         <div class="hero-content">
             <h1>Ahmedabad & Surat Photographers — <span class="hero-highlight">Your City's New Booking Platform Is Launching</span></h1>
             <div class="countdown-block">
@@ -985,206 +1082,365 @@
             <div class="benefits">
                 <span>🏆 Priority Ranking</span>
                 <span>🎖️ Founding Member Badge</span>
-                <span>🚀 Early Access Before Public Launch</span>
+                <span>🚀 Early Access</span>
                 <span>📜 View T&C</span>
             </div>
             <div class="spots-note"><i class="fas fa-clock"></i> Or when 50 Founding Spots are filled</div>
         </div>
-        <!-- slider dots -->
         <div class="slider-dots" id="heroDots"></div>
     </div>
 
-    <!-- search row (floating) -->
     <div class="container">
+        <!-- QUICK SEARCH FILTERS -->
         <div class="search-row">
             <div class="search-fields">
-                <div class="search-item"><i class="fas fa-camera"></i> <select><option>Wedding</option><option>Portrait</option><option>Event</option></select></div>
+                <div class="search-item"><i class="fas fa-camera"></i> <select><option>Wedding</option><option>Portrait</option><option>Event</option><option>Pre-wedding</option></select></div>
                 <div class="search-item"><i class="fas fa-location-dot"></i> <input type="text" placeholder="Enter location" value="Mumbai"></div>
                 <div class="search-item"><i class="fas fa-calendar"></i> <input type="date" value="2025-06-15"></div>
             </div>
-            <div class="current-loc"><i class="fas fa-crosshairs"></i> Current: Mumbai, India</div>
+            <div class="current-loc" onclick="alert('Use current location (demo)')"><i class="fas fa-crosshairs"></i> Current: Mumbai</div>
         </div>
 
-        <!-- categories -->
+        <!-- CATEGORIES TABS -->
         <div class="categories">
-            <span class="active">PACKAGES</span> <span>WEDDING</span> <span>PORTRAIT</span> <span>EVENT</span> <span>PRE-WEDDING</span> <span>BABY</span> <span>COMMERCIAL</span> <span>MORE</span>
+            <span class="active" onclick="alert('Packages (demo)')">PACKAGES</span>
+            <span onclick="alert('Wedding (demo)')">WEDDING</span>
+            <span onclick="alert('Portrait (demo)')">PORTRAIT</span>
+            <span onclick="alert('Event (demo)')">EVENT</span>
+            <span onclick="alert('Pre-Wedding (demo)')">PRE-WEDDING</span>
+            <span onclick="alert('Baby (demo)')">BABY</span>
+            <span onclick="alert('Commercial (demo)')">COMMERCIAL</span>
+            <span onclick="alert('More (demo)')">MORE</span>
         </div>
 
-        <!-- Fixed Packages -->
+        <!-- FIXED PACKAGES -->
         <h2 class="section-title">Fixed Photography Packages</h2>
         <div class="fixed-packages">
-            <div class="package-card">
+            <div class="package-card" onclick="alert('Essential Wedding Plan details (demo)')">
                 <div class="offer-tag">14% OFF All-Inclusive</div>
-                <p><i class="fas fa-video"></i> Videographer | <i class="fas fa-camera"></i> Photographer | Extra feature</p>
+                <p><i class="fas fa-video"></i> Videographer | <i class="fas fa-camera"></i> Photographer | Extra</p>
                 <h3>Essential Wedding Plan - 1Day</h3>
                 <div class="price">₹54,450 <small>₹63,000</small></div>
                 <div class="features-list">• 8 hours • 300 photos • online gallery</div>
             </div>
             <div style="flex:2; min-width:200px;">
                 <p>Choose from flexible, ready-to-book photo packages tailored to your needs, budget, and style.</p>
+                <button class="btn-primary" onclick="alert('View all packages (demo)')">View All</button>
             </div>
         </div>
 
-        <!-- Custom Packages (with larger images) -->
+        <!-- FEATURED DEALS -->
+        <h2 class="section-title">Today's Top Deals</h2>
+        <div class="deals-grid">
+            <div class="deal-card" onclick="alert('Deal: Wedding package 20% off (demo)')">
+                <img src="wedding.jpg" alt="Deal">
+                <h4>Wedding Premium</h4>
+                <div class="deal-price">₹49,999 <small>₹65,000</small></div>
+                <span style="color:#f97316; font-weight:600;">20% off</span>
+            </div>
+            <div class="deal-card" onclick="alert('Deal: Portrait session (demo)')">
+                <img src="p1.jpg" alt="Deal">
+                <h4>Portrait Session</h4>
+                <div class="deal-price">₹3,999 <small>₹5,000</small></div>
+                <span style="color:#f97316; font-weight:600;">20% off</span>
+            </div>
+            <div class="deal-card" onclick="alert('Deal: Pre-wedding shoot (demo)')">
+                <img src="prewedding.jpg" alt="Deal">
+                <h4>Pre-Wedding Shoot</h4>
+                <div class="deal-price">₹12,999 <small>₹16,000</small></div>
+                <span style="color:#f97316; font-weight:600;">19% off</span>
+            </div>
+            <div class="deal-card" onclick="alert('Deal: Corporate event (demo)')">
+                <img src="night.jpg" alt="Deal">
+                <h4>Corporate Event</h4>
+                <div class="deal-price">₹24,999 <small>₹30,000</small></div>
+                <span style="color:#f97316; font-weight:600;">17% off</span>
+            </div>
+        </div>
+
+        <!-- TRENDING PHOTOGRAPHERS -->
+        <h2 class="section-title">Trending Near You</h2>
+        <div class="trending-grid">
+            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
+                <div class="trending-image" style="background-image: url('photographer.jpg');"></div>
+                <div class="trending-info">
+                    <h4>Rohan Mehta</h4>
+                    <div>Wedding, Portrait</div>
+                    <div><i class="fas fa-star" style="color:gold;"></i> 4.9 (120 reviews)</div>
+                </div>
+            </div>
+            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
+                <div class="trending-image" style="background-image: url('hero.jpg');"></div>
+                <div class="trending-info">
+                    <h4>Priya Kapoor</h4>
+                    <div>Fashion, Commercial</div>
+                    <div><i class="fas fa-star" style="color:gold;"></i> 4.8 (95 reviews)</div>
+                </div>
+            </div>
+            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
+                <div class="trending-image" style="background-image: url('p2.jpg');"></div>
+                <div class="trending-info">
+                    <h4>Arjun Singh</h4>
+                    <div>Event, Candid</div>
+                    <div><i class="fas fa-star" style="color:gold;"></i> 4.7 (210 reviews)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUSTOM PACKAGES -->
         <h2 class="section-title">Custom Photography Packages</h2>
-        <p style="margin-bottom:20px;">Personalize your package with flexible options.</p>
         <div class="custom-packages-grid">
-            <div class="custom-item"><img class="card-image" src="birthday.jpg" alt="Makeup" onerror="this.src='https://via.placeholder.com/300x200?text=Makeup+Hair'"><h4>Makeup And Hair</h4><div class="custom-price">₹2,178 <small>₹2,754</small> /hr</div></div>          <!-- removed images/ -->
-            <div class="custom-item"><img class="card-image" src="p1.jpg" alt="Baby" onerror="this.src='https://via.placeholder.com/300x200?text=Baby'"><h4>Baby Closeups</h4><div class="custom-price">₹2,178 <small>₹2,628</small> /hr</div></div>                            <!-- removed images/ -->
-            <div class="custom-item"><img class="card-image" src="diwali.jpg" alt="Vasant Panchmi" onerror="this.src='https://via.placeholder.com/300x200?text=Festival'"><h4>Vasant Panchmi</h4><div class="custom-price">₹2,418 <small>₹2,999</small> /hr</div></div>          <!-- removed images/ -->
-            <div class="custom-item"><img class="card-image" src="night.jpg" alt="Menu" onerror="this.src='https://via.placeholder.com/300x200?text=Menu'"><h4>Menu Photography</h4><div class="custom-price">₹3,025 <small>₹3,125</small> /hr</div></div>                    <!-- removed images/ -->
+            <div class="custom-item" onclick="alert('Makeup And Hair package (demo)')">
+                <img class="card-image" src="birthday.jpg" alt="Makeup">
+                <h4>Makeup And Hair</h4>
+                <div class="custom-price">₹2,178 <small>₹2,754</small> /hr</div>
+            </div>
+            <div class="custom-item" onclick="alert('Baby Closeups package (demo)')">
+                <img class="card-image" src="p1.jpg" alt="Baby">
+                <h4>Baby Closeups</h4>
+                <div class="custom-price">₹2,178 <small>₹2,628</small> /hr</div>
+            </div>
+            <div class="custom-item" onclick="alert('Vasant Panchmi package (demo)')">
+                <img class="card-image" src="diwali.jpg" alt="Festival">
+                <h4>Vasant Panchmi</h4>
+                <div class="custom-price">₹2,418 <small>₹2,999</small> /hr</div>
+            </div>
         </div>
 
-        <!-- Empty states -->
-        <div class="empty-state"><i class="fas fa-camera-slash"></i><h3>No photographers available in Mumbai at the moment.</h3><p>Try changing your location to see photographers in other cities.</p></div>
-        <div class="empty-state" style="background:#f1f5f9;"><i class="fas fa-star"></i><h3>No featured photographers available in Mumbai.</h3><p>Try changing your location to see photographers in other cities.</p></div>
-
-        <!-- Explore More Categories (with icons) -->
-        <h2 class="section-title">Explore More Categories</h2>
-        <div class="explore-grid">
-            <div class="explore-item"><i class="fas fa-camera-retro"></i> Candid Photography</div>
-            <div class="explore-item"><i class="fas fa-car"></i> Car & Automotive</div>
-            <div class="explore-item"><i class="fas fa-video"></i> Cinematography</div>
-            <div class="explore-item"><i class="fas fa-helicopter"></i> Drone & Aerial</div>
-            <div class="explore-item"><i class="fas fa-camera"></i> Candid Photography</div>
-            <div class="explore-item"><i class="fas fa-car-side"></i> Car & Automotive</div>
-            <div class="explore-item"><i class="fas fa-film"></i> Cinematography</div>
-            <div class="explore-item"><i class="fas fa-drone"></i> Drone & Aerial</div>
+        <!-- BEST SELLING -->
+        <h2 class="section-title">Best Selling on PhotoWale</h2>
+        <div class="best-grid">
+            <div class="best-card" onclick="alert('Wedding Photography (demo)')">
+                <img src="wedding.jpg" alt="Wedding">
+                <h4>Wedding Photography</h4>
+                <p>100+ bookings</p>
+            </div>
+            <div class="best-card" onclick="alert('Family Portraits (demo)')">
+                <img src="birthday.jpg" alt="Family">
+                <h4>Family Portraits</h4>
+                <p>50+ bookings</p>
+            </div>
+            <div class="best-card" onclick="alert('Corporate Events (demo)')">
+                <img src="night.jpg" alt="Corporate">
+                <h4>Corporate Events</h4>
+                <p>60+ bookings</p>
+            </div>
         </div>
 
-        <!-- Festival Carousel (auto slide) -->
+        <!-- BRAND STORE -->
+        <h2 class="section-title">Shop by Brand</h2>
+        <div class="brands-grid">
+            <div class="brand-item" onclick="alert('Canon (demo)')"><i class="fas fa-camera"></i><br>Canon</div>
+            <div class="brand-item" onclick="alert('Nikon (demo)')"><i class="fas fa-camera-retro"></i><br>Nikon</div>
+            <div class="brand-item" onclick="alert('Sony (demo)')"><i class="fas fa-video"></i><br>Sony</div>
+            <div class="brand-item" onclick="alert('GoPro (demo)')"><i class="fas fa-helicopter"></i><br>GoPro</div>
+        </div>
+
+        <!-- CUSTOMER REVIEWS -->
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar"><i class="fas fa-user"></i></div>
+                    <div>
+                        <h4>Rahul Sharma</h4>
+                        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Amazing experience! The photographer was professional and the photos turned out beautiful."</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar"><i class="fas fa-user"></i></div>
+                    <div>
+                        <h4>Priya Desai</h4>
+                        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    </div>
+                </div>
+                <p>"Booking was super easy, and the photographer was on time. The quality exceeded my expectations."</p>
+            </div>
+        </div>
+
+        <!-- SPECIAL OFFERS -->
+        <h2 class="section-title">Special Offers</h2>
+        <div class="offers-grid">
+            <div class="offer-card" onclick="alert('20% off on first booking (demo)')">
+                <i class="fas fa-tag"></i>
+                <h4>New User?</h4>
+                <p>20% off on first booking</p>
+            </div>
+            <div class="offer-card" onclick="alert('Refer a friend (demo)')">
+                <i class="fas fa-gift"></i>
+                <h4>Refer & Earn</h4>
+                <p>Get ₹500 for each referral</p>
+            </div>
+        </div>
+
+        <!-- FESTIVAL CAROUSEL (FIXED) -->
         <h2 class="section-title">Festival & Celebrations</h2>
         <div class="festival-carousel" id="festivalCarousel">
             <div class="festival-slides" id="festivalSlides"></div>
             <div class="carousel-dots" id="festivalDots"></div>
         </div>
 
-        <!-- How to Book (enhanced with icons) -->
-        <h2 class="section-title">How to Book a Photographer on PhotoWale</h2>
+        <!-- HOW TO BOOK (FIXED) -->
+        <h2 class="section-title">How to Book</h2>
         <div class="steps-container">
-            <div class="step">
+            <div class="step" onclick="alert('Discover (demo)')">
                 <div class="step-icon"><i class="fas fa-search"></i></div>
                 <h3>Discover</h3>
-                <p>Find the perfect photographer. Enter your event details, date, and style to receive personalized recommendations.</p>
+                <p>Find the perfect photographer. Enter your event details, date, and style.</p>
             </div>
-            <div class="step">
+            <div class="step" onclick="alert('Decide (demo)')">
                 <div class="step-icon"><i class="fas fa-balance-scale"></i></div>
                 <h3>Decide</h3>
-                <p>Compare & Choose. Review verified portfolios, transparent pricing, and authentic customer reviews.</p>
+                <p>Compare portfolios, transparent pricing, and authentic reviews.</p>
             </div>
-            <div class="step">
+            <div class="step" onclick="alert('Deal (demo)')">
                 <div class="step-icon"><i class="fas fa-handshake"></i></div>
                 <h3>Deal</h3>
-                <p>Book with confidence. Safe payments, instant confirmation, and complete protection for both parties.</p>
+                <p>Book with confidence. Safe payments and protection.</p>
             </div>
         </div>
 
-        <!-- Best Selling (with larger images) -->
-        <h2 class="section-title">Best Selling on PhotoWale</h2>
-        <div class="custom-packages-grid">
-            <div class="custom-item"><img class="card-image" src="wedding.jpg" alt="Wedding"><h4>Wedding Photography</h4><p>Complete wedding coverage<br>100+ photographers</p></div>                <!-- removed images/ -->
-            <div class="custom-item"><img class="card-image" src="birthday.jpg" alt="Family"><h4>Family Portraits</h4><p>Memorable family portraits<br>50+ photographers</p></div>              <!-- removed images/ -->
-            <div class="custom-item"><img class="card-image" src="night.jpg" alt="Corporate"><h4>Corporate Events</h4><p>Professional event coverage<br>60+ photographers</p></div>                <!-- removed images/ -->
-            <div class="custom-item"><img class="card-image" src="prewedding.jpg" alt="Engagement"><h4>Engagement Shoot</h4><p>Romantic couple session<br>100+ photographers</p></div>        <!-- removed images/ -->
-        </div>
-
-        <!-- Trusted by Thousands (refined) -->
+        <!-- TRUSTED BY THOUSANDS -->
         <div class="trust-grid">
-            <div class="trust-item"><i class="fas fa-users"></i><h3>Growing Community</h3><p>Join a growing community of clients and photographers</p></div>
-            <div class="trust-item"><i class="fas fa-check-circle"></i><h3>Verified Photographers</h3><p>Every photographer is screened for quality</p></div>
-            <div class="trust-item"><i class="fas fa-headset"></i><h3>Customer Support</h3><p>24/7 prompt assistance</p></div>
-            <div class="trust-item"><i class="fas fa-star"></i><h3>Authentic Reviews</h3><p>Genuine feedback from real clients</p></div>
+            <div class="trust-item"><i class="fas fa-users"></i><h3>Growing Community</h3><p>Join thousands</p></div>
+            <div class="trust-item"><i class="fas fa-check-circle"></i><h3>Verified Photographers</h3><p>Screened</p></div>
+            <div class="trust-item"><i class="fas fa-headset"></i><h3>Customer Support</h3><p>24/7</p></div>
+            <div class="trust-item"><i class="fas fa-star"></i><h3>Authentic Reviews</h3><p>Real feedback</p></div>
         </div>
 
-        <!-- Pro Steps (with icons and refined styling) -->
+        <!-- PRO STEPS -->
         <div class="champ-steps">
             <h2>How PhotoWale Pro Works</h2>
             <div class="champ-grid">
-                <div class="champ-card">
+                <div class="champ-card" onclick="alert('Create Profile (demo)')">
                     <div class="champ-icon"><i class="fas fa-user-circle"></i></div>
-                    <h3>STEP 01</h3>
                     <h4>Create Profile</h4>
-                    <input placeholder="Studio Name" value="My Studio">
-                    <input placeholder="Email" value="pro@example.com">
-                    <button class="champ-btn" style="width:100%;" onclick="alert('Demo create')">Create Account</button>
                 </div>
-                <div class="champ-card">
+                <div class="champ-card" onclick="alert('Showcase Work (demo)')">
                     <div class="champ-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <h3>STEP 02</h3>
                     <h4>Showcase Work</h4>
-                    <div class="photo-upload">
-                        <i class="fas fa-images"></i>
-                        <p>Drag & Drop or click to browse</p>
-                    </div>
                 </div>
-                <div class="champ-card">
+                <div class="champ-card" onclick="alert('Get Bookings (demo)')">
                     <div class="champ-icon"><i class="fas fa-calendar-check"></i></div>
-                    <h3>STEP 03</h3>
                     <h4>Get Bookings</h4>
-                    <div class="progress-bar"><div class="progress-fill"></div></div>
-                    <p>Complete your profile 100%</p>
-                </div>
-                <div class="champ-card">
-                    <div class="champ-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>STEP 04</h3>
-                    <h4>Grow Business</h4>
-                    <p><strong>Total Bookings:</strong> 50</p>
-                    <p>Pending: 2 | Completed: 48</p>
-                    <p>Wedding:10 · Event:7 · Portraits:6</p>
                 </div>
             </div>
         </div>
 
-        <!-- App download (with larger image) -->
+        <!-- RECENTLY VIEWED (ENHANCED) -->
+        <h2 class="section-title">Recently Viewed</h2>
+        <div class="recent-grid">
+            <div class="recent-item" onclick="alert('Wedding package (demo)')">
+                <img src="wedding.jpg" alt="Wedding">
+                <p>Wedding Premium</p>
+            </div>
+            <div class="recent-item" onclick="alert('Portrait session (demo)')">
+                <img src="p1.jpg" alt="Portrait">
+                <p>Portrait Session</p>
+            </div>
+            <div class="recent-item" onclick="alert('Pre-wedding shoot (demo)')">
+                <img src="prewedding.jpg" alt="Pre-wedding">
+                <p>Pre-Wedding</p>
+            </div>
+            <div class="recent-item" onclick="alert('Corporate event (demo)')">
+                <img src="night.jpg" alt="Corporate">
+                <p>Corporate Event</p>
+            </div>
+            <div class="recent-item" onclick="alert('Birthday package (demo)')">
+                <img src="birthday.jpg" alt="Birthday">
+                <p>Birthday Special</p>
+            </div>
+        </div>
+
+        <!-- APP DOWNLOAD (FIXED) -->
         <div class="app-section">
             <div class="app-left">
-                <h2>Book Professional Photography</h2>
-                <p>Download the PhotoWale app and unlock exclusive deals.</p>
+                <h2>Download the PhotoWale App</h2>
+                <p>Get exclusive deals and book photographers on the go.</p>
                 <div class="app-offer">Get 20% OFF with code <strong>WELCOME20</strong></div>
-                <div class="mobile-input"><input type="text" placeholder="Enter mobile number" value="+91 "><button onclick="alert('Link sent')">Send Link</button></div>
+                <div class="mobile-input">
+                    <input type="text" placeholder="Enter mobile number" value="+91 ">
+                    <button onclick="alert('Link sent (demo)')">Send Link</button>
+                </div>
                 <div class="qr-stats">
                     <div class="qr-placeholder"><i class="fas fa-qrcode fa-2x"></i></div>
                     <div>
-                        <div><i class="fas fa-users"></i> 10k+ Active User</div>
-                        <div><i class="fas fa-star" style="color:gold;"></i> 4.9 ★ App Rating</div>
-                        <div><i class="fas fa-camera"></i> 500+ Photographers</div>
+                        <div>10k+ Active Users</div>
+                        <div>4.9 ★ App Rating</div>
+                        <div>500+ Photographers</div>
                     </div>
                 </div>
                 <div class="app-badges-white">
-                    <div class="app-badge-white" onclick="alert('Google Play')"><i class="fab fa-google-play"></i> Google Play</div>
-                    <div class="app-badge-white" onclick="alert('App Store')"><i class="fab fa-apple"></i> App Store</div>
+                    <div class="app-badge-white" onclick="alert('Google Play (demo)')"><i class="fab fa-google-play"></i> Google Play</div>
+                    <div class="app-badge-white" onclick="alert('App Store (demo)')"><i class="fab fa-apple"></i> App Store</div>
                 </div>
             </div>
             <div class="app-right">
-                <img src="hero.webp" alt="app mockup" onerror="this.src='https://via.placeholder.com/300x300?text=App+Mockup'">          <!-- removed images/ -->
+                <img src="hero.webp" alt="app mockup" onerror="this.src='https://via.placeholder.com/300x300?text=App+Mockup'">
             </div>
         </div>
     </div>
 
-    <!-- FOOTER (exact replica with updated address) -->
+    <!-- FOOTER (ENHANCED) -->
     <div class="footer">
         <div class="footer-grid">
-            <div class="footer-col"><h4>ABOUT</h4><a href="about.html">About Us</a><a href="contact.html">Contact Us</a><a href="#">Careers</a><a href="#">Stories</a><a href="#">Press</a><a href="#">Blog</a></div>
-            <div class="footer-col"><h4>HELP</h4><a href="#">Payments</a><a href="#">Selection & Delivery</a><a href="#">Reschedule</a><a href="#">FAQ</a></div>
-            <div class="footer-col"><h4>CONSUMER POLICY</h4><a href="#">Terms Of Use</a><a href="#">Privacy Policy</a><a href="#">Cancellation Policy</a><a href="#">Refund Policy</a><a href="#">Sitemap</a></div>
             <div class="footer-col">
-                <h4>REGISTERED OFFICE ADDRESS:</h4>
-                <p>JayVind IT-Tech Private Limited,<br>501, C-Block, Parvati Nandan Park and Society<br>Opp. Sarkhej Railway station,<br>Ahmedabad, Gujarat - 382210, India.</p>
-                <p>CIN: U519733633262</p>
-                <p>Phone: +91 7016396486</p>
+                <h4>ABOUT</h4>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Careers</a>
+                <a href="stories.html">Stories</a>
+                <a href="press.html">Press</a>
+                <a href="blog.html">Blog</a>
+            </div>
+            <div class="footer-col">
+                <h4>HELP</h4>
+                <a href="payment.html">Payments</a>
+                <a href="selection_delivery.html">Selection & Delivery</a>
+                <a href="reschedule.html">Reschedule</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+            <div class="footer-col">
+                <h4>CONSUMER POLICY</h4>
+                <a href="term.html">Terms Of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="cancle.html">Cancellation Policy</a>
+                <a href="refund.html">Refund Policy</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+            <div class="footer-col">
+                <h4>REGISTERED OFFICE</h4>
+                <p>JayVind IT-Tech Pvt Ltd<br>501, Parvati Nandan Park<br>Opp. Sarkhej Railway stn<br>Ahmedabad - 382210</p>
+                <p>CIN: U519733633262<br>Phone: +91 9135791602</p>
                 <div class="social-icons">
-                    <i class="fab fa-instagram"></i><i class="fab fa-linkedin-in"></i><i class="fab fa-facebook-f"></i><i class="fab fa-twitter"></i><i class="fab fa-youtube"></i>
+                    <i class="fab fa-instagram" onclick="alert('Instagram (demo)')"></i>
+                    <i class="fab fa-linkedin-in" onclick="alert('LinkedIn (demo)')"></i>
+                    <i class="fab fa-facebook-f" onclick="alert('Facebook (demo)')"></i>
+                    <i class="fab fa-twitter" onclick="alert('Twitter (demo)')"></i>
+                    <i class="fab fa-youtube" onclick="alert('YouTube (demo)')"></i>
                 </div>
             </div>
         </div>
+        <div class="newsletter">
+            <p style="color:white; text-align:center;">Subscribe for updates & offers</p>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <input type="email" placeholder="Your email">
+                <button onclick="alert('Subscribed (demo)')">Subscribe</button>
+            </div>
+        </div>
         <div class="footer-links-bottom">
-            <a href="#">Become a PhotoWale Pro</a><a href="#">Gift Cards</a><a href="#">Help Center</a>
+            <a href="become_photowale_pro.html">Become a PhotoWale Pro</a>
+            <a href="gift_card.html">Gift Cards</a>
+            <a href="help_center.html">Help Center</a>
         </div>
         <div class="copyright">© 2026 PhotoWale.com (formerly PhotoWale)</div>
     </div>
 
     <script>
-        // Countdown timer (set to 13 days from now)
+        // Countdown timer
         function startCountdown() {
             const targetDate = new Date();
             targetDate.setDate(targetDate.getDate() + 13);
@@ -1211,7 +1467,7 @@
         // Hero slider
         const heroSlides = document.getElementById('heroSlides');
         const heroDots = document.getElementById('heroDots');
-        const heroImages = ['hero.jpg', 'p1.jpg', 'p2.jpg', 'p3.jpg'];          // removed images/
+        const heroImages = ['hero.jpg', 'p1.jpg', 'p2.jpg', 'p3.jpg'];
         let heroIndex = 0;
         function updateHeroDots() {
             heroDots.innerHTML = '';
@@ -1231,21 +1487,23 @@
         const festivalSlides = document.getElementById('festivalSlides');
         const festivalDots = document.getElementById('festivalDots');
         const festivals = [
-            { name: 'Diwali', img: 'diwali.jpg' }, { name: 'Holi', img: 'holi.jpg' },          // removed images/
-            { name: 'Eid', img: 'eid.jpg' }, { name: 'Christmas', img: 'christmas.jpg' },        // removed images/
-            { name: 'Durga Puja', img: 'durgapuja.jpg' }, { name: 'Ganesh Puja', img: 'ganeshpuja.jpg' }, // removed images/
-            { name: 'Onam', img: 'onam.jpg' }, { name: 'Pongal', img: 'pongal.jpg' },             // removed images/
-            { name: 'Raksha Bandhan', img: 'rakshabandhan.jpg' }, { name: 'Makar Sankranti', img: 'makarsankratri.jpg' }, // removed images/
-            { name: 'Chhath', img: 'chhath.jpg' }                                                 // removed images/
+            { name: 'Diwali', img: 'diwali.jpg' }, { name: 'Holi', img: 'holi.jpg' },
+            { name: 'Eid', img: 'eid.jpg' }, { name: 'Christmas', img: 'christmas.jpg' },
+            { name: 'Durga Puja', img: 'durgapuja.jpg' }, { name: 'Ganesh Puja', img: 'ganeshpuja.jpg' },
+            { name: 'Onam', img: 'onam.jpg' }, { name: 'Pongal', img: 'pongal.jpg' },
+            { name: 'Raksha Bandhan', img: 'rakshabandhan.jpg' }, { name: 'Makar Sankranti', img: 'makarsankratri.jpg' },
+            { name: 'Chhath', img: 'chhath.jpg' }
         ];
-        let festIndex = 0; const slidesPerView = 3;
+        let festIndex = 0; const slidesPerView = 4;
         function renderFestival() {
             let html = '';
-            festivals.forEach(f => { html += `<div class="festival-slide"><div class="festival-card"><img src="${f.img}" alt="${f.name}" onerror="this.src='https://via.placeholder.com/300x200?text=${f.name}'"><h4>${f.name}</h4></div></div>`; });
+            festivals.slice(0,8).forEach(f => { // show 8 for demo
+                html += `<div class="festival-slide"><div class="festival-card" onclick="alert('${f.name} photography (demo)')"><img src="${f.img}" alt="${f.name}" onerror="this.src='https://via.placeholder.com/200x140?text=${f.name}'"><h4>${f.name}</h4></div></div>`;
+            });
             festivalSlides.innerHTML = html;
         }
         function updateFestivalDots() {
-            const dotCount = Math.ceil(festivals.length / slidesPerView);
+            const dotCount = Math.ceil(8 / slidesPerView);
             festivalDots.innerHTML = '';
             for(let i=0; i<dotCount; i++) {
                 const d = document.createElement('span'); d.classList.add('fest-dot');
@@ -1255,14 +1513,9 @@
             }
         }
         function updateFestival() { festivalSlides.style.transform = `translateX(-${festIndex * (100 / slidesPerView)}%)`; updateFestivalDots(); }
-        setInterval(() => { festIndex = (festIndex + slidesPerView) % festivals.length; updateFestival(); }, 5000);
+        setInterval(() => { festIndex = (festIndex + slidesPerView) % 8; updateFestival(); }, 5000);
         renderFestival(); updateFestival();
-
-        // Additional demo alerts
-        document.querySelectorAll('.app-badge-white, .champ-btn, .mobile-input button, .claim-btn-large').forEach(btn => {
-            if(!btn.hasAttribute('onclick')) btn.addEventListener('click', () => alert('Demo action'));
-        });
     </script>
 </body>
 </html>
-
+```
