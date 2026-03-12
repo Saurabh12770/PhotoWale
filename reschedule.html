@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoWale – Reschedule Policy</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* -------------------- RESET & GLOBAL -------------------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 600; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+        /* -------------------- STICKY TOP BAR (enhanced) -------------------- */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #f1f5f9;
+            padding: 8px 32px;
+            border-bottom: 1px solid #334155;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .top-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+        .logo span {
+            color: #f97316;
+            background: rgba(255,255,255,0.1);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 14px;
+            margin-left: 8px;
+            border: 1px solid #f97316;
+        }
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #1e293b;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #cbd5e1;
+            cursor: pointer;
+        }
+        .location i { color: #f97316; }
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+        }
+        .search-bar form {
+            display: flex;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+        .search-bar button {
+            background: #f97316;
+            border: none;
+            color: #0f172a;
+            padding: 0 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .user-actions a {
+            text-decoration: none;
+            color: #f1f5f9;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .user-actions a:hover { color: #f97316; }
+        .user-actions .cart {
+            background: #1e293b;
+            padding: 8px 16px;
+            border-radius: 30px;
+        }
+        .champ-btn {
+            background: #f97316;
+            color: #0f172a !important;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #334155;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #f97316;
+        }
+
+        /* Hero Slider (with img tags) */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.4);
+        }
+        .hero-slides {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            height: 100%;
+        }
+        .hero-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(15,23,42,0.5) 0%, rgba(15,23,42,0.2) 70%, transparent 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: absolute;
+            z-index: 2;
+            bottom: 60px;
+            left: 5%;
+            max-width: 600px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .hero-content h2 {
+            font-size: 42px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            right: 5%;
+            z-index: 10;
+            display: flex;
+            gap: 12px;
+        }
+        .slider-dots .dot {
+            width: 14px;
+            height: 14px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .slider-dots .dot.active {
+            background: #f97316;
+            transform: scale(1.3);
+        }
+
+        /* Reschedule Hero (unique) */
+        .reschedule-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .reschedule-hero::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -10%;
+            width: 400px; height: 400px;
+            background: rgba(249,115,22,0.15);
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+        .reschedule-hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .reschedule-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #cbd5e1;
+        }
+        .hero-calendar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .hero-date {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 16px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #f97316;
+        }
+        .hero-date .day { font-size: 36px; font-weight: 700; color: #f97316; }
+        .hero-date .month { font-size: 16px; color: #e2e8f0; }
+
+        .section-title {
+            font-size: 36px;
+            margin: 60px 0 30px;
+            color: #0f172a;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -10px; left: 0;
+            width: 80px; height: 4px; background: #f97316; border-radius: 4px;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex; justify-content: center; gap: 60px; margin: 40px auto;
+            flex-wrap: wrap; background: white; padding: 30px 40px; border-radius: 60px;
+            max-width: 1000px; box-shadow: 0 20px 35px -8px rgba(0,0,0,0.15);
+            border: 1px solid rgba(249,115,22,0.2);
+        }
+        .stat-item { text-align: center; }
+        .stat-item i { font-size: 36px; color: #f97316; }
+        .stat-number { font-size: 36px; font-weight: 700; color: #0f172a; }
+        .stat-label { color: #475569; }
+
+        /* Overview Cards (unique style) */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .overview-card {
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            border-radius: 40px;
+            padding: 32px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .overview-card:hover { transform: translateY(-5px); border-color: #f97316; }
+        .overview-card i { font-size: 48px; color: #f97316; margin-bottom: 16px; }
+
+        /* Scenarios grid */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .scenario-card {
+            background: white;
+            border-radius: 30px;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+        }
+        .scenario-card h3 { font-size: 20px; margin-bottom: 12px; color: #f97316; }
+        .scenario-card .fee-badge {
+            display: inline-block; background: #f97316; color: #0f172a;
+            padding: 6px 16px; border-radius: 40px; font-weight: 700; margin: 10px 0;
+        }
+
+        /* Steps (vertical timeline) */
+        .steps-timeline {
+            margin: 40px 0;
+        }
+        .step-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 30px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+        }
+        .step-number-circle {
+            width: 50px; height: 50px; background: #f97316;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: 700; color: #0f172a; flex-shrink: 0;
+        }
+
+        /* Fee tables (multiple) */
+        .fee-tables {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .fee-box {
+            background: white; border-radius: 30px; padding: 30px;
+            border: 1px solid #e2e8f0; box-shadow: 0 15px 30px -10px rgba(0,0,0,0.05);
+        }
+        .fee-box table { width: 100%; border-collapse: collapse; }
+        .fee-box th { background: #f1f5f9; padding: 12px; text-align: left; }
+        .fee-box td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+
+        /* Eligible list */
+        .eligible-list {
+            background: white; border-radius: 30px; padding: 32px;
+            border: 1px solid #e2e8f0; margin: 40px 0;
+        }
+        .eligible-list li { margin-bottom: 12px; display: flex; align-items: center; gap: 12px; }
+        .eligible-list i { color: #f97316; }
+
+        /* Comparison table */
+        .comparison-table {
+            background: white; border-radius: 30px; padding: 30px;
+            border: 1px solid #e2e8f0; margin: 40px 0; overflow-x: auto;
+        }
+        .comparison-table table { width: 100%; border-collapse: collapse; }
+        .comparison-table th { background: #f1f5f9; padding: 16px; }
+        .comparison-table td { padding: 16px; border-bottom: 1px solid #e2e8f0; }
+
+        /* FAQ (grid style) */
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .faq-card {
+            background: white; border-radius: 24px; padding: 28px;
+            border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s;
+        }
+        .faq-card:hover { border-color: #f97316; transform: translateY(-3px); }
+        .faq-card h4 { display: flex; justify-content: space-between; align-items: center; }
+        .faq-card p { margin-top: 16px; display: none; }
+        .faq-card.open p { display: block; }
+
+        /* Form */
+        .reschedule-form {
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            border-radius: 40px; padding: 48px; margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 14px 18px; border: 1px solid #e2e8f0;
+            border-radius: 16px; font-family: inherit;
+        }
+        .btn-primary {
+            background: #f97316; color: #0f172a; border: none; padding: 14px 36px;
+            border-radius: 60px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-primary:hover { background: #fb923c; transform: scale(1.02); }
+
+        /* Activity feed */
+        .activity-feed {
+            background: white; border-radius: 30px; padding: 32px; margin: 40px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .activity-item {
+            display: flex; gap: 16px; padding: 16px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .activity-item:last-child { border-bottom: none; }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px; margin: 40px 0;
+        }
+        .testimonial-card {
+            background: white; border-radius: 30px; padding: 28px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Related articles */
+        .related-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px; margin: 40px 0;
+        }
+        .related-card {
+            background: white; border-radius: 20px; padding: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* FOOTER (enhanced) */
+        .footer {
+            background: #0f172a; color: #cbd5e1;
+            border-radius: 40px 40px 0 0; padding: 60px 48px 30px;
+            margin-top: 80px;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px 60px;
+        }
+        .footer-col h4 { color: white; font-size: 16px; margin-bottom: 20px; }
+        .footer-col a {
+            color: #94a3b8; text-decoration: none; display: block; margin-bottom: 10px;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .footer-col a:hover { color: #f97316; transform: translateX(4px); }
+        .social-icons {
+            display: flex; gap: 16px; font-size: 28px; margin: 20px 0;
+        }
+        .social-icons i {
+            color: #94a3b8; transition: color 0.2s, transform 0.2s; cursor: pointer;
+        }
+        .social-icons i:hover { color: #f97316; transform: scale(1.1); }
+        .newsletter {
+            margin-top: 30px; text-align: center;
+        }
+        .newsletter input {
+            padding: 10px 16px; border-radius: 40px; border: none;
+            width: 100%; max-width: 250px;
+        }
+        .newsletter button {
+            background: #f97316; color: #0f172a; border: none; padding: 10px 20px;
+            border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 8px;
+        }
+        .footer-links-bottom {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 32px;
+            border-top: 1px solid #334155; padding-top: 30px; margin-top: 40px;
+        }
+        .footer-links-bottom a { color: #94a3b8; text-decoration: none; }
+        .footer-links-bottom a:hover { color: #f97316; }
+        .copyright { text-align: center; margin-top: 30px; color: #64748b; }
+
+        @media (max-width: 900px) {
+            .top-row { flex-direction: column; gap: 12px; }
+            .search-bar { width: 100%; max-width: none; margin: 10px 0; }
+            .nav-links { justify-content: center; }
+            .hero-slider { height: 350px; }
+            .fee-tables { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- STICKY TOP BAR (enhanced) -->
+    <div class="top-bar">
+        <div class="top-row">
+            <div class="logo-area">
+                <div class="logo" onclick="location.href='index.html'">PhotoWale <span>#1</span></div>
+                <div class="location" onclick="alert('Change location (demo)')"><i class="fas fa-map-marker-alt"></i> Surat, India</div>
+            </div>
+            <div class="search-bar">
+                <form onsubmit="alert('Search for photographers/packages (demo)'); return false;">
+                    <input type="text" placeholder="Search for photographers, packages, events...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="user-actions">
+                <a href="#" onclick="alert('Login/Signup (demo)')"><i class="fas fa-user"></i> Login</a>
+                <a href="#" class="cart" onclick="alert('View cart (demo)')"><i class="fas fa-shopping-cart"></i> Cart</a>
+                <a href="become_photowale_pro.html" class="champ-btn"><i class="fas fa-crown"></i> Become Pro</a>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="careers.html">Careers</a>
+            <a href="stories.html">Stories</a>
+            <a href="blog.html">Blog</a>
+            <a href="faq.html">FAQ</a>
+            <a href="term.html">Terms Of Use</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="payment.html">Payments</a>
+            <a href="selection_delivery.html">Selection & Delivery</a>
+            <a href="reschedule.html" class="active">Reschedule</a>
+            <a href="refund.html">Refund</a>
+            <a href="gift_card.html">Gift Cards</a>
+            <a href="help_center.html">Help</a>
+            <a href="press.html">Press</a>
+        </div>
+    </div>
+
+    <!-- HERO SLIDER (reschedule-themed) -->
+    <div class="hero-slider" id="heroSlider">
+        <div class="hero-slides" id="heroSlides">
+            <div class="hero-slide"><img src="images/hero.jpg" alt="Hero 1"><div class="hero-content"><h2>Flexible Rescheduling</h2><p>Change your date with ease</p></div></div>
+            <div class="hero-slide"><img src="images/p1.jpg" alt="Hero 2"><div class="hero-content"><h2>Life Happens</h2><p>We're here to help</p></div></div>
+            <div class="hero-slide"><img src="images/p2.jpg" alt="Hero 3"><div class="hero-content"><h2>No Stress</h2><p>Simple, transparent policy</p></div></div>
+            <div class="hero-slide"><img src="images/p3.jpg" alt="Hero 4"><div class="hero-content"><h2>Quick & Easy</h2><p>Reschedule in minutes</p></div></div>
+        </div>
+        <div class="slider-dots" id="heroDots"></div>
+    </div>
+
+    <!-- RESCHEDULE HERO (unique) -->
+    <div class="reschedule-hero">
+        <div class="container">
+            <h1>Reschedule Your Booking</h1>
+            <p>Life happens. Change your event date easily with our transparent rescheduling policy.</p>
+            <div class="hero-calendar">
+                <div class="hero-date"><span class="day">7+</span><span class="month">days</span><span>Free</span></div>
+                <div class="hero-date"><span class="day">3-7</span><span class="month">days</span><span>₹500 or 10%</span></div>
+                <div class="hero-date"><span class="day">48h</span><span class="month">before</span><span>25%</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- STATS BAR -->
+        <div class="stats-bar">
+            <div class="stat-item"><i class="fas fa-calendar-alt"></i><div class="stat-number">15k+</div><div class="stat-label">Reschedules</div></div>
+            <div class="stat-item"><i class="fas fa-clock"></i><div class="stat-number">92%</div><div class="stat-label">Success Rate</div></div>
+            <div class="stat-item"><i class="fas fa-smile"></i><div class="stat-number">4.8★</div><div class="stat-label">User Rating</div></div>
+            <div class="stat-item"><i class="fas fa-bolt"></i><div class="stat-number">2 min</div><div class="stat-label">Avg Process</div></div>
+        </div>
+
+        <!-- OVERVIEW CARDS (unique) -->
+        <h2 class="section-title">Quick Overview</h2>
+        <div class="overview-grid">
+            <div class="overview-card"><i class="fas fa-calendar-check"></i><h3>Free Reschedule</h3><p>Up to 7 days before event – no charges.</p></div>
+            <div class="overview-card"><i class="fas fa-rupee-sign"></i><h3>Partial Fee</h3><p>3-7 days: ₹500 or 10% (whichever lower).</p></div>
+            <div class="overview-card"><i class="fas fa-exclamation-triangle"></i><h3>Last Minute</h3><p>Less than 48h: not eligible (treated as cancellation).</p></div>
+            <div class="overview-card"><i class="fas fa-redo-alt"></i><h3>One Free Change</h3><p>First reschedule is free (subject to notice).</p></div>
+        </div>
+
+        <!-- DETAILED RESCHEDULE SCENARIOS -->
+        <h2 class="section-title">Reschedule Scenarios</h2>
+        <div class="scenarios-grid">
+            <div class="scenario-card"><h3>📅 7+ days before</h3><p>Free reschedule. Unlimited changes. Photographer availability must be checked.</p><span class="fee-badge">Free</span></div>
+            <div class="scenario-card"><h3>📅 3-7 days before</h3><p>First reschedule free; subsequent changes: ₹500 or 10% of booking amount.</p><span class="fee-badge">₹500 / 10%</span></div>
+            <div class="scenario-card"><h3>⏳ 48h – 3 days</h3><p>25% of booking amount (if photographer agrees). Otherwise treated as cancellation.</p><span class="fee-badge">25% fee</span></div>
+            <div class="scenario-card"><h3>🚫 Less than 48h</h3><p>Reschedule not allowed. You may cancel (see cancellation policy).</p><span class="fee-badge">Not allowed</span></div>
+            <div class="scenario-card"><h3>🌧️ Weather-related</h3><p>Outdoor shoots: free if notified 12+ hours before. Last-minute handled case-by-case.</p><span class="fee-badge">Free*</span></div>
+            <div class="scenario-card"><h3>🏥 Medical emergency</h3><p>Documentation required. Free reschedule even within 48h.</p><span class="fee-badge">Free (with proof)</span></div>
+        </div>
+
+        <!-- HOW TO RESCHEDULE (timeline style) -->
+        <h2 class="section-title">How to Reschedule – Step by Step</h2>
+        <div class="steps-timeline">
+            <div class="step-item"><div class="step-number-circle">1</div><div><h4>Log In</h4><p>Go to "My Bookings" in your account.</p></div></div>
+            <div class="step-item"><div class="step-number-circle">2</div><div><h4>Select Booking</h4><p>Find the booking you need to change.</p></div></div>
+            <div class="step-item"><div class="step-number-circle">3</div><div><h4>Click "Reschedule"</h4><p>Choose a new date from the photographer's availability calendar.</p></div></div>
+            <div class="step-item"><div class="step-number-circle">4</div><div><h4>Review Fee</h4><p>See any applicable fees and confirm the change.</p></div></div>
+            <div class="step-item"><div class="step-number-circle">5</div><div><h4>Get Confirmation</h4><p>Both you and the photographer receive email confirmation.</p></div></div>
+        </div>
+
+        <!-- FEE TABLES (multiple) -->
+        <h2 class="section-title">Reschedule Fees</h2>
+        <div class="fee-tables">
+            <div class="fee-box">
+                <h3 style="margin-bottom:20px;">Standard Fees</h3>
+                <table>
+                    <thead><tr><th>Notice Period</th><th>Fee</th></tr></thead>
+                    <tbody>
+                        <tr><td>7+ days</td><td>Free</td></tr>
+                        <tr><td>3-7 days (1st)</td><td>Free</td></tr>
+                        <tr><td>3-7 days (2nd+)</td><td>₹500 or 10%</td></tr>
+                        <tr><td>48h-3 days</td><td>25% (if allowed)</td></tr>
+                        <tr><td><48h</td><td>Not allowed</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="fee-box">
+                <h3 style="margin-bottom:20px;">Special Cases</h3>
+                <table>
+                    <thead><tr><th>Case</th><th>Fee</th></tr></thead>
+                    <tbody>
+                        <tr><td>Photographer cancels</td><td>Free + voucher</td></tr>
+                        <tr><td>Weather (advance)</td><td>Free</td></tr>
+                        <tr><td>Medical emergency</td><td>Free with proof</td></tr>
+                        <tr><td>Venue issue</td><td>Case-by-case</td></tr>
+                        <tr><td>Government restriction</td><td>Free</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- WHAT CAN BE RESCHEDULED (expanded) -->
+        <h2 class="section-title">What You Can Reschedule</h2>
+        <div class="eligible-list">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> <strong>Date & Time:</strong> Subject to photographer's availability.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Location:</strong> Within same city (photographer must agree).</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Package:</strong> Upgrade/downgrade – price difference applies.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Add-ons:</strong> Extra hours, second shooter, albums, etc.</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Photographer:</strong> Only in emergency (we'll help find substitute).</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Event type:</strong> Major changes (e.g., wedding to corporate) may require new booking.</li>
+            </ul>
+        </div>
+
+        <!-- RESCHEDULE VS CANCELLATION COMPARISON -->
+        <h2 class="section-title">Reschedule vs Cancellation</h2>
+        <div class="comparison-table">
+            <table>
+                <thead><tr><th>Aspect</th><th>Reschedule</th><th>Cancellation</th></tr></thead>
+                <tbody>
+                    <tr><td>Payment</td><td>Transferred to new date</td><td>Refund (as per policy)</td></tr>
+                    <tr><td>Fees</td><td>May apply after free change</td><td>Cancellation fee applies</td></tr>
+                    <tr><td>Future booking</td><td>Same photographer</td><td>You can rebook any</td></tr>
+                    <tr><td>Timing</td><td>Must be before event</td><td>Any time (fees vary)</td></tr>
+                    <tr><td>Best for</td><td>Date conflicts, weather</td><td>Change of plans</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SPECIAL CIRCUMSTANCES -->
+        <h2 class="section-title">Special Circumstances</h2>
+        <div class="scenarios-grid">
+            <div class="scenario-card"><h3>🤒 Illness</h3><p>Free reschedule with medical certificate (even within 48h).</p></div>
+            <div class="scenario-card"><h3>✈️ Travel issues</h3><p>Flight delays? Contact us – we'll work with photographer.</p></div>
+            <div class="scenario-card"><h3>⚡ Power outage</h3><p>Venue issues – photographer may agree to free reschedule.</p></div>
+            <div class="scenario-card"><h3>🌪️ Natural disaster</h3><p>Full refund or free reschedule.</p></div>
+        </div>
+
+        <!-- PHOTOGRAPHER'S PERSPECTIVE -->
+        <h2 class="section-title">From the Photographer's Side</h2>
+        <div style="background: #f1f5f9; border-radius: 40px; padding: 40px; margin: 40px 0;">
+            <p>Photographers understand that plans change. They are notified immediately when you request a reschedule. They can accept or counter-offer alternative dates. If they are unavailable, we help find a replacement. Photographers receive the reschedule fee (if any) as compensation for lost time.</p>
+        </div>
+
+        <!-- CLIENT TIPS -->
+        <h2 class="section-title">Tips for a Smooth Reschedule</h2>
+        <div class="overview-grid">
+            <div class="overview-card"><i class="fas fa-bell"></i><h3>Notify Early</h3><p>The sooner you inform, the higher chance of finding a new date.</p></div>
+            <div class="overview-card"><i class="fas fa-calendar-alt"></i><h3>Check Availability</h3><p>View photographer's calendar before requesting.</p></div>
+            <div class="overview-card"><i class="fas fa-file-alt"></i><h3>Provide Reason</h3><p>Some reasons (medical) may waive fees with proof.</p></div>
+            <div class="overview-card"><i class="fas fa-phone-alt"></i><h3>Contact Support</h3><p>If you're stuck, we're here to help.</p></div>
+        </div>
+
+        <!-- FAQ (expanded grid style) -->
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>Can I reschedule multiple times? <i class="fas fa-chevron-down"></i></h4><p>Yes, but fees may apply after the first free reschedule. Each change must be requested at least 48 hours before the original event time.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>What if the photographer is unavailable on the new date? <i class="fas fa-chevron-down"></i></h4><p>You can choose another date from their calendar or we can help find an alternative photographer of similar quality.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>Will the price change if I reschedule? <i class="fas fa-chevron-down"></i></h4><p>The package price remains the same. However, if you upgrade/downgrade, the difference will be charged or refunded accordingly.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>What about rescheduling due to weather? <i class="fas fa-chevron-down"></i></h4><p>Outdoor shoots affected by bad weather can be rescheduled free of charge if notified at least 12 hours in advance. Last-minute weather changes will be handled case-by-case.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>Can I reschedule a booking that was already rescheduled once? <i class="fas fa-chevron-down"></i></h4><p>Yes, but standard fees apply from the second reschedule onward. Please check the fee table above.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>How do I know if my reschedule request is accepted? <i class="fas fa-chevron-down"></i></h4><p>You'll receive an email and notification in your account once the photographer confirms. Usually within 24 hours.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>Is there a limit on how many times I can reschedule? <i class="fas fa-chevron-down"></i></h4><p>No limit, but fees may apply after the first change. Photographer must agree each time.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>What if I need to reschedule within 48 hours due to emergency? <i class="fas fa-chevron-down"></i></h4><p>Contact support immediately. With valid proof (medical certificate, etc.), we may allow a free reschedule.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>Can I reschedule to a date more than 6 months later? <i class="fas fa-chevron-down"></i></h4><p>Yes, as long as the photographer is available. Your payment will remain valid.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>Do I need to pay again if the new package is more expensive? <i class="fas fa-chevron-down"></i></h4><p>Yes, you'll pay the difference. If cheaper, we'll refund the difference.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>What if the photographer reschedules on their end? <i class="fas fa-chevron-down"></i></h4><p>We'll notify you immediately. You can accept the new date or get a full refund.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>Can I reschedule a gift card booking? <i class="fas fa-chevron-down"></i></h4><p>Yes, same rules apply. The gift card remains valid.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>How long does it take to process a reschedule? <i class="fas fa-chevron-down"></i></h4><p>Once photographer confirms, it's instant. Photographers usually respond within 24 hours.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>What if I reschedule and then cancel later? <i class="fas fa-chevron-down"></i></h4><p>Cancellation fees are based on the original event date, not the rescheduled one.</p></div>
+            <div class="faq-card" onclick="toggleFaq(this)"><h4>Is there a fee for rescheduling a Pro membership? <i class="fas fa-chevron-down"></i></h4><p>No, Pro subscriptions are not affected by booking reschedules.</p></div>
+        </div>
+
+        <!-- RESCHEDULE REQUEST FORM -->
+        <h2 class="section-title">Request a Reschedule</h2>
+        <div class="reschedule-form">
+            <form onsubmit="alert('Reschedule request sent (demo)'); return false;">
+                <div class="form-row">
+                    <div class="form-group"><label>Booking ID</label><input type="text" placeholder="e.g. PW123456" required></div>
+                    <div class="form-group"><label>Your Email</label><input type="email" placeholder="you@example.com" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>New Date</label><input type="date" value="2026-04-15" required></div>
+                    <div class="form-group"><label>New Time</label><input type="time" value="10:00" required></div>
+                </div>
+                <div class="form-group"><label>Reason for Reschedule (optional)</label><textarea rows="3" placeholder="Let us know why you're rescheduling..."></textarea></div>
+                <button type="submit" class="btn-primary">Submit Request</button>
+            </form>
+        </div>
+
+        <!-- RECENT RESCHEDULE ACTIVITY (demo) -->
+        <h2 class="section-title">Recent Reschedule Activity</h2>
+        <div class="activity-feed">
+            <div class="activity-item"><i class="fas fa-check-circle" style="color:#22c55e; font-size:24px;"></i><div><strong>Wedding in Mumbai</strong> rescheduled from Apr 10 to May 5 – approved.</div><span style="margin-left:auto; color:#64748b;">2h ago</span></div>
+            <div class="activity-item"><i class="fas fa-clock" style="color:#f97316; font-size:24px;"></i><div><strong>Portrait session</strong> requested new date – awaiting photographer.</div><span style="margin-left:auto; color:#64748b;">5h ago</span></div>
+            <div class="activity-item"><i class="fas fa-times-circle" style="color:#ef4444; font-size:24px;"></i><div><strong>Corporate event</strong> reschedule declined – photographer unavailable.</div><span style="margin-left:auto; color:#64748b;">1d ago</span></div>
+        </div>
+
+        <!-- TESTIMONIALS -->
+        <h2 class="section-title">What Our Users Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card"><p>"Rescheduling was so easy! I had a last-minute emergency and they helped me move my wedding shoot with no hassle."</p><h4>— Priya S.</h4></div>
+            <div class="testimonial-card"><p>"The photographer was very accommodating. We rescheduled twice due to weather, and it was free both times."</p><h4>— Rajesh K.</h4></div>
+            <div class="testimonial-card"><p>"I accidentally booked the wrong date. Support helped me reschedule in minutes. Great service!"</p><h4>— Anjali M.</h4></div>
+        </div>
+
+        <!-- RELATED ARTICLES -->
+        <h2 class="section-title">Related Articles</h2>
+        <div class="related-grid">
+            <div class="related-card" onclick="alert('Read: Cancellation Policy (demo)')"><i class="fas fa-file-alt" style="color:#f97316;"></i><h4>Cancellation Policy</h4><p>Learn about refunds and cancellations.</p></div>
+            <div class="related-card" onclick="alert('Read: Booking Tips (demo)')"><i class="fas fa-lightbulb" style="color:#f97316;"></i><h4>Booking Tips</h4><p>How to avoid rescheduling.</p></div>
+            <div class="related-card" onclick="alert('Read: Photographer FAQ (demo)')"><i class="fas fa-camera" style="color:#f97316;"></i><h4>Photographer FAQ</h4><p>From the photographer's perspective.</p></div>
+        </div>
+
+        <!-- CTA -->
+        <div style="background: linear-gradient(145deg, #ffffff, #f1f5f9); border-radius: 40px; padding: 48px; margin: 50px 0; text-align: center;">
+            <h3 style="font-size: 32px; margin-bottom: 16px;">Need Help Rescheduling?</h3>
+            <p style="max-width: 600px; margin: 0 auto 24px;">Our support team is here to assist you with any changes.</p>
+            <a href="contact.html" class="btn-primary">Contact Support</a>
+        </div>
+    </div>
+
+    <!-- FOOTER (enhanced) -->
+    <div class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>ABOUT</h4>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Careers</a>
+                <a href="stories.html">Stories</a>
+                <a href="press.html">Press</a>
+                <a href="blog.html">Blog</a>
+            </div>
+            <div class="footer-col">
+                <h4>HELP</h4>
+                <a href="payment.html">Payments</a>
+                <a href="selection_delivery.html">Selection & Delivery</a>
+                <a href="reschedule.html">Reschedule</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+            <div class="footer-col">
+                <h4>CONSUMER POLICY</h4>
+                <a href="term.html">Terms Of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="cancle.html">Cancellation Policy</a>
+                <a href="refund.html">Refund Policy</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+            <div class="footer-col">
+                <h4>REGISTERED OFFICE</h4>
+                <p>JayVind IT-Tech Pvt Ltd<br>501, Parvati Nandan Park<br>Opp. Sarkhej Railway stn<br>Ahmedabad - 382210</p>
+                <p>📞 +91 9135791602</p>
+                <div class="social-icons">
+                    <i class="fab fa-instagram" onclick="alert('Instagram (demo)')"></i>
+                    <i class="fab fa-linkedin-in" onclick="alert('LinkedIn (demo)')"></i>
+                    <i class="fab fa-facebook-f" onclick="alert('Facebook (demo)')"></i>
+                    <i class="fab fa-twitter" onclick="alert('Twitter (demo)')"></i>
+                    <i class="fab fa-youtube" onclick="alert('YouTube (demo)')"></i>
+                </div>
+            </div>
+        </div>
+        <div class="newsletter">
+            <p style="color:white;">Subscribe for updates & offers</p>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <input type="email" placeholder="Your email">
+                <button onclick="alert('Subscribed (demo)')">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-links-bottom">
+            <a href="become_photowale_pro.html">Become a PhotoWale Pro</a>
+            <a href="gift_card.html">Gift Cards</a>
+            <a href="help_center.html">Help Center</a>
+        </div>
+        <div class="copyright">© 2026 PhotoWale.com (formerly PhotoWale)</div>
+    </div>
+
+    <script>
+        // Hero slider functionality
+        const heroSlides = document.getElementById('heroSlides');
+        const heroDots = document.getElementById('heroDots');
+        const heroImages = document.querySelectorAll('.hero-slide');
+        let heroIndex = 0;
+
+        function updateHeroDots() {
+            heroDots.innerHTML = '';
+            heroImages.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === heroIndex) dot.classList.add('active');
+                dot.onclick = () => { heroIndex = i; updateHero(); };
+                heroDots.appendChild(dot);
+            });
+        }
+
+        function updateHero() {
+            heroSlides.style.transform = `translateX(-${heroIndex * 100}%)`;
+            updateHeroDots();
+        }
+
+        setInterval(() => {
+            heroIndex = (heroIndex + 1) % heroImages.length;
+            updateHero();
+        }, 5000);
+        updateHero();
+
+        // FAQ toggle for grid cards
+        function toggleFaq(card) {
+            card.classList.toggle('open');
+            const icon = card.querySelector('i');
+            if (icon.classList.contains('fa-chevron-down')) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        }
+    </script>
+</body>
+</html>

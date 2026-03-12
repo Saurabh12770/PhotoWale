@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoWale – Payment Information</title>
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* -------------------- RESET & GLOBAL -------------------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 600; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+        /* -------------------- STICKY TOP BAR (enhanced) -------------------- */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #0f172a;
+            color: #f1f5f9;
+            padding: 8px 32px;
+            border-bottom: 1px solid #334155;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .top-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+        }
+        .logo span {
+            color: #f97316;
+            background: rgba(255,255,255,0.1);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 14px;
+            margin-left: 8px;
+            border: 1px solid #f97316;
+        }
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #1e293b;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #cbd5e1;
+            cursor: pointer;
+        }
+        .location i { color: #f97316; }
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+        }
+        .search-bar form {
+            display: flex;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+        .search-bar button {
+            background: #f97316;
+            border: none;
+            color: #0f172a;
+            padding: 0 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .user-actions a {
+            text-decoration: none;
+            color: #f1f5f9;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .user-actions a:hover { color: #f97316; }
+        .user-actions .cart {
+            background: #1e293b;
+            padding: 8px 16px;
+            border-radius: 30px;
+        }
+        .champ-btn {
+            background: #f97316;
+            color: #0f172a !important;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #334155;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #f97316;
+        }
+
+        /* Hero Slider (with img tags) */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.4);
+        }
+        .hero-slides {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            height: 100%;
+        }
+        .hero-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(15,23,42,0.5) 0%, rgba(15,23,42,0.2) 70%, transparent 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: absolute;
+            z-index: 2;
+            bottom: 60px;
+            left: 5%;
+            max-width: 600px;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .hero-content h2 {
+            font-size: 42px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            right: 5%;
+            z-index: 10;
+            display: flex;
+            gap: 12px;
+        }
+        .slider-dots .dot {
+            width: 14px;
+            height: 14px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .slider-dots .dot.active {
+            background: #f97316;
+            transform: scale(1.3);
+        }
+
+        /* Payment Hero */
+        .payment-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .payment-hero::after {
+            content: '';
+            position: absolute;
+            top: -50%; right: -10%;
+            width: 300px; height: 300px;
+            background: rgba(249,115,22,0.1);
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+        .payment-hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .payment-hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #cbd5e1;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin: 60px 0 30px;
+            color: #0f172a;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: ''; position: absolute; bottom: -10px; left: 0;
+            width: 80px; height: 4px; background: #f97316; border-radius: 4px;
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex; justify-content: center; gap: 60px; margin: 40px auto;
+            flex-wrap: wrap; background: white; padding: 30px 40px; border-radius: 60px;
+            max-width: 900px; box-shadow: 0 20px 35px -8px rgba(0,0,0,0.15);
+            border: 1px solid rgba(249,115,22,0.2);
+        }
+        .stat-item { text-align: center; }
+        .stat-item i { font-size: 36px; color: #f97316; }
+        .stat-number { font-size: 36px; font-weight: 700; color: #0f172a; }
+        .stat-label { color: #475569; }
+
+        /* Tab Navigation */
+        .payment-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 40px 0 30px;
+            background: white;
+            padding: 12px;
+            border-radius: 60px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .payment-tab {
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #334155;
+            background: transparent;
+            white-space: nowrap;
+        }
+        .payment-tab:hover { color: #f97316; }
+        .payment-tab.active { background: #f97316; color: #0f172a; }
+
+        /* Tab Content */
+        .tab-content { display: none; margin: 30px 0 50px; }
+        .tab-content.active { display: block; }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px; margin: 30px 0;
+        }
+        .payment-card {
+            background: white; border-radius: 24px; padding: 28px;
+            border: 1px solid #e2e8f0; transition: transform 0.2s;
+        }
+        .payment-card:hover { transform: translateY(-5px); border-color: #f97316; }
+        .payment-card i { font-size: 40px; color: #f97316; margin-bottom: 16px; }
+
+        /* Two-col layout */
+        .two-col {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0;
+        }
+        .info-box {
+            background: white; border-radius: 24px; padding: 28px;
+            border: 1px solid #e2e8f0;
+        }
+        .info-box li { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .info-box li i { color: #f97316; }
+
+        /* Steps */
+        .steps-container {
+            display: flex; flex-wrap: wrap; gap: 20px; margin: 30px 0;
+        }
+        .step-item {
+            flex: 1 1 200px; background: white; border-radius: 30px; padding: 28px;
+            text-align: center; border: 1px solid #e2e8f0;
+        }
+        .step-number {
+            width: 48px; height: 48px; background: #f97316; color: #0f172a;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: 700; margin: 0 auto 16px;
+        }
+
+        /* FAQ */
+        .payment-faq { margin: 40px 0; }
+        .faq-item {
+            background: white; border-radius: 20px; margin-bottom: 16px;
+            border: 1px solid #e2e8f0; overflow: hidden;
+        }
+        .faq-question {
+            padding: 20px 24px; display: flex; justify-content: space-between;
+            align-items: center; cursor: pointer; font-weight: 600;
+        }
+        .faq-question i { color: #f97316; transition: transform 0.3s; }
+        .faq-question.open i { transform: rotate(180deg); }
+        .faq-answer {
+            max-height: 0; padding: 0 24px; overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background: #f8fafc; border-top: 1px solid transparent;
+        }
+        .faq-answer.open {
+            max-height: 500px; padding: 20px 24px; border-top-color: #e2e8f0;
+        }
+
+        /* Tables */
+        .policy-table {
+            width: 100%; border-collapse: collapse; background: white;
+            border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+        }
+        .policy-table th {
+            background: #f1f5f9; padding: 16px; text-align: left; font-weight: 600;
+        }
+        .policy-table td {
+            padding: 16px; border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Trust badges */
+        .trust-badges {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin: 40px 0;
+        }
+        .badge {
+            background: white; border-radius: 40px; padding: 12px 24px;
+            display: flex; align-items: center; gap: 8px; border: 1px solid #e2e8f0;
+        }
+        .badge i { color: #f97316; }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px; margin: 40px 0;
+        }
+        .testimonial-card {
+            background: white; border-radius: 30px; padding: 28px; border: 1px solid #e2e8f0;
+        }
+        .testimonial-card p { font-style: italic; margin-bottom: 16px; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .author-avatar {
+            width: 48px; height: 48px; background: #e2e8f0; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: #f97316;
+        }
+
+        /* FOOTER (enhanced) */
+        .footer {
+            background: #0f172a; color: #cbd5e1;
+            border-radius: 40px 40px 0 0; padding: 60px 48px 30px;
+            margin-top: 80px;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px 60px;
+        }
+        .footer-col h4 { color: white; font-size: 16px; margin-bottom: 20px; }
+        .footer-col a {
+            color: #94a3b8; text-decoration: none; display: block; margin-bottom: 10px;
+            transition: color 0.2s, transform 0.2s;
+        }
+        .footer-col a:hover { color: #f97316; transform: translateX(4px); }
+        .social-icons {
+            display: flex; gap: 16px; font-size: 28px; margin: 20px 0;
+        }
+        .social-icons i {
+            color: #94a3b8; transition: color 0.2s, transform 0.2s; cursor: pointer;
+        }
+        .social-icons i:hover { color: #f97316; transform: scale(1.1); }
+        .newsletter {
+            margin-top: 30px; text-align: center;
+        }
+        .newsletter input {
+            padding: 10px 16px; border-radius: 40px; border: none;
+            width: 100%; max-width: 250px;
+        }
+        .newsletter button {
+            background: #f97316; color: #0f172a; border: none; padding: 10px 20px;
+            border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 8px;
+        }
+        .footer-links-bottom {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 32px;
+            border-top: 1px solid #334155; padding-top: 30px; margin-top: 40px;
+        }
+        .footer-links-bottom a { color: #94a3b8; text-decoration: none; }
+        .footer-links-bottom a:hover { color: #f97316; }
+        .copyright { text-align: center; margin-top: 30px; color: #64748b; }
+
+        @media (max-width: 900px) {
+            .top-row { flex-direction: column; gap: 12px; }
+            .search-bar { width: 100%; max-width: none; margin: 10px 0; }
+            .nav-links { justify-content: center; }
+            .hero-slider { height: 350px; }
+            .two-col { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- STICKY TOP BAR (enhanced) -->
+    <div class="top-bar">
+        <div class="top-row">
+            <div class="logo-area">
+                <div class="logo" onclick="location.href='index.html'">PhotoWale <span>#1</span></div>
+                <div class="location" onclick="alert('Change location (demo)')"><i class="fas fa-map-marker-alt"></i> Surat, India</div>
+            </div>
+            <div class="search-bar">
+                <form onsubmit="alert('Search for photographers/packages (demo)'); return false;">
+                    <input type="text" placeholder="Search for photographers, packages, events...">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div class="user-actions">
+                <a href="#" onclick="alert('Login/Signup (demo)')"><i class="fas fa-user"></i> Login</a>
+                <a href="#" class="cart" onclick="alert('View cart (demo)')"><i class="fas fa-shopping-cart"></i> Cart</a>
+                <a href="become_photowale_pro.html" class="champ-btn"><i class="fas fa-crown"></i> Become Pro</a>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="careers.html">Careers</a>
+            <a href="stories.html">Stories</a>
+            <a href="blog.html">Blog</a>
+            <a href="faq.html">FAQ</a>
+            <a href="term.html">Terms Of Use</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="payment.html" class="active">Payment</a>
+            <a href="selection_delivery.html">Selection & Delivery</a>
+            <a href="reschedule.html">Reschedule</a>
+            <a href="refund.html">Refund</a>
+            <a href="gift_card.html">Gift Cards</a>
+            <a href="help_center.html">Help</a>
+        </div>
+    </div>
+
+    <!-- HERO SLIDER (payment-themed) -->
+    <div class="hero-slider" id="heroSlider">
+        <div class="hero-slides" id="heroSlides">
+            <div class="hero-slide"><img src="images/hero.jpg" alt="Hero 1"><div class="hero-content"><h2>Secure Payments</h2><p>Protected by bank-grade encryption</p></div></div>
+            <div class="hero-slide"><img src="images/p1.jpg" alt="Hero 2"><div class="hero-content"><h2>Multiple Options</h2><p>Cards, UPI, wallets, EMI</p></div></div>
+            <div class="hero-slide"><img src="images/p2.jpg" alt="Hero 3"><div class="hero-content"><h2>Escrow Protection</h2><p>Funds released after satisfaction</p></div></div>
+            <div class="hero-slide"><img src="images/p3.jpg" alt="Hero 4"><div class="hero-content"><h2>Instant Refunds</h2><p>For eligible cancellations</p></div></div>
+        </div>
+        <div class="slider-dots" id="heroDots"></div>
+    </div>
+
+    <!-- PAYMENT HERO -->
+    <div class="payment-hero">
+        <div class="container">
+            <h1>Payments on PhotoWale</h1>
+            <p>Simple, secure, and transparent – learn how payments work for clients and photographers.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- STATS BAR -->
+        <div class="stats-bar">
+            <div class="stat-item"><i class="fas fa-lock"></i><div class="stat-number">256-bit</div><div class="stat-label">Encryption</div></div>
+            <div class="stat-item"><i class="fas fa-bolt"></i><div class="stat-number">2 sec</div><div class="stat-label">Avg. Payment</div></div>
+            <div class="stat-item"><i class="fas fa-credit-card"></i><div class="stat-number">10+</div><div class="stat-label">Payment Modes</div></div>
+            <div class="stat-item"><i class="fas fa-smile"></i><div class="stat-number">99.9%</div><div class="stat-label">Success Rate</div></div>
+        </div>
+
+        <!-- TABS -->
+        <div class="payment-tabs">
+            <span class="payment-tab active" data-tab="methods">Payment Methods</span>
+            <span class="payment-tab" data-tab="security">Security & Escrow</span>
+            <span class="payment-tab" data-tab="refunds">Refunds & Cancellations</span>
+            <span class="payment-tab" data-tab="pricing">Pricing & Fees</span>
+            <span class="payment-tab" data-tab="disputes">Disputes</span>
+            <span class="payment-tab" data-tab="policies">Policies & FAQ</span>
+        </div>
+
+        <!-- TAB: METHODS (expanded) -->
+        <div class="tab-content active" id="methods">
+            <h2 class="section-title">Payment Methods We Accept</h2>
+            <p class="subtitle">Choose from a wide range of secure payment options.</p>
+            <div class="cards-grid">
+                <div class="payment-card"><i class="fab fa-cc-visa"></i><h3>Credit / Debit Cards</h3><p>Visa, MasterCard, American Express, RuPay, and more. 3D Secure protected.</p></div>
+                <div class="payment-card"><i class="fab fa-google-pay"></i><h3>UPI / Google Pay / PhonePe</h3><p>Instant payments from your bank account. No extra charges.</p></div>
+                <div class="payment-card"><i class="fas fa-university"></i><h3>Net Banking</h3><p>All major Indian banks – SBI, HDFC, ICICI, Axis, and 50+ others.</p></div>
+                <div class="payment-card"><i class="fas fa-wallet"></i><h3>Wallets</h3><p>Paytm, Amazon Pay, Mobikwik, Freecharge, and more.</p></div>
+                <div class="payment-card"><i class="fas fa-money-bill-wave"></i><h3>EMI Options</h3><p>No-cost EMI on select cards. 3, 6, 9, 12 months tenure.</p></div>
+                <div class="payment-card"><i class="fas fa-gift"></i><h3>Gift Cards</h3><p>Redeem PhotoWale gift cards at checkout.</p></div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Detailed Payment Options</h3>
+            <div class="two-col">
+                <div class="info-box">
+                    <h4>💳 Cards</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Visa, MasterCard, RuPay, American Express</li>
+                        <li><i class="fas fa-check"></i> 3D Secure / OTP verification</li>
+                        <li><i class="fas fa-check"></i> International cards accepted (with conversion fees)</li>
+                        <li><i class="fas fa-check"></i> EMI available on qualifying purchases</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>📱 UPI & Wallets</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Google Pay, PhonePe, Paytm, BHIM, etc.</li>
+                        <li><i class="fas fa-check"></i> Instant confirmation – no waiting</li>
+                        <li><i class="fas fa-check"></i> No extra charges</li>
+                        <li><i class="fas fa-check"></i> Max transaction limit: ₹2,00,000 per day</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="two-col">
+                <div class="info-box">
+                    <h4>🏦 Net Banking</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> SBI, HDFC, ICICI, Axis, PNB, BOB, etc.</li>
+                        <li><i class="fas fa-check"></i> Secure redirect to bank portal</li>
+                        <li><i class="fas fa-check"></i> No additional charges</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>💰 EMI</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> No-cost EMI on selected cards</li>
+                        <li><i class="fas fa-check"></i> Tenure: 3,6,9,12 months</li>
+                        <li><i class="fas fa-check"></i> Minimum order value: ₹3,000</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Payment Partners</h3>
+            <div class="trust-badges">
+                <div class="badge"><i class="fas fa-shield-alt"></i> Razorpay</div>
+                <div class="badge"><i class="fas fa-shield-alt"></i> PayU</div>
+                <div class="badge"><i class="fas fa-shield-alt"></i> CCAvenue</div>
+                <div class="badge"><i class="fas fa-shield-alt"></i> BillDesk</div>
+            </div>
+
+            <div class="info-box" style="margin-top:30px;">
+                <h3>💡 Important Notes</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> All payments are PCI-DSS compliant and encrypted.</li>
+                    <li><i class="fas fa-check-circle"></i> You'll receive email confirmation and receipt.</li>
+                    <li><i class="fas fa-check-circle"></i> International cards may incur currency conversion fees (charged by your bank).</li>
+                    <li><i class="fas fa-check-circle"></i> For EMI, interest is borne by PhotoWale – you pay only the product price.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TAB: SECURITY & ESCROW (expanded) -->
+        <div class="tab-content" id="security">
+            <h2 class="section-title">Secure Payments & Escrow Protection</h2>
+            <div class="two-col">
+                <div class="info-box">
+                    <h3>🔒 Security Measures</h3>
+                    <ul>
+                        <li><i class="fas fa-shield-alt"></i> 256-bit SSL encryption for all transactions.</li>
+                        <li><i class="fas fa-lock"></i> Tokenization – we never store full card details.</li>
+                        <li><i class="fas fa-user-check"></i> 3D Secure / OTP verification for cards.</li>
+                        <li><i class="fas fa-clock"></i> Automatic logout after inactivity.</li>
+                        <li><i class="fas fa-credit-card"></i> PCI-DSS Level 1 compliant payment gateways.</li>
+                        <li><i class="fas fa-fingerprint"></i> Biometric login for mobile app.</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h3>⚖️ Escrow System</h3>
+                    <ul>
+                        <li><i class="fas fa-hand-holding-usd"></i> Your money is held by PhotoWale until event completion.</li>
+                        <li><i class="fas fa-calendar-check"></i> Released to photographer 2 days after event (no disputes).</li>
+                        <li><i class="fas fa-balance-scale"></i> Protects both clients and photographers.</li>
+                        <li><i class="fas fa-undo-alt"></i> Full refund if photographer cancels.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="steps-container">
+                <div class="step-item"><div class="step-number">1</div><h4>Client Books & Pays</h4><p>Amount held in secure escrow account.</p></div>
+                <div class="step-item"><div class="step-number">2</div><h4>Event Happens</h4><p>Photographer delivers service.</p></div>
+                <div class="step-item"><div class="step-number">3</div><h4>Client Confirms</h4><p>48 hours to raise issues.</p></div>
+                <div class="step-item"><div class="step-number">4</div><h4>Payment Released</h4><p>Funds transferred to photographer.</p></div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Security Certifications</h3>
+            <div class="trust-badges">
+                <div class="badge"><i class="fas fa-certificate"></i> PCI-DSS</div>
+                <div class="badge"><i class="fas fa-certificate"></i> ISO 27001</div>
+                <div class="badge"><i class="fas fa-certificate"></i> SOC2 Type II</div>
+                <div class="badge"><i class="fas fa-certificate"></i> GDPR Ready</div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">How Escrow Works – Detailed</h3>
+            <p>When a client books a photographer, the full amount is charged immediately but held in a separate escrow account. This money is not accessible to the photographer until after the event. After the event, the client has 48 hours to inspect the delivered work and raise any issues. If no dispute is raised, the funds are released to the photographer within 2 business days. This system ensures that photographers are paid for their work and clients receive what they paid for.</p>
+        </div>
+
+        <!-- TAB: REFUNDS & CANCELLATIONS (expanded) -->
+        <div class="tab-content" id="refunds">
+            <h2 class="section-title">Refunds and Cancellation Policy</h2>
+            <p>We've designed our refund policy to be fair to both clients and photographers, drawing best practices from Flipkart and Amazon.</p>
+            <table class="policy-table">
+                <thead><tr><th>Cancellation Time</th><th>Refund Amount</th><th>Notes</th></tr></thead>
+                <tbody>
+                    <tr><td>7+ days before event</td><td>100% refund</td><td>Full amount returned</td></tr>
+                    <tr><td>3-7 days before event</td><td>75% refund</td><td>25% cancellation fee</td></tr>
+                    <tr><td>48 hours – 3 days</td><td>50% refund</td><td>Half amount refunded</td></tr>
+                    <tr><td>Less than 48 hours</td><td>No refund</td><td>Unless photographer cancels</td></tr>
+                    <tr><td>Photographer cancels</td><td>100% refund + 10% voucher</td><td>We'll help find alternative</td></tr>
+                </tbody>
+            </table>
+            <p>Refunds are processed within 5-7 business days to the original payment source. UPI/Wallet refunds are instant.</p>
+
+            <h3 class="section-title" style="font-size:28px;">Refund Scenarios – Detailed</h3>
+            <div class="two-col">
+                <div class="info-box">
+                    <h4>✅ Eligible for Full Refund</h4>
+                    <ul>
+                        <li>Cancellation 7+ days before event</li>
+                        <li>Photographer cancels (anytime)</li>
+                        <li>Duplicate payment</li>
+                        <li>Technical error resulting in overcharge</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>⚠️ Partial / No Refund</h4>
+                    <ul>
+                        <li>Cancellation within 7 days (see table)</li>
+                        <li>No-show without cancellation</li>
+                        <li>Change of mind after 48-hour window</li>
+                        <li>Dispute resolved in photographer's favor</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Refund Timeline by Payment Method</h3>
+            <table class="policy-table">
+                <thead><tr><th>Method</th><th>Processing Time</th></tr></thead>
+                <tbody>
+                    <tr><td>Credit/Debit Card</td><td>5-7 business days</td></tr>
+                    <tr><td>UPI / Wallet</td><td>Instant – 24 hours</td></tr>
+                    <tr><td>Net Banking</td><td>3-5 business days</td></tr>
+                    <tr><td>EMI</td><td>7-10 business days (loan reversal)</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TAB: PRICING & FEES (expanded) -->
+        <div class="tab-content" id="pricing">
+            <h2 class="section-title">Pricing and Fees</h2>
+            <div class="two-col">
+                <div class="info-box">
+                    <h3>💰 For Clients</h3>
+                    <ul>
+                        <li><i class="fas fa-tag"></i> You pay the price shown at checkout – inclusive of all taxes.</li>
+                        <li><i class="fas fa-percent"></i> No hidden fees – what you see is what you pay.</li>
+                        <li><i class="fas fa-receipt"></i> GST invoice provided after payment.</li>
+                        <li><i class="fas fa-credit-card"></i> No extra charges for cards/UPI/wallets.</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h3>📸 For Photographers</h3>
+                    <ul>
+                        <li><i class="fas fa-hand-holding-usd"></i> Commission: 15% on each booking (included in client price).</li>
+                        <li><i class="fas fa-crown"></i> Pro subscription: ₹999/month reduces commission to 10%.</li>
+                        <li><i class="fas fa-chart-line"></i> Payouts twice weekly via bank transfer.</li>
+                        <li><i class="fas fa-file-invoice"></i> TDS applicable as per government norms.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Commission Calculator for Photographers</h3>
+            <div style="background: white; border-radius: 30px; padding: 30px; margin: 30px 0;">
+                <p>Enter your monthly booking amount to see savings with Pro:</p>
+                <div style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap;">
+                    <input type="number" id="bookingAmount" value="100000" style="padding: 12px; border-radius: 40px; border:1px solid #e2e8f0; flex:1;">
+                    <button class="btn-primary" onclick="calculateSavings()" style="background:#f97316; border:none; padding:12px 30px; border-radius:40px; font-weight:600;">Calculate</button>
+                </div>
+                <p id="savingsResult" style="margin-top:20px; font-size:20px; font-weight:600;">With Pro, you save ₹5,000/month (₹60,000/year).</p>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Fee Breakdown</h3>
+            <table class="policy-table">
+                <thead><tr><th>Item</th><th>Fee</th><th>Paid By</th></tr></thead>
+                <tbody>
+                    <tr><td>Commission (standard)</td><td>15%</td><td>Photographer</td></tr>
+                    <tr><td>Commission (Pro)</td><td>10%</td><td>Photographer</td></tr>
+                    <tr><td>Payment gateway fee</td><td>Included in commission</td><td>Photographer</td></tr>
+                    <tr><td>GST on commission</td><td>18%</td><td>Photographer</td></tr>
+                    <tr><td>Convenience fee for clients</td><td>₹0</td><td>-</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TAB: DISPUTES (expanded) -->
+        <div class="tab-content" id="disputes">
+            <h2 class="section-title">Dispute Resolution</h2>
+            <p>If something goes wrong, our dispute resolution process ensures a fair outcome.</p>
+            <div class="steps-container">
+                <div class="step-item"><div class="step-number">1</div><h4>Raise Dispute</h4><p>Within 7 days of event via dashboard.</p></div>
+                <div class="step-item"><div class="step-number">2</div><h4>Mediation</h4><p>Our team reviews evidence from both sides.</p></div>
+                <div class="step-item"><div class="step-number">3</div><h4>Resolution</h4><p>Refund, partial refund, or credit based on findings.</p></div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Common Dispute Reasons</h3>
+            <div class="two-col">
+                <div class="info-box">
+                    <h4>📸 Client Complaints</h4>
+                    <ul>
+                        <li>Photographer didn't show up / was late</li>
+                        <li>Delivered photos not as expected (quality)</li>
+                        <li>Overcharging / extra fees</li>
+                        <li>Unprofessional behavior</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>📷 Photographer Complaints</h4>
+                    <ul>
+                        <li>Client didn't show up</li>
+                        <li>Client refused to pay balance</li>
+                        <li>Venue issues caused by client</li>
+                        <li>Unreasonable demands</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Dispute Process – Detailed</h3>
+            <p>When a dispute is raised, both parties are notified and asked to provide evidence (photos, messages, contracts). Our team reviews within 3 business days. We may request additional information. Based on the evidence, we decide on a fair resolution: full/partial refund, credit, or no refund. Both parties accept the decision as final.</p>
+
+            <div class="info-box" style="margin-top:30px;">
+                <h4>📞 Need help? Contact our dispute team: disputes@photowale.com</h4>
+            </div>
+        </div>
+
+        <!-- TAB: POLICIES & FAQ (expanded) -->
+        <div class="tab-content" id="policies">
+            <h2 class="section-title">Payment Policies & FAQ</h2>
+            <div class="payment-faq">
+                <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>When is my card charged?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>Your payment is authorized at booking, but captured only after photographer accepts. If declined, the hold is released.</p></div></div>
+                <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>How do I get a refund?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>Refunds are automatic based on cancellation time. Request via Resolution Center within 7 days.</p></div></div>
+                <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>Are there hidden charges?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>No. The price includes all taxes and fees.</p></div></div>
+                <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>Can I pay partially?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>Some photographers offer installments. Check package details.</p></div></div>
+                <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>What is PhotoWale guarantee?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>We guarantee service as booked or your money back.</p></div></div>
+                <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>How do I update payment method?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>You can't change after booking. For future bookings, update in your profile.</p></div></div>
+                <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>Is my payment info saved?</span><i class="fas fa-chevron-down"></i></div><div class="faq-answer"><p>We don't store full card numbers. Tokenized for future use with your consent.</p></div></div>
+            </div>
+
+            <h3 class="section-title" style="font-size:28px;">Payment Glossary</h3>
+            <div class="two-col">
+                <div class="info-box">
+                    <h4>Terms</h4>
+                    <ul>
+                        <li><strong>Escrow:</strong> Funds held by a third party until conditions met.</li>
+                        <li><strong>Tokenization:</strong> Replacing card data with a unique token.</li>
+                        <li><strong>PCI-DSS:</strong> Payment Card Industry Data Security Standard.</li>
+                    </ul>
+                </div>
+                <div class="info-box">
+                    <h4>Abbreviations</h4>
+                    <ul>
+                        <li><strong>UPI:</strong> Unified Payments Interface</li>
+                        <li><strong>EMI:</strong> Equated Monthly Installment</li>
+                        <li><strong>GST:</strong> Goods and Services Tax</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TESTIMONIALS -->
+        <h2 class="section-title">What Our Users Say About Payments</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card"><p>"Payment process was smooth and secure. Received instant confirmation."</p><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><h4>Rahul Mehta</h4><p>Client, Mumbai</p></div></div></div>
+            <div class="testimonial-card"><p>"I love the escrow system – I know I'll get paid after the event."</p><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><h4>Priya Sharma</h4><p>Photographer, Delhi</p></div></div></div>
+            <div class="testimonial-card"><p>"Refund was processed quickly when I had to cancel. Great experience."</p><div class="testimonial-author"><div class="author-avatar"><i class="fas fa-user"></i></div><div><h4>Amit Patel</h4><p>Client, Ahmedabad</p></div></div></div>
+        </div>
+
+        <!-- SECURE CHECKOUT DEMO -->
+        <div style="background: linear-gradient(145deg, #ffffff, #f1f5f9); border-radius: 40px; padding: 40px; margin: 50px 0; text-align: center; border: 1px solid #e2e8f0;">
+            <i class="fas fa-lock" style="font-size: 48px; color: #f97316; margin-bottom: 16px;"></i>
+            <h3>100% Secure Checkout</h3>
+            <p style="max-width: 600px; margin: 0 auto 20px;">All transactions are protected with bank-grade security. Your payment information is encrypted and never shared.</p>
+            <button class="btn-primary" onclick="alert('Demo: This would initiate a secure checkout.')" style="background: #f97316; border: none; padding: 14px 36px; border-radius: 60px; font-weight: 600; cursor: pointer;">Demo Checkout</button>
+        </div>
+    </div>
+
+    <!-- FOOTER (enhanced) -->
+    <div class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>ABOUT</h4>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Careers</a>
+                <a href="stories.html">Stories</a>
+                <a href="press.html">Press</a>
+                <a href="blog.html">Blog</a>
+            </div>
+            <div class="footer-col">
+                <h4>HELP</h4>
+                <a href="payment.html">Payments</a>
+                <a href="selection_delivery.html">Selection & Delivery</a>
+                <a href="reschedule.html">Reschedule</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+            <div class="footer-col">
+                <h4>CONSUMER POLICY</h4>
+                <a href="term.html">Terms Of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="cancle.html">Cancellation Policy</a>
+                <a href="refund.html">Refund Policy</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+            <div class="footer-col">
+                <h4>REGISTERED OFFICE</h4>
+                <p>JayVind IT-Tech Pvt Ltd<br>501, Parvati Nandan Park<br>Opp. Sarkhej Railway stn<br>Ahmedabad - 382210</p>
+                <p>📞 +91 9135791602</p>
+                <div class="social-icons">
+                    <i class="fab fa-instagram" onclick="alert('Instagram (demo)')"></i>
+                    <i class="fab fa-linkedin-in" onclick="alert('LinkedIn (demo)')"></i>
+                    <i class="fab fa-facebook-f" onclick="alert('Facebook (demo)')"></i>
+                    <i class="fab fa-twitter" onclick="alert('Twitter (demo)')"></i>
+                    <i class="fab fa-youtube" onclick="alert('YouTube (demo)')"></i>
+                </div>
+            </div>
+        </div>
+        <div class="newsletter">
+            <p style="color:white;">Subscribe for updates & offers</p>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <input type="email" placeholder="Your email">
+                <button onclick="alert('Subscribed (demo)')">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-links-bottom">
+            <a href="become_photowale_pro.html">Become a PhotoWale Pro</a>
+            <a href="gift_card.html">Gift Cards</a>
+            <a href="help_center.html">Help Center</a>
+        </div>
+        <div class="copyright">© 2026 PhotoWale.com (formerly PhotoWale)</div>
+    </div>
+
+    <script>
+        // Hero slider
+        const heroSlides = document.getElementById('heroSlides');
+        const heroDots = document.getElementById('heroDots');
+        const heroImages = document.querySelectorAll('.hero-slide');
+        let heroIndex = 0;
+        function updateHeroDots() {
+            heroDots.innerHTML = '';
+            heroImages.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === heroIndex) dot.classList.add('active');
+                dot.onclick = () => { heroIndex = i; updateHero(); };
+                heroDots.appendChild(dot);
+            });
+        }
+        function updateHero() { heroSlides.style.transform = `translateX(-${heroIndex * 100}%)`; updateHeroDots(); }
+        setInterval(() => { heroIndex = (heroIndex + 1) % heroImages.length; updateHero(); }, 5000);
+        updateHero();
+
+        // Tab switching
+        const tabs = document.querySelectorAll('.payment-tab');
+        const contents = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                contents.forEach(c => c.classList.remove('active'));
+                document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // FAQ toggle
+        function toggleFAQ(header) {
+            const answer = header.nextElementSibling;
+            const icon = header.querySelector('i');
+            answer.classList.toggle('open');
+            header.classList.toggle('open');
+            if (answer.classList.contains('open')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            } else {
+                answer.style.maxHeight = null;
+            }
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        // Savings calculator
+        function calculateSavings() {
+            const amount = parseFloat(document.getElementById('bookingAmount').value) || 0;
+            const monthlySavings = amount * 0.05;
+            document.getElementById('savingsResult').innerText = `With Pro, you save ₹${monthlySavings.toFixed(0)}/month (₹${(monthlySavings*12).toFixed(0)}/year).`;
+        }
+    </script>
+</body>
+</html>
