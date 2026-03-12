@@ -1,23 +1,16 @@
-We have updated `index.html` to remove all `images/` folder prefixes since images are now in the same root directory. All image paths now point directly to the filenames. The festival carousel and other sections have been adjusted accordingly. Below is the complete updated code.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhotoWale – India's Largest Photography Marketplace</title>
+    <title>PhotoWale – About Us</title>
     <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Font: Inter & Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* -------------------- RESET & GLOBAL -------------------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: #f8fafc;
@@ -25,17 +18,10 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             line-height: 1.5;
             scroll-behavior: smooth;
         }
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
-        }
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 600; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-        /* -------------------- STICKY TOP BAR (with mega menu) -------------------- */
+        /* -------------------- STICKY TOP BAR (enhanced) -------------------- */
         .top-bar {
             position: sticky;
             top: 0;
@@ -86,9 +72,7 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             color: #cbd5e1;
             cursor: pointer;
         }
-        .location i {
-            color: #f97316;
-        }
+        .location i { color: #f97316; }
         .search-bar {
             flex: 1;
             max-width: 500px;
@@ -130,9 +114,7 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             align-items: center;
             gap: 6px;
         }
-        .user-actions a:hover {
-            color: #f97316;
-        }
+        .user-actions a:hover { color: #f97316; }
         .user-actions .cart {
             background: #1e293b;
             padding: 8px 16px;
@@ -160,11 +142,12 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             font-weight: 500;
             transition: color 0.2s;
         }
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: #f97316;
         }
 
-        /* -------------------- HERO SLIDER (enhanced) -------------------- */
+        /* -------------------- HERO SLIDER (like index) -------------------- */
         .hero-slider {
             position: relative;
             width: 100%;
@@ -199,7 +182,7 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             color: white;
         }
         .hero-content h1 {
-            font-size: 42px;
+            font-size: 48px;
             line-height: 1.2;
             margin-bottom: 20px;
             text-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -207,69 +190,6 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
         .hero-highlight {
             color: #f97316;
             font-weight: 700;
-        }
-        .countdown-block {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-            margin: 20px 0;
-        }
-        .timer {
-            display: flex;
-            gap: 12px;
-        }
-        .timer-box {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 12px 16px;
-            min-width: 80px;
-            text-align: center;
-            border: 1px solid rgba(249,115,22,0.5);
-        }
-        .timer-box .value {
-            font-size: 38px;
-            font-weight: 800;
-            color: #f97316;
-            line-height: 1;
-        }
-        .timer-box .label {
-            font-size: 12px;
-            text-transform: uppercase;
-            color: #e2e8f0;
-        }
-        .claim-btn-large {
-            background: #f97316;
-            border: none;
-            color: #0f172a;
-            font-weight: 700;
-            padding: 14px 36px;
-            border-radius: 50px;
-            font-size: 18px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(249,115,22,0.3);
-            transition: all 0.2s;
-        }
-        .claim-btn-large:hover {
-            background: #fb923c;
-            transform: scale(1.02);
-        }
-        .benefits {
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: #e2e8f0;
-            font-weight: 500;
-        }
-        .benefits span {
-            background: rgba(255,255,255,0.1);
-            padding: 6px 16px;
-            border-radius: 30px;
         }
         .slider-dots {
             position: absolute;
@@ -292,737 +212,262 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             transform: scale(1.3);
         }
 
-        /* -------------------- SEARCH ROW (quick filters) -------------------- */
-        .search-row {
-            background: white;
-            border-radius: 60px;
-            padding: 8px 16px 8px 28px;
-            margin: -30px auto 40px;
-            max-width: 1000px;
-            position: relative;
-            z-index: 20;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.15);
-            border: 1px solid #f1f5f9;
+        /* -------------------- ABOUT PAGE SPECIFIC STYLES -------------------- */
+        .about-intro {
+            text-align: center;
+            margin: 60px 0 40px;
         }
-        .search-fields {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
+        .about-intro h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
         }
-        .search-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .search-item i {
-            color: #f97316;
-            font-size: 16px;
-        }
-        .search-item select,
-        .search-item input {
-            border: none;
-            background: transparent;
-            font-weight: 500;
-            color: #1e293b;
-            padding: 8px 0;
-            font-size: 14px;
-            outline: none;
-        }
-        .current-loc {
-            background: #f1f5f9;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #0f172a;
-            cursor: pointer;
-        }
-
-        /* -------------------- CATEGORIES TABS -------------------- */
-        .categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 25px;
-            margin: 30px 0 25px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 16px;
-            font-weight: 600;
+        .about-intro p {
+            max-width: 800px;
+            margin: 0 auto;
             color: #334155;
         }
-        .categories span {
-            cursor: pointer;
-            white-space: nowrap;
-            transition: color 0.2s;
-        }
-        .categories span:hover {
-            color: #f97316;
-        }
-        .categories span.active {
-            color: #f97316;
-            border-bottom: 3px solid #f97316;
-            padding-bottom: 13px;
-        }
 
-        /* -------------------- SECTION TITLE -------------------- */
+        /* Stats row */
+        .stats-row {
+            display: flex; justify-content: center; gap: 60px; margin: 40px auto;
+            flex-wrap: wrap; background: white; padding: 30px 40px; border-radius: 60px;
+            max-width: 1000px; box-shadow: 0 20px 35px -8px rgba(0,0,0,0.15);
+            border: 1px solid rgba(249,115,22,0.2);
+        }
+        .stat-item { text-align: center; }
+        .stat-item i { font-size: 36px; color: #f97316; }
+        .stat-number { font-size: 36px; font-weight: 700; color: #0f172a; }
+        .stat-label { color: #475569; }
+
+        /* Section title */
         .section-title {
-            font-size: 28px;
-            margin: 50px 0 20px;
-            color: #0f172a;
-            position: relative;
-            display: inline-block;
+            font-size: 36px; margin: 60px 0 30px; color: #0f172a;
+            position: relative; display: inline-block;
         }
         .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: #f97316;
-            border-radius: 4px;
+            content: ''; position: absolute; bottom: -10px; left: 0;
+            width: 80px; height: 4px; background: #f97316; border-radius: 4px;
         }
 
-        /* -------------------- FIXED PACKAGES -------------------- */
-        .fixed-packages {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            border-radius: 24px;
-            padding: 32px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            align-items: center;
-            margin-bottom: 40px;
-            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.08);
+        /* Two column problem boxes */
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0; }
+        .problem-box {
+            background: white; border-radius: 40px; padding: 40px;
+            border: 1px solid #e2e8f0; transition: transform 0.3s;
+        }
+        .problem-box:hover { transform: translateY(-5px); border-color: #f97316; }
+        .problem-box h3 { font-size: 24px; margin-bottom: 20px; display: flex; gap: 10px; }
+        .problem-box li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .problem-box li i { color: #f97316; }
+
+        /* Features grid */
+        .features-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px; margin: 40px 0;
+        }
+        .feature-card {
+            background: white; border-radius: 30px; padding: 32px; text-align: center;
+            border: 1px solid #e2e8f0; transition: transform 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-8px); border-color: #f97316; }
+        .feature-card i { font-size: 48px; color: #f97316; margin-bottom: 16px; }
+
+        /* Mission vision grid */
+        .mission-vision-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px; margin: 40px 0;
+        }
+        .mv-card {
+            background: white; border-radius: 30px; padding: 32px; text-align: center;
             border: 1px solid #e2e8f0;
         }
-        .package-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            flex: 1 1 250px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-        .offer-tag {
-            background: #f97316;
-            color: #0f172a;
-            display: inline-block;
-            padding: 6px 20px;
-            border-radius: 30px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        .price {
-            font-size: 24px;
-            font-weight: 700;
-        }
-        .price small {
-            font-size: 16px;
-            font-weight: 400;
-            color: #64748b;
-            text-decoration: line-through;
-            margin-left: 8px;
-        }
-        .btn-primary {
-            background: #f97316;
-            border: none;
-            color: #0f172a;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        .mv-card i { font-size: 48px; color: #f97316; margin-bottom: 16px; }
 
-        /* -------------------- DEALS GRID -------------------- */
-        .deals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
+        /* Values grid */
+        .values-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; margin: 40px 0;
         }
-        .deal-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .deal-card:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-        }
-        .deal-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 12px;
-        }
-        .deal-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #f97316;
-        }
-        .deal-price small {
-            font-size: 14px;
-            color: #64748b;
-            text-decoration: line-through;
-            margin-left: 8px;
-        }
-
-        /* -------------------- TRENDING PHOTOGRAPHERS -------------------- */
-        .trending-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .trending-card {
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .trending-card:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-        }
-        .trending-image {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-        }
-        .trending-info {
-            padding: 16px;
-        }
-
-        /* -------------------- CUSTOM PACKAGES GRID -------------------- */
-        .custom-packages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .custom-item {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .custom-item:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-        }
-        .custom-item .card-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 12px;
-        }
-        .custom-price {
-            font-weight: 700;
-            font-size: 20px;
-            color: #f97316;
-        }
-        .custom-price small {
-            font-size: 14px;
-            color: #64748b;
-            text-decoration: line-through;
-            margin-left: 6px;
-        }
-
-        /* -------------------- BEST SELLING GRID -------------------- */
-        .best-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .best-card {
-            background: white;
-            border-radius: 20px;
-            padding: 16px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-        .best-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 10px;
-        }
-
-        /* -------------------- BRAND STORE -------------------- */
-        .brands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .brand-item {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-        .brand-item i {
-            font-size: 40px;
-            color: #f97316;
-        }
-
-        /* -------------------- CUSTOMER REVIEWS -------------------- */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .review-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
+        .value-card {
+            background: linear-gradient(145deg, #ffffff, #fef7f2);
+            border-radius: 40px; padding: 40px 30px; text-align: center;
             border: 1px solid #e2e8f0;
         }
-        .review-header {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .review-avatar {
-            width: 48px;
-            height: 48px;
-            background: #e2e8f0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #f97316;
-        }
-        .review-stars i {
-            color: gold;
-        }
+        .value-card i { font-size: 64px; color: #f97316; }
 
-        /* -------------------- SPECIAL OFFERS -------------------- */
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
+        /* Timeline */
+        .timeline {
+            position: relative; margin: 50px 0; padding: 20px 0;
         }
-        .offer-card {
-            background: linear-gradient(145deg, #f97316, #fb923c);
-            border-radius: 20px;
-            padding: 24px;
-            color: #0f172a;
-            cursor: pointer;
+        .timeline::before {
+            content: ''; position: absolute; left: 50%; width: 2px;
+            height: 100%; background: #f97316; transform: translateX(-50%);
         }
-
-        /* -------------------- FESTIVAL CAROUSEL (FIXED) -------------------- */
-        .festival-carousel {
+        .timeline-item {
+            display: flex; justify-content: space-between; margin: 30px 0;
             position: relative;
-            width: 100%;
-            margin: 30px 0;
-            overflow: hidden;
-            border-radius: 24px;
         }
-        .festival-slides {
-            display: flex;
-            transition: transform 0.8s ease;
+        .timeline-left, .timeline-right { width: 45%; }
+        .timeline-left { text-align: right; padding-right: 30px; }
+        .timeline-right { text-align: left; padding-left: 30px; }
+        .timeline-dot {
+            position: absolute; left: 50%; width: 16px; height: 16px;
+            background: #f97316; border-radius: 50%; transform: translateX(-50%);
+            border: 3px solid white;
         }
-        .festival-slide {
-            min-width: calc(100% / 4); /* smaller cards */
-            padding: 0 8px;
-            box-sizing: border-box;
-        }
-        .festival-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-        .festival-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-        }
-        .festival-card h4 {
-            text-align: center;
-            padding: 12px;
-            font-size: 16px;
-            background: #fff;
-        }
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-        }
-        .fest-dot {
-            width: 10px;
-            height: 10px;
-            background: #cbd5e1;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .fest-dot.active {
-            background: #f97316;
-        }
+        .timeline-year { font-size: 24px; font-weight: 700; color: #f97316; }
 
-        /* -------------------- HOW TO BOOK (FIXED) -------------------- */
-        .steps-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin: 40px 0;
+        /* Awards grid */
+        .awards-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px; margin: 40px 0;
         }
-        .step {
-            flex: 1 1 280px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 30px;
-            padding: 32px;
-            text-align: center;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .step:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-        }
-        .step-icon {
-            width: 70px;
-            height: 70px;
-            background: #f97316;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 30px;
-        }
-
-        /* -------------------- TRUST GRID -------------------- */
-        .trust-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            background: white;
-            border-radius: 40px;
-            padding: 48px 32px;
-            margin: 40px 0;
+        .award-card {
+            background: white; border-radius: 30px; padding: 32px; text-align: center;
             border: 1px solid #e2e8f0;
         }
-        .trust-item {
-            text-align: center;
-        }
-        .trust-item i {
-            font-size: 48px;
-            color: #f97316;
-        }
+        .award-card i { font-size: 48px; color: #f97316; }
 
-        /* -------------------- PRO STEPS -------------------- */
-        .champ-steps {
-            background: #fef1ea;
-            border-radius: 40px;
-            padding: 48px;
-            margin: 40px 0;
+        /* Partners grid */
+        .partners-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px; margin: 40px 0;
+        }
+        .partner-card {
+            background: white; border-radius: 30px; padding: 24px; text-align: center;
             border: 1px solid #e2e8f0;
         }
-        .champ-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin-top: 30px;
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; margin: 40px 0;
         }
-        .champ-card {
-            background: white;
-            border-radius: 24px;
-            padding: 28px;
-            text-align: center;
+        .testimonial-card {
+            background: white; border-radius: 30px; padding: 32px;
             border: 1px solid #e2e8f0;
-            cursor: pointer;
         }
-        .champ-icon {
-            font-size: 40px;
-            color: #f97316;
-            margin-bottom: 16px;
+        .testimonial-card p { font-style: italic; margin-bottom: 20px; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .author-avatar {
+            width: 48px; height: 48px; background: #e2e8f0; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: #f97316;
         }
 
-        /* -------------------- RECENTLY VIEWED (FIXED) -------------------- */
-        .recent-grid {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding: 20px 0;
-            margin: 20px 0;
+        /* Leadership principles */
+        .principles-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px; margin: 40px 0;
         }
-        .recent-item {
-            min-width: 160px;
-            background: white;
-            border-radius: 16px;
-            padding: 12px;
+        .principle-card {
+            background: white; border-radius: 30px; padding: 32px; text-align: center;
             border: 1px solid #e2e8f0;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .recent-item:hover {
-            transform: scale(1.02);
-            border-color: #f97316;
-        }
-        .recent-item img {
-            width: 100%;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 8px;
         }
 
-        /* -------------------- APP SECTION (FIXED) -------------------- */
-        .app-section {
-            background: #0f172a;
-            color: white;
-            border-radius: 40px;
-            padding: 48px;
-            margin: 50px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            align-items: center;
+        /* Press mentions */
+        .press-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px; margin: 40px 0;
         }
-        .app-left {
-            flex: 1 1 300px;
-        }
-        .app-left h2 {
-            font-size: 32px;
-            margin-bottom: 16px;
-        }
-        .app-offer {
-            background: #f97316;
-            color: #0f172a;
-            padding: 12px 24px;
-            border-radius: 40px;
-            display: inline-block;
-            margin: 20px 0;
-            font-weight: 700;
-        }
-        .mobile-input {
-            display: flex;
-            background: white;
-            border-radius: 60px;
-            overflow: hidden;
-            max-width: 400px;
-        }
-        .mobile-input input {
-            flex: 1;
-            padding: 14px 20px;
-            border: none;
-            outline: none;
-        }
-        .mobile-input button {
-            background: #f97316;
-            color: #0f172a;
-            border: none;
-            padding: 0 30px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .qr-stats {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            margin: 30px 0;
-        }
-        .qr-placeholder {
-            width: 90px;
-            height: 90px;
-            background: white;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: black;
-        }
-        .app-badges-white {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .app-badge-white {
-            background: white;
-            color: #0f172a;
-            padding: 10px 24px;
-            border-radius: 40px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .app-right {
-            flex: 0 0 260px;
-            background: #334155;
-            border-radius: 40px;
-            height: 260px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 4px solid #f97316;
-        }
-        .app-right img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 36px;
+        .press-item {
+            background: white; border-radius: 20px; padding: 24px; text-align: center;
+            border: 1px solid #e2e8f0;
         }
 
-        /* -------------------- FOOTER (ENHANCED) -------------------- */
+        /* Team grid (expanded) */
+        .team-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px; margin: 50px 0;
+        }
+        .team-card {
+            background: white; border-radius: 30px; overflow: hidden;
+            border: 1px solid #e2e8f0; transition: transform 0.3s;
+        }
+        .team-card:hover { transform: translateY(-8px); border-color: #f97316; }
+        .team-image {
+            height: 240px; background-size: cover; background-position: center;
+        }
+        .team-info { padding: 20px; text-align: center; }
+        .team-info h3 { font-size: 18px; margin-bottom: 4px; }
+        .team-info p { color: #64748b; font-size: 14px; }
+
+        /* CTA section */
+        .cta-section {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            border-radius: 60px; padding: 80px 40px; text-align: center;
+            color: white; margin: 80px 0;
+        }
+        .btn-primary, .btn-secondary {
+            padding: 14px 36px; border-radius: 60px; font-weight: 600; font-size: 16px;
+            border: none; cursor: pointer; transition: all 0.3s;
+        }
+        .btn-primary { background: #f97316; color: #0f172a; }
+        .btn-primary:hover { background: #fb923c; transform: translateY(-3px); }
+        .btn-secondary {
+            background: transparent; color: white; border: 2px solid #f97316;
+        }
+        .btn-secondary:hover { background: #f97316; color: #0f172a; }
+
+        /* -------------------- FOOTER (enhanced) -------------------- */
         .footer {
-            background: #0f172a;
-            color: #cbd5e1;
-            border-radius: 40px 40px 0 0;
-            padding: 60px 48px 30px;
+            background: #0f172a; color: #cbd5e1;
+            border-radius: 40px 40px 0 0; padding: 60px 48px 30px;
             margin-top: 80px;
         }
         .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 40px 60px;
         }
-        .footer-col h4 {
-            color: white;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
+        .footer-col h4 { color: white; font-size: 16px; margin-bottom: 20px; }
         .footer-col a {
-            color: #94a3b8;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            font-size: 14px;
+            color: #94a3b8; text-decoration: none; display: block; margin-bottom: 10px;
             transition: color 0.2s, transform 0.2s;
         }
         .footer-col a:hover {
-            color: #f97316;
-            transform: translateX(4px);
-        }
-        .footer-col p {
-            color: #94a3b8;
-            font-size: 14px;
-            margin-bottom: 8px;
-            line-height: 1.6;
+            color: #f97316; transform: translateX(4px);
         }
         .social-icons {
-            display: flex;
-            gap: 16px;
-            font-size: 28px;
-            margin: 20px 0;
+            display: flex; gap: 16px; font-size: 28px; margin: 20px 0;
         }
         .social-icons i {
-            color: #94a3b8;
-            transition: color 0.2s, transform 0.2s;
-            cursor: pointer;
+            color: #94a3b8; transition: color 0.2s, transform 0.2s; cursor: pointer;
         }
-        .social-icons i:hover {
-            color: #f97316;
-            transform: scale(1.1);
-        }
+        .social-icons i:hover { color: #f97316; transform: scale(1.1); }
         .newsletter {
-            margin-top: 30px;
-        }
-        .newsletter p {
-            margin-bottom: 12px;
-            color: white;
-            text-align: center;
+            margin-top: 30px; text-align: center;
         }
         .newsletter input {
-            padding: 10px 16px;
-            border-radius: 40px;
-            border: none;
-            width: 100%;
-            max-width: 250px;
+            padding: 10px 16px; border-radius: 40px; border: none;
+            width: 100%; max-width: 250px;
         }
         .newsletter button {
-            background: #f97316;
-            color: #0f172a;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
+            background: #f97316; color: #0f172a; border: none;
+            padding: 10px 20px; border-radius: 40px; font-weight: 600;
+            cursor: pointer; margin-top: 8px;
         }
         .footer-links-bottom {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 32px;
-            border-top: 1px solid #334155;
-            padding-top: 30px;
-            margin-top: 40px;
-            font-size: 14px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 32px;
+            border-top: 1px solid #334155; padding-top: 30px; margin-top: 40px;
         }
-        .footer-links-bottom a {
-            color: #94a3b8;
-            text-decoration: none;
-        }
-        .footer-links-bottom a:hover {
-            color: #f97316;
-        }
-        .copyright {
-            text-align: center;
-            margin-top: 30px;
-            color: #64748b;
-            font-size: 14px;
-        }
+        .footer-links-bottom a { color: #94a3b8; text-decoration: none; }
+        .footer-links-bottom a:hover { color: #f97316; }
+        .copyright { text-align: center; margin-top: 30px; color: #64748b; }
 
-        /* -------------------- RESPONSIVE -------------------- */
+        /* Responsive */
         @media (max-width: 900px) {
-            .top-row {
-                flex-direction: column;
-                gap: 12px;
-            }
-            .search-bar {
-                width: 100%;
-                max-width: none;
-                margin: 10px 0;
-            }
-            .nav-links {
-                justify-content: center;
-            }
-            .festival-slide {
-                min-width: calc(100% / 2);
-            }
-        }
-        @media (max-width: 600px) {
-            .festival-slide {
-                min-width: 100%;
-            }
+            .top-row { flex-direction: column; gap: 12px; }
+            .search-bar { width: 100%; max-width: none; margin: 10px 0; }
+            .nav-links { justify-content: center; }
+            .two-column { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { flex-direction: column; }
+            .timeline-left, .timeline-right { width: 100%; text-align: left; padding-left: 50px; }
+            .timeline-dot { left: 20px; }
         }
     </style>
 </head>
 <body>
-    <!-- STICKY TOP BAR -->
+    <!-- STICKY TOP BAR (enhanced) -->
     <div class="top-bar">
         <div class="top-row">
             <div class="logo-area">
@@ -1042,8 +487,8 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             </div>
         </div>
         <div class="nav-links">
-            <a href="index.html" class="active">Home</a>
-            <a href="about.html">About Us</a>
+            <a href="index.html">Home</a>
+            <a href="about.html" class="active">About Us</a>
             <a href="contact.html">Contact Us</a>
             <a href="careers.html">Careers</a>
             <a href="stories.html">Stories</a>
@@ -1060,7 +505,7 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
         </div>
     </div>
 
-    <!-- HERO SLIDER -->
+    <!-- HERO SLIDER (with about-themed slides) -->
     <div class="hero-slider" id="heroSlider">
         <div class="hero-slides" id="heroSlides">
             <div class="hero-slide" style="background-image: url('hero.jpg');"></div>
@@ -1069,322 +514,213 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             <div class="hero-slide" style="background-image: url('p3.jpg');"></div>
         </div>
         <div class="hero-content">
-            <h1>Ahmedabad & Surat Photographers — <span class="hero-highlight">Your City's New Booking Platform Is Launching</span></h1>
-            <div class="countdown-block">
-                <div class="timer" id="countdown">
-                    <div class="timer-box"><span class="value" id="days">13</span><span class="label">Days</span></div>
-                    <div class="timer-box"><span class="value" id="hours">08</span><span class="label">Hours</span></div>
-                    <div class="timer-box"><span class="value" id="minutes">04</span><span class="label">Mins</span></div>
-                    <div class="timer-box"><span class="value" id="seconds">54</span><span class="label">Secs</span></div>
-                </div>
-                <button class="claim-btn-large" onclick="alert('Claim your free listing!')"><i class="fas fa-pen"></i> Claim Free Listing</button>
-            </div>
-            <div class="benefits">
-                <span>🏆 Priority Ranking</span>
-                <span>🎖️ Founding Member Badge</span>
-                <span>🚀 Early Access</span>
-                <span>📜 View T&C</span>
-            </div>
-            <div class="spots-note"><i class="fas fa-clock"></i> Or when 50 Founding Spots are filled</div>
+            <h1>We're on a Mission to <span class="hero-highlight">Revolutionize</span> Photography</h1>
+            <p>Empowering photographers and delighting clients since 2023.</p>
         </div>
         <div class="slider-dots" id="heroDots"></div>
     </div>
 
     <div class="container">
-        <!-- QUICK SEARCH FILTERS -->
-        <div class="search-row">
-            <div class="search-fields">
-                <div class="search-item"><i class="fas fa-camera"></i> <select><option>Wedding</option><option>Portrait</option><option>Event</option><option>Pre-wedding</option></select></div>
-                <div class="search-item"><i class="fas fa-location-dot"></i> <input type="text" placeholder="Enter location" value="Mumbai"></div>
-                <div class="search-item"><i class="fas fa-calendar"></i> <input type="date" value="2025-06-15"></div>
-            </div>
-            <div class="current-loc" onclick="alert('Use current location (demo)')"><i class="fas fa-crosshairs"></i> Current: Mumbai</div>
+        <!-- INTRO -->
+        <div class="about-intro">
+            <h2>Building the Future of Photography</h2>
+            <p>PhotoWale is India's fastest-growing photography marketplace, trusted by thousands of clients and photographers across the country.</p>
         </div>
 
-        <!-- CATEGORIES TABS -->
-        <div class="categories">
-            <span class="active" onclick="alert('Packages (demo)')">PACKAGES</span>
-            <span onclick="alert('Wedding (demo)')">WEDDING</span>
-            <span onclick="alert('Portrait (demo)')">PORTRAIT</span>
-            <span onclick="alert('Event (demo)')">EVENT</span>
-            <span onclick="alert('Pre-Wedding (demo)')">PRE-WEDDING</span>
-            <span onclick="alert('Baby (demo)')">BABY</span>
-            <span onclick="alert('Commercial (demo)')">COMMERCIAL</span>
-            <span onclick="alert('More (demo)')">MORE</span>
+        <!-- STATS ROW (expanded) -->
+        <div class="stats-row">
+            <div class="stat-item"><i class="fas fa-camera"></i><div class="stat-number">500+</div><div class="stat-label">Photographers</div></div>
+            <div class="stat-item"><i class="fas fa-check-circle"></i><div class="stat-number">100%</div><div class="stat-label">Verified</div></div>
+            <div class="stat-item"><i class="fas fa-users"></i><div class="stat-number">15k+</div><div class="stat-label">Happy Clients</div></div>
+            <div class="stat-item"><i class="fas fa-calendar"></i><div class="stat-number">8k+</div><div class="stat-label">Events Covered</div></div>
+            <div class="stat-item"><i class="fas fa-city"></i><div class="stat-number">12</div><div class="stat-label">Cities</div></div>
         </div>
 
-        <!-- FIXED PACKAGES -->
-        <h2 class="section-title">Fixed Photography Packages</h2>
-        <div class="fixed-packages">
-            <div class="package-card" onclick="alert('Essential Wedding Plan details (demo)')">
-                <div class="offer-tag">14% OFF All-Inclusive</div>
-                <p><i class="fas fa-video"></i> Videographer | <i class="fas fa-camera"></i> Photographer | Extra</p>
-                <h3>Essential Wedding Plan - 1Day</h3>
-                <div class="price">₹54,450 <small>₹63,000</small></div>
-                <div class="features-list">• 8 hours • 300 photos • online gallery</div>
-            </div>
-            <div style="flex:2; min-width:200px;">
-                <p>Choose from flexible, ready-to-book photo packages tailored to your needs, budget, and style.</p>
-                <button class="btn-primary" onclick="alert('View all packages (demo)')">View All</button>
-            </div>
-        </div>
+        <!-- OUR STORY -->
+        <h2 class="section-title">Our Story</h2>
+        <p style="font-size: 18px; max-width: 900px; margin-bottom: 40px; color: #334155;">
+            PhotoWale was born in 2023 out of a simple observation: booking a professional photographer was unnecessarily complicated. Clients struggled to find trusted professionals, while talented photographers faced inconsistent work and payment hassles. We set out to build a platform that brings transparency, trust, and technology to the photography industry. Today, we're proud to be the go-to choice for thousands of customers and photographers across India.
+        </p>
 
-        <!-- FEATURED DEALS -->
-        <h2 class="section-title">Today's Top Deals</h2>
-        <div class="deals-grid">
-            <div class="deal-card" onclick="alert('Deal: Wedding package 20% off (demo)')">
-                <img src="wedding.jpg" alt="Deal">
-                <h4>Wedding Premium</h4>
-                <div class="deal-price">₹49,999 <small>₹65,000</small></div>
-                <span style="color:#f97316; font-weight:600;">20% off</span>
+        <!-- TIMELINE -->
+        <h2 class="section-title">Our Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-left">
+                    <div class="timeline-year">2023</div>
+                    <h4>The Idea</h4>
+                    <p>Founders identified the gap and started building.</p>
+                </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-right"></div>
             </div>
-            <div class="deal-card" onclick="alert('Deal: Portrait session (demo)')">
-                <img src="p1.jpg" alt="Deal">
-                <h4>Portrait Session</h4>
-                <div class="deal-price">₹3,999 <small>₹5,000</small></div>
-                <span style="color:#f97316; font-weight:600;">20% off</span>
-            </div>
-            <div class="deal-card" onclick="alert('Deal: Pre-wedding shoot (demo)')">
-                <img src="prewedding.jpg" alt="Deal">
-                <h4>Pre-Wedding Shoot</h4>
-                <div class="deal-price">₹12,999 <small>₹16,000</small></div>
-                <span style="color:#f97316; font-weight:600;">19% off</span>
-            </div>
-            <div class="deal-card" onclick="alert('Deal: Corporate event (demo)')">
-                <img src="night.jpg" alt="Deal">
-                <h4>Corporate Event</h4>
-                <div class="deal-price">₹24,999 <small>₹30,000</small></div>
-                <span style="color:#f97316; font-weight:600;">17% off</span>
-            </div>
-        </div>
-
-        <!-- TRENDING PHOTOGRAPHERS -->
-        <h2 class="section-title">Trending Near You</h2>
-        <div class="trending-grid">
-            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
-                <div class="trending-image" style="background-image: url('photographer.jpg');"></div>
-                <div class="trending-info">
-                    <h4>Rohan Mehta</h4>
-                    <div>Wedding, Portrait</div>
-                    <div><i class="fas fa-star" style="color:gold;"></i> 4.9 (120 reviews)</div>
+            <div class="timeline-item">
+                <div class="timeline-left"></div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-right">
+                    <div class="timeline-year">2024</div>
+                    <h4>Launch in Ahmedabad</h4>
+                    <p>50 photographers, 200 bookings in first 3 months.</p>
                 </div>
             </div>
-            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
-                <div class="trending-image" style="background-image: url('hero.jpg');"></div>
-                <div class="trending-info">
-                    <h4>Priya Kapoor</h4>
-                    <div>Fashion, Commercial</div>
-                    <div><i class="fas fa-star" style="color:gold;"></i> 4.8 (95 reviews)</div>
+            <div class="timeline-item">
+                <div class="timeline-left">
+                    <div class="timeline-year">2025</div>
+                    <h4>Expansion to Surat & Mumbai</h4>
+                    <p>300+ photographers, 2000+ bookings.</p>
                 </div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-right"></div>
             </div>
-            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
-                <div class="trending-image" style="background-image: url('p2.jpg');"></div>
-                <div class="trending-info">
-                    <h4>Arjun Singh</h4>
-                    <div>Event, Candid</div>
-                    <div><i class="fas fa-star" style="color:gold;"></i> 4.7 (210 reviews)</div>
+            <div class="timeline-item">
+                <div class="timeline-left"></div>
+                <div class="timeline-dot"></div>
+                <div class="timeline-right">
+                    <div class="timeline-year">2026</div>
+                    <h4>Nationwide Presence</h4>
+                    <p>12 cities, 500+ photographers, 8000+ events.</p>
                 </div>
             </div>
         </div>
 
-        <!-- CUSTOM PACKAGES -->
-        <h2 class="section-title">Custom Photography Packages</h2>
-        <div class="custom-packages-grid">
-            <div class="custom-item" onclick="alert('Makeup And Hair package (demo)')">
-                <img class="card-image" src="birthday.jpg" alt="Makeup">
-                <h4>Makeup And Hair</h4>
-                <div class="custom-price">₹2,178 <small>₹2,754</small> /hr</div>
+        <!-- THE PROBLEMS WE SOLVED -->
+        <div class="two-column">
+            <div class="problem-box">
+                <h3><i class="fas fa-camera" style="color:#f97316;"></i> For Photographers</h3>
+                <ul>
+                    <li><i class="fas fa-times-circle"></i> Inconsistent bookings & income</li>
+                    <li><i class="fas fa-times-circle"></i> Endless admin and follow-ups</li>
+                    <li><i class="fas fa-times-circle"></i> Payment delays and negotiation hassles</li>
+                    <li><i class="fas fa-times-circle"></i> Lack of online presence</li>
+                </ul>
             </div>
-            <div class="custom-item" onclick="alert('Baby Closeups package (demo)')">
-                <img class="card-image" src="p1.jpg" alt="Baby">
-                <h4>Baby Closeups</h4>
-                <div class="custom-price">₹2,178 <small>₹2,628</small> /hr</div>
-            </div>
-            <div class="custom-item" onclick="alert('Vasant Panchmi package (demo)')">
-                <img class="card-image" src="diwali.jpg" alt="Festival">
-                <h4>Vasant Panchmi</h4>
-                <div class="custom-price">₹2,418 <small>₹2,999</small> /hr</div>
-            </div>
-        </div>
-
-        <!-- BEST SELLING -->
-        <h2 class="section-title">Best Selling on PhotoWale</h2>
-        <div class="best-grid">
-            <div class="best-card" onclick="alert('Wedding Photography (demo)')">
-                <img src="wedding.jpg" alt="Wedding">
-                <h4>Wedding Photography</h4>
-                <p>100+ bookings</p>
-            </div>
-            <div class="best-card" onclick="alert('Family Portraits (demo)')">
-                <img src="birthday.jpg" alt="Family">
-                <h4>Family Portraits</h4>
-                <p>50+ bookings</p>
-            </div>
-            <div class="best-card" onclick="alert('Corporate Events (demo)')">
-                <img src="night.jpg" alt="Corporate">
-                <h4>Corporate Events</h4>
-                <p>60+ bookings</p>
+            <div class="problem-box">
+                <h3><i class="fas fa-users" style="color:#f97316;"></i> For Clients</h3>
+                <ul>
+                    <li><i class="fas fa-times-circle"></i> No trusted way to verify photographers</li>
+                    <li><i class="fas fa-times-circle"></i> Confusing pricing & hidden costs</li>
+                    <li><i class="fas fa-times-circle"></i> Multiple calls to compare options</li>
+                    <li><i class="fas fa-times-circle"></i> Uncertainty about quality</li>
+                </ul>
             </div>
         </div>
 
-        <!-- BRAND STORE -->
-        <h2 class="section-title">Shop by Brand</h2>
-        <div class="brands-grid">
-            <div class="brand-item" onclick="alert('Canon (demo)')"><i class="fas fa-camera"></i><br>Canon</div>
-            <div class="brand-item" onclick="alert('Nikon (demo)')"><i class="fas fa-camera-retro"></i><br>Nikon</div>
-            <div class="brand-item" onclick="alert('Sony (demo)')"><i class="fas fa-video"></i><br>Sony</div>
-            <div class="brand-item" onclick="alert('GoPro (demo)')"><i class="fas fa-helicopter"></i><br>GoPro</div>
+        <!-- WHAT WE BUILT -->
+        <h2 class="section-title">What We Built</h2>
+        <div class="features-grid">
+            <div class="feature-card"><i class="fas fa-check-circle"></i><h3>Verified Marketplace</h3><p>Every photographer is background-checked.</p></div>
+            <div class="feature-card"><i class="fas fa-calendar-check"></i><h3>Instant Booking</h3><p>Book in minutes, not days.</p></div>
+            <div class="feature-card"><i class="fas fa-shield-alt"></i><h3>Secure Payments</h3><p>Funds held securely until satisfaction.</p></div>
+            <div class="feature-card"><i class="fas fa-tools"></i><h3>Business Tools</h3><p>Free portfolio, scheduling, and invoicing.</p></div>
+            <div class="feature-card"><i class="fas fa-headset"></i><h3>24/7 Support</h3><p>We're here whenever you need us.</p></div>
         </div>
 
-        <!-- CUSTOMER REVIEWS -->
-        <h2 class="section-title">What Our Customers Say</h2>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-avatar"><i class="fas fa-user"></i></div>
-                    <div>
-                        <h4>Rahul Sharma</h4>
-                        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    </div>
+        <!-- MISSION / VISION -->
+        <div class="mission-vision-grid">
+            <div class="mv-card"><i class="fas fa-bullseye"></i><h3>Our Mission</h3><p>Make professional photography accessible to everyone.</p></div>
+            <div class="mv-card"><i class="fas fa-eye"></i><h3>Our Vision</h3><p>World's most trusted photography marketplace.</p></div>
+            <div class="mv-card"><i class="fas fa-rocket"></i><h3>Our Goal</h3><p>Empower 10,000 photographers by 2028.</p></div>
+        </div>
+
+        <!-- CORE VALUES -->
+        <h2 class="section-title">Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card"><i class="fas fa-medal"></i><h3>Quality First</h3><p>We never compromise on quality.</p></div>
+            <div class="value-card"><i class="fas fa-eye"></i><h3>Transparency</h3><p>No hidden fees, ever.</p></div>
+            <div class="value-card"><i class="fas fa-heart"></i><h3>Community</h3><p>We grow together.</p></div>
+        </div>
+
+        <!-- AWARDS -->
+        <h2 class="section-title">Awards & Recognition</h2>
+        <div class="awards-grid">
+            <div class="award-card"><i class="fas fa-trophy"></i><h4>Best Startup 2025</h4><p>TechGuj</p></div>
+            <div class="award-card"><i class="fas fa-award"></i><h4>Innovation Award</h4><p>India Photography Forum</p></div>
+            <div class="award-card"><i class="fas fa-star"></i><h4>Top 10 Marketplaces</h4><p>YourStory</p></div>
+            <div class="award-card"><i class="fas fa-medal"></i><h4>People's Choice</h4><p>Photography Awards 2026</p></div>
+        </div>
+
+        <!-- PARTNERS -->
+        <h2 class="section-title">Our Partners</h2>
+        <div class="partners-grid">
+            <div class="partner-card"><i class="fas fa-camera"></i><h4>Canon</h4></div>
+            <div class="partner-card"><i class="fas fa-camera-retro"></i><h4>Nikon</h4></div>
+            <div class="partner-card"><i class="fas fa-video"></i><h4>Sony</h4></div>
+            <div class="partner-card"><i class="fas fa-credit-card"></i><h4>Razorpay</h4></div>
+            <div class="partner-card"><i class="fas fa-cloud"></i><h4>AWS</h4></div>
+        </div>
+
+        <!-- PHOTOGRAPHER TESTIMONIALS -->
+        <h2 class="section-title">What Photographers Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>"PhotoWale gave me consistent work and peace of mind."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fas fa-user"></i></div>
+                    <div><h4>Rajan Sharma</h4><p>Wedding Photographer</p></div>
                 </div>
-                <p>"Amazing experience! The photographer was professional and the photos turned out beautiful."</p>
             </div>
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-avatar"><i class="fas fa-user"></i></div>
-                    <div>
-                        <h4>Priya Desai</h4>
-                        <div class="review-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    </div>
+            <div class="testimonial-card">
+                <p>"The Pro subscription is a game-changer. Highly recommended."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fas fa-user"></i></div>
+                    <div><h4>Anjali Mehta</h4><p>Portrait Photographer</p></div>
                 </div>
-                <p>"Booking was super easy, and the photographer was on time. The quality exceeded my expectations."</p>
             </div>
-        </div>
-
-        <!-- SPECIAL OFFERS -->
-        <h2 class="section-title">Special Offers</h2>
-        <div class="offers-grid">
-            <div class="offer-card" onclick="alert('20% off on first booking (demo)')">
-                <i class="fas fa-tag"></i>
-                <h4>New User?</h4>
-                <p>20% off on first booking</p>
-            </div>
-            <div class="offer-card" onclick="alert('Refer a friend (demo)')">
-                <i class="fas fa-gift"></i>
-                <h4>Refer & Earn</h4>
-                <p>Get ₹500 for each referral</p>
-            </div>
-        </div>
-
-        <!-- FESTIVAL CAROUSEL (FIXED) -->
-        <h2 class="section-title">Festival & Celebrations</h2>
-        <div class="festival-carousel" id="festivalCarousel">
-            <div class="festival-slides" id="festivalSlides"></div>
-            <div class="carousel-dots" id="festivalDots"></div>
-        </div>
-
-        <!-- HOW TO BOOK (FIXED) -->
-        <h2 class="section-title">How to Book</h2>
-        <div class="steps-container">
-            <div class="step" onclick="alert('Discover (demo)')">
-                <div class="step-icon"><i class="fas fa-search"></i></div>
-                <h3>Discover</h3>
-                <p>Find the perfect photographer. Enter your event details, date, and style.</p>
-            </div>
-            <div class="step" onclick="alert('Decide (demo)')">
-                <div class="step-icon"><i class="fas fa-balance-scale"></i></div>
-                <h3>Decide</h3>
-                <p>Compare portfolios, transparent pricing, and authentic reviews.</p>
-            </div>
-            <div class="step" onclick="alert('Deal (demo)')">
-                <div class="step-icon"><i class="fas fa-handshake"></i></div>
-                <h3>Deal</h3>
-                <p>Book with confidence. Safe payments and protection.</p>
-            </div>
-        </div>
-
-        <!-- TRUSTED BY THOUSANDS -->
-        <div class="trust-grid">
-            <div class="trust-item"><i class="fas fa-users"></i><h3>Growing Community</h3><p>Join thousands</p></div>
-            <div class="trust-item"><i class="fas fa-check-circle"></i><h3>Verified Photographers</h3><p>Screened</p></div>
-            <div class="trust-item"><i class="fas fa-headset"></i><h3>Customer Support</h3><p>24/7</p></div>
-            <div class="trust-item"><i class="fas fa-star"></i><h3>Authentic Reviews</h3><p>Real feedback</p></div>
-        </div>
-
-        <!-- PRO STEPS -->
-        <div class="champ-steps">
-            <h2>How PhotoWale Pro Works</h2>
-            <div class="champ-grid">
-                <div class="champ-card" onclick="alert('Create Profile (demo)')">
-                    <div class="champ-icon"><i class="fas fa-user-circle"></i></div>
-                    <h4>Create Profile</h4>
-                </div>
-                <div class="champ-card" onclick="alert('Showcase Work (demo)')">
-                    <div class="champ-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <h4>Showcase Work</h4>
-                </div>
-                <div class="champ-card" onclick="alert('Get Bookings (demo)')">
-                    <div class="champ-icon"><i class="fas fa-calendar-check"></i></div>
-                    <h4>Get Bookings</h4>
+            <div class="testimonial-card">
+                <p>"I've doubled my income since joining PhotoWale."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fas fa-user"></i></div>
+                    <div><h4>Vikram Singh</h4><p>Event Photographer</p></div>
                 </div>
             </div>
         </div>
 
-        <!-- RECENTLY VIEWED (ENHANCED) -->
-        <h2 class="section-title">Recently Viewed</h2>
-        <div class="recent-grid">
-            <div class="recent-item" onclick="alert('Wedding package (demo)')">
-                <img src="wedding.jpg" alt="Wedding">
-                <p>Wedding Premium</p>
-            </div>
-            <div class="recent-item" onclick="alert('Portrait session (demo)')">
-                <img src="p1.jpg" alt="Portrait">
-                <p>Portrait Session</p>
-            </div>
-            <div class="recent-item" onclick="alert('Pre-wedding shoot (demo)')">
-                <img src="prewedding.jpg" alt="Pre-wedding">
-                <p>Pre-Wedding</p>
-            </div>
-            <div class="recent-item" onclick="alert('Corporate event (demo)')">
-                <img src="night.jpg" alt="Corporate">
-                <p>Corporate Event</p>
-            </div>
-            <div class="recent-item" onclick="alert('Birthday package (demo)')">
-                <img src="birthday.jpg" alt="Birthday">
-                <p>Birthday Special</p>
-            </div>
+        <!-- LEADERSHIP PRINCIPLES (new) -->
+        <h2 class="section-title">Leadership Principles</h2>
+        <div class="principles-grid">
+            <div class="principle-card"><i class="fas fa-lightbulb"></i><h4>Innovate Daily</h4><p>We constantly improve.</p></div>
+            <div class="principle-card"><i class="fas fa-handshake"></i><h4>Customer Obsession</h4><p>Clients come first.</p></div>
+            <div class="principle-card"><i class="fas fa-users"></i><h4>Empower Others</h4><p>We lift each other.</p></div>
+            <div class="principle-card"><i class="fas fa-chart-line"></i><h4>Think Big</h4><p>No goal is too high.</p></div>
         </div>
 
-        <!-- APP DOWNLOAD (FIXED) -->
-        <div class="app-section">
-            <div class="app-left">
-                <h2>Download the PhotoWale App</h2>
-                <p>Get exclusive deals and book photographers on the go.</p>
-                <div class="app-offer">Get 20% OFF with code <strong>WELCOME20</strong></div>
-                <div class="mobile-input">
-                    <input type="text" placeholder="Enter mobile number" value="+91 ">
-                    <button onclick="alert('Link sent (demo)')">Send Link</button>
-                </div>
-                <div class="qr-stats">
-                    <div class="qr-placeholder"><i class="fas fa-qrcode fa-2x"></i></div>
-                    <div>
-                        <div>10k+ Active Users</div>
-                        <div>4.9 ★ App Rating</div>
-                        <div>500+ Photographers</div>
-                    </div>
-                </div>
-                <div class="app-badges-white">
-                    <div class="app-badge-white" onclick="alert('Google Play (demo)')"><i class="fab fa-google-play"></i> Google Play</div>
-                    <div class="app-badge-white" onclick="alert('App Store (demo)')"><i class="fab fa-apple"></i> App Store</div>
-                </div>
-            </div>
-            <div class="app-right">
-                <img src="hero.webp" alt="app mockup" onerror="this.src='https://via.placeholder.com/300x300?text=App+Mockup'">
+        <!-- PRESS MENTIONS (new) -->
+        <h2 class="section-title">As Seen In</h2>
+        <div class="press-grid">
+            <div class="press-item"><i class="fas fa-newspaper"></i><h4>TechCrunch</h4></div>
+            <div class="press-item"><i class="fas fa-tv"></i><h4>YourStory</h4></div>
+            <div class="press-item"><i class="fas fa-broadcast-tower"></i><h4>CNBC</h4></div>
+            <div class="press-item"><i class="fas fa-microphone"></i><h4>Economic Times</h4></div>
+            <div class="press-item"><i class="fas fa-podcast"></i><h4>Inc42</h4></div>
+        </div>
+
+        <!-- TEAM (expanded to 10 members) -->
+        <h2 class="section-title">Meet the Visionaries</h2>
+        <div class="team-grid">
+            <div class="team-card"><div class="team-image" style="background-image: url('founder.jpeg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>Founder & MD</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('ceo.jpeg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>Co-Founder & CEO</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('technical.jpeg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>CTO</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('photographyc.jpeg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>Chief Photographer</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('hero.jpg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>CFO</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('p1.jpg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>Head of Marketing</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('p2.jpg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>Head of Operations</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('p3.jpg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>Head of Customer Success</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('wedding.jpg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>Lead Designer</p></div></div>
+            <div class="team-card"><div class="team-image" style="background-image: url('night.jpg');"></div><div class="team-info"><h3>Saurabh Kumar</h3><p>HR Director</p></div></div>
+        </div>
+
+        <!-- FINAL CTA -->
+        <div class="cta-section">
+            <h2>Ready to Start Your Journey?</h2>
+            <p>Join thousands of satisfied clients and photographers on PhotoWale.</p>
+            <div class="cta-buttons" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-primary" onclick="alert('Browse photographers (demo)')">Book Now</button>
+                <button class="btn-secondary" onclick="alert('Join as photographer (demo)')">Become a Photographer</button>
             </div>
         </div>
     </div>
 
-    <!-- FOOTER (ENHANCED) -->
+    <!-- FOOTER (enhanced) -->
     <div class="footer">
         <div class="footer-grid">
             <div class="footer-col">
@@ -1414,7 +750,7 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             <div class="footer-col">
                 <h4>REGISTERED OFFICE</h4>
                 <p>JayVind IT-Tech Pvt Ltd<br>501, Parvati Nandan Park<br>Opp. Sarkhej Railway stn<br>Ahmedabad - 382210</p>
-                <p>CIN: U519733633262<br>Phone: +91 9135791602</p>
+                <p>📞 +91 9135791602</p>
                 <div class="social-icons">
                     <i class="fab fa-instagram" onclick="alert('Instagram (demo)')"></i>
                     <i class="fab fa-linkedin-in" onclick="alert('LinkedIn (demo)')"></i>
@@ -1425,7 +761,7 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
             </div>
         </div>
         <div class="newsletter">
-            <p style="color:white; text-align:center;">Subscribe for updates & offers</p>
+            <p style="color:white;">Subscribe for updates & offers</p>
             <div style="display:flex; justify-content:center; gap:10px;">
                 <input type="email" placeholder="Your email">
                 <button onclick="alert('Subscribed (demo)')">Subscribe</button>
@@ -1440,31 +776,7 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
     </div>
 
     <script>
-        // Countdown timer
-        function startCountdown() {
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 13);
-            targetDate.setHours(0,0,0,0);
-            function updateTimer() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-                if (distance < 0) {
-                    document.getElementById('days').innerText = '00';
-                    document.getElementById('hours').innerText = '00';
-                    document.getElementById('minutes').innerText = '00';
-                    document.getElementById('seconds').innerText = '00';
-                    return;
-                }
-                document.getElementById('days').innerText = Math.floor(distance / (1000*60*60*24)).toString().padStart(2,'0');
-                document.getElementById('hours').innerText = Math.floor((distance % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2,'0');
-                document.getElementById('minutes').innerText = Math.floor((distance % (1000*60*60)) / (1000*60)).toString().padStart(2,'0');
-                document.getElementById('seconds').innerText = Math.floor((distance % (1000*60)) / 1000).toString().padStart(2,'0');
-            }
-            updateTimer(); setInterval(updateTimer, 1000);
-        }
-        startCountdown();
-
-        // Hero slider
+        // Hero slider functionality
         const heroSlides = document.getElementById('heroSlides');
         const heroDots = document.getElementById('heroDots');
         const heroImages = ['hero.jpg', 'p1.jpg', 'p2.jpg', 'p3.jpg'];
@@ -1482,40 +794,6 @@ We have updated `index.html` to remove all `images/` folder prefixes since image
         function updateHero() { heroSlides.style.transform = `translateX(-${heroIndex * 100}%)`; updateHeroDots(); }
         setInterval(() => { heroIndex = (heroIndex + 1) % heroImages.length; updateHero(); }, 5000);
         updateHero();
-
-        // Festival carousel
-        const festivalSlides = document.getElementById('festivalSlides');
-        const festivalDots = document.getElementById('festivalDots');
-        const festivals = [
-            { name: 'Diwali', img: 'diwali.jpg' }, { name: 'Holi', img: 'holi.jpg' },
-            { name: 'Eid', img: 'eid.jpg' }, { name: 'Christmas', img: 'christmas.jpg' },
-            { name: 'Durga Puja', img: 'durgapuja.jpg' }, { name: 'Ganesh Puja', img: 'ganeshpuja.jpg' },
-            { name: 'Onam', img: 'onam.jpg' }, { name: 'Pongal', img: 'pongal.jpg' },
-            { name: 'Raksha Bandhan', img: 'rakshabandhan.jpg' }, { name: 'Makar Sankranti', img: 'makarsankratri.jpg' },
-            { name: 'Chhath', img: 'chhath.jpg' }
-        ];
-        let festIndex = 0; const slidesPerView = 4;
-        function renderFestival() {
-            let html = '';
-            festivals.slice(0,8).forEach(f => { // show 8 for demo
-                html += `<div class="festival-slide"><div class="festival-card" onclick="alert('${f.name} photography (demo)')"><img src="${f.img}" alt="${f.name}" onerror="this.src='https://via.placeholder.com/200x140?text=${f.name}'"><h4>${f.name}</h4></div></div>`;
-            });
-            festivalSlides.innerHTML = html;
-        }
-        function updateFestivalDots() {
-            const dotCount = Math.ceil(8 / slidesPerView);
-            festivalDots.innerHTML = '';
-            for(let i=0; i<dotCount; i++) {
-                const d = document.createElement('span'); d.classList.add('fest-dot');
-                if(i === Math.floor(festIndex / slidesPerView)) d.classList.add('active');
-                d.onclick = () => { festIndex = i * slidesPerView; updateFestival(); };
-                festivalDots.appendChild(d);
-            }
-        }
-        function updateFestival() { festivalSlides.style.transform = `translateX(-${festIndex * (100 / slidesPerView)}%)`; updateFestivalDots(); }
-        setInterval(() => { festIndex = (festIndex + slidesPerView) % 8; updateFestival(); }, 5000);
-        renderFestival(); updateFestival();
     </script>
 </body>
 </html>
-```
