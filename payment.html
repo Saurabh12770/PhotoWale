@@ -498,21 +498,22 @@
             </div>
         </div>
         <div class="nav-links">
-            <a href="#" onclick="alert('Home')">Home</a>
-            <a href="#" onclick="alert('About')">About Us</a>
-            <a href="#" onclick="alert('Contact')">Contact Us</a>
-            <a href="#" onclick="alert('Careers')">Careers</a>
-            <a href="#" onclick="alert('Stories')">Stories</a>
-            <a href="#" onclick="alert('Blog')">Blog</a>
-            <a href="#" onclick="alert('FAQ')">FAQ</a>
-            <a href="#" onclick="alert('Terms')">Terms Of Use</a>
-            <a href="#" onclick="alert('Privacy')">Privacy Policy</a>
-            <a href="#" class="active" onclick="alert('Payment page')">Payment</a>
-            <a href="#" onclick="alert('Selection & Delivery')">Selection & Delivery</a>
-            <a href="#" onclick="alert('Reschedule')">Reschedule</a>
-            <a href="#" onclick="alert('Refund')">Refund</a>
-            <a href="#" onclick="alert('Gift Cards')">Gift Cards</a>
-            <a href="#" onclick="alert('Help')">Help</a>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="careers.html">Careers</a>
+            <a href="stories.html">Stories</a>
+            <a href="blog.html">Blog</a>
+            <a href="faq.html">FAQ</a>
+            <a href="term.html">Terms Of Use</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="payment.html">Payments</a>
+            <a href="selection_delivery.html" class="active">Selection & Delivery</a>
+            <a href="reschedule.html">Reschedule</a>
+            <a href="refund.html">Refund</a>
+            <a href="gift_card.html">Gift Cards</a>
+            <a href="help_center.html">Help</a>
+            <a href="press.html">Press</a>
         </div>
     </div>
 
@@ -689,15 +690,57 @@
     </div>
 
     <!-- FOOTER (enhanced) -->
-    <div class="footer">
+    div class="footer">
         <div class="footer-grid">
-            <div class="footer-col"><h4>ABOUT</h4><a href="#" onclick="alert('About')">About Us</a><a href="#" onclick="alert('Contact')">Contact Us</a><a href="#" onclick="alert('Careers')">Careers</a><a href="#" onclick="alert('Stories')">Stories</a><a href="#" onclick="alert('Press')">Press</a><a href="#" onclick="alert('Blog')">Blog</a></div>
-            <div class="footer-col"><h4>HELP</h4><a href="#" onclick="alert('Payments')">Payments</a><a href="#" onclick="alert('Selection & Delivery')">Selection & Delivery</a><a href="#" onclick="alert('Reschedule')">Reschedule</a><a href="#" onclick="alert('FAQ')">FAQ</a></div>
-            <div class="footer-col"><h4>CONSUMER POLICY</h4><a href="#" onclick="alert('Terms')">Terms Of Use</a><a href="#" onclick="alert('Privacy')">Privacy Policy</a><a href="#" onclick="alert('Cancellation')">Cancellation Policy</a><a href="#" onclick="alert('Refund')">Refund Policy</a><a href="#" onclick="alert('Sitemap')">Sitemap</a></div>
-            <div class="footer-col"><h4>REGISTERED OFFICE</h4><p>JayVind IT-Tech Pvt Ltd<br>501, Parvati Nandan Park<br>Opp. Sarkhej Railway stn<br>Ahmedabad - 382210</p><p>📞 +91 9135791602</p><div class="social-icons"><i class="fab fa-instagram" onclick="alert('Instagram')"></i><i class="fab fa-linkedin-in" onclick="alert('LinkedIn')"></i><i class="fab fa-facebook-f" onclick="alert('Facebook')"></i><i class="fab fa-twitter" onclick="alert('Twitter')"></i><i class="fab fa-youtube" onclick="alert('YouTube')"></i></div></div>
+            <div class="footer-col">
+                <h4>ABOUT</h4>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="careers.html">Careers</a>
+                <a href="stories.html">Stories</a>
+                <a href="press.html">Press</a>
+                <a href="blog.html">Blog</a>
+            </div>
+            <div class="footer-col">
+                <h4>HELP</h4>
+                <a href="payment.html">Payments</a>
+                <a href="selection_delivery.html">Selection & Delivery</a>
+                <a href="reschedule.html">Reschedule</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+            <div class="footer-col">
+                <h4>CONSUMER POLICY</h4>
+                <a href="term.html">Terms Of Use</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="cancle.html">Cancellation Policy</a>
+                <a href="refund.html">Refund Policy</a>
+                <a href="sitemap.html">Sitemap</a>
+            </div>
+            <div class="footer-col">
+                <h4>REGISTERED OFFICE</h4>
+                <p>JayVind IT-Tech Pvt Ltd<br>501, Parvati Nandan Park<br>Opp. Sarkhej Railway stn<br>Ahmedabad - 382210</p>
+                <p>📞 +91 9135791602</p>
+                <div class="social-icons">
+                    <i class="fab fa-instagram" onclick="alert('Instagram (demo)')"></i>
+                    <i class="fab fa-linkedin-in" onclick="alert('LinkedIn (demo)')"></i>
+                    <i class="fab fa-facebook-f" onclick="alert('Facebook (demo)')"></i>
+                    <i class="fab fa-twitter" onclick="alert('Twitter (demo)')"></i>
+                    <i class="fab fa-youtube" onclick="alert('YouTube (demo)')"></i>
+                </div>
+            </div>
         </div>
-        <div class="newsletter"><p style="color:white;">Subscribe for updates & offers</p><div style="display:flex; justify-content:center; gap:10px;"><input type="email" placeholder="Your email" id="newsEmail"><button onclick="alert('Subscribed: '+document.getElementById('newsEmail').value)">Subscribe</button></div></div>
-        <div class="footer-links-bottom"><a href="#" onclick="alert('Become Pro')">Become a PhotoWale Pro</a><a href="#" onclick="alert('Gift Cards')">Gift Cards</a><a href="#" onclick="alert('Help Center')">Help Center</a></div>
+        <div class="newsletter">
+            <p style="color:white;">Subscribe for updates & offers</p>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <input type="email" placeholder="Your email">
+                <button onclick="alert('Subscribed (demo)')">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-links-bottom">
+            <a href="become_photowale_pro.html">Become a PhotoWale Pro</a>
+            <a href="gift_card.html">Gift Cards</a>
+            <a href="help_center.html">Help Center</a>
+        </div>
         <div class="copyright">© 2026 PhotoWale.com (formerly PhotoWale)</div>
     </div>
 
