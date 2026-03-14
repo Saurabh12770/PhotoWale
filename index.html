@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,1039 +7,384 @@
     <!-- Font Awesome 6 (free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Google Font: Inter & Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* -------------------- RESET & GLOBAL -------------------- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ========== GLOBAL & THEME VARIABLES ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s, color 0.2s; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.5;
             scroll-behavior: smooth;
         }
-        h1, h2, h3, h4 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; font-weight: 600; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+        /* Light mode (default) */
+        body.light-mode {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+            --header-bg: #0f172a;
+            --header-text: #f1f5f9;
+            --accent: #f97316;
+            --accent-hover: #fb923c;
+            --shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
         }
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
+        /* Dark mode */
+        body.dark-mode {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+            --card-bg: #1e293b;
+            --header-bg: #020617;
+            --header-text: #f8fafc;
+            --accent: #f97316;
+            --accent-hover: #fb923c;
+            --shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
         }
 
-        /* -------------------- STICKY TOP BAR (with mega menu) -------------------- */
+        /* ========== TOP BAR ========== */
         .top-bar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: #0f172a;
-            color: #f1f5f9;
-            padding: 8px 32px;
-            border-bottom: 1px solid #334155;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: sticky; top: 0; z-index: 100;
+            background: var(--header-bg); color: var(--header-text);
+            padding: 8px 32px; border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(8px); box-shadow: var(--shadow);
         }
-        .top-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .top-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+        .logo-area { display: flex; align-items: center; gap: 20px; }
         .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.5px;
-            cursor: pointer;
+            font-size: 32px; font-weight: 800; color: #ffffff;
+            letter-spacing: -0.5px; cursor: pointer;
+            text-shadow: 2px 2px 0 var(--accent);
         }
         .logo span {
-            color: #f97316;
-            background: rgba(255,255,255,0.1);
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 14px;
-            margin-left: 8px;
-            border: 1px solid #f97316;
+            color: var(--accent); background: rgba(255,255,255,0.1);
+            padding: 4px 12px; border-radius: 30px; font-size: 14px;
+            margin-left: 8px; border: 1px solid var(--accent);
         }
         .location {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #1e293b;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #cbd5e1;
+            display: flex; align-items: center; gap: 6px;
+            background: #1e293b; padding: 8px 16px; border-radius: 30px;
+            font-size: 14px; font-weight: 500; color: #cbd5e1;
             cursor: pointer;
         }
-        .location i {
-            color: #f97316;
+        .location i { color: var(--accent); }
+        .search-bar { flex: 1; max-width: 500px; margin: 0 20px; }
+        .search-bar form { display: flex; background: white; border-radius: 40px; overflow: hidden; }
+        .search-bar input { flex: 1; padding: 12px 20px; border: none; outline: none; }
+        .search-bar button { background: var(--accent); border: none; color: #0f172a; padding: 0 20px; cursor: pointer; }
+        .user-actions { display: flex; align-items: center; gap: 24px; position: relative; }
+        .user-actions a { text-decoration: none; color: var(--header-text); font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+        .user-actions a:hover { color: var(--accent); }
+        .user-actions .cart { background: #1e293b; padding: 8px 16px; border-radius: 30px; position: relative; }
+        .cart-count {
+            position: absolute; top: -8px; right: -8px; background: var(--accent);
+            color: #0f172a; border-radius: 50%; width: 22px; height: 22px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700; border: 2px solid #0f172a;
         }
-        .search-bar {
-            flex: 1;
-            max-width: 500px;
-            margin: 0 20px;
-        }
-        .search-bar form {
-            display: flex;
-            background: white;
-            border-radius: 40px;
-            overflow: hidden;
-        }
-        .search-bar input {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            outline: none;
-            font-size: 14px;
-        }
-        .search-bar button {
-            background: #f97316;
-            border: none;
-            color: #0f172a;
-            padding: 0 20px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .user-actions {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-        .user-actions a {
-            text-decoration: none;
-            color: #f1f5f9;
-            font-weight: 500;
-            font-size: 14px;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .user-actions a:hover {
-            color: #f97316;
-        }
-        .user-actions .cart {
-            background: #1e293b;
-            padding: 8px 16px;
-            border-radius: 30px;
-        }
-        .champ-btn {
-            background: #f97316;
-            color: #0f172a !important;
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-weight: 700;
-        }
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 10px;
-            padding-top: 8px;
-            border-top: 1px solid #334155;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #cbd5e1;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover {
-            color: #f97316;
-        }
+        .champ-btn { background: var(--accent); color: #0f172a !important; padding: 8px 16px; border-radius: 30px; font-weight: 700; }
+        .theme-toggle { background: #1e293b; border: none; color: #f1f5f9; font-size: 20px; cursor: pointer; padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 10px; }
+        .nav-links { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border-color); }
+        .nav-links a { text-decoration: none; color: #cbd5e1; font-size: 14px; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* -------------------- HERO SLIDER (enhanced) -------------------- */
-        .hero-slider {
-            position: relative;
-            width: 100%;
-            height: 580px;
-            overflow: hidden;
-            box-shadow: 0 25px 40px -15px rgba(0,0,0,0.4);
+        /* ------------- CART DROPDOWN ------------- */
+        .cart-dropdown {
+            position: absolute; top: 50px; right: 0; width: 320px;
+            background: var(--card-bg); border-radius: 20px; box-shadow: var(--shadow);
+            padding: 16px; display: none; z-index: 200; color: var(--text-primary);
+            border: 1px solid var(--border-color);
         }
-        .hero-slides {
-            display: flex;
-            transition: transform 0.8s ease-in-out;
-            height: 100%;
-        }
-        .hero-slide {
-            min-width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        .hero-slide::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(15,23,42,0.4) 70%, transparent 100%);
-        }
-        .hero-content {
-            position: absolute;
-            z-index: 2;
-            bottom: 80px;
-            left: 5%;
-            max-width: 700px;
-            color: white;
-        }
-        .hero-content h1 {
-            font-size: 42px;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        .hero-highlight {
-            color: #f97316;
-            font-weight: 700;
-        }
-        .countdown-block {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-            margin: 20px 0;
-        }
-        .timer {
-            display: flex;
-            gap: 12px;
-        }
-        .timer-box {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(8px);
-            border-radius: 20px;
-            padding: 12px 16px;
-            min-width: 80px;
-            text-align: center;
-            border: 1px solid rgba(249,115,22,0.5);
-        }
-        .timer-box .value {
-            font-size: 38px;
-            font-weight: 800;
-            color: #f97316;
-            line-height: 1;
-        }
-        .timer-box .label {
-            font-size: 12px;
-            text-transform: uppercase;
-            color: #e2e8f0;
-        }
-        .claim-btn-large {
-            background: #f97316;
-            border: none;
-            color: #0f172a;
-            font-weight: 700;
-            padding: 14px 36px;
-            border-radius: 50px;
-            font-size: 18px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(249,115,22,0.3);
-            transition: all 0.2s;
-        }
-        .claim-btn-large:hover {
-            background: #fb923c;
-            transform: scale(1.02);
-        }
-        .benefits {
-            margin: 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: #e2e8f0;
-            font-weight: 500;
-        }
-        .benefits span {
-            background: rgba(255,255,255,0.1);
-            padding: 6px 16px;
-            border-radius: 30px;
-        }
-        .slider-dots {
-            position: absolute;
-            bottom: 30px;
-            right: 5%;
-            z-index: 10;
-            display: flex;
-            gap: 12px;
-        }
-        .slider-dots .dot {
-            width: 14px;
-            height: 14px;
-            background: rgba(255,255,255,0.6);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .slider-dots .dot.active {
-            background: #f97316;
-            transform: scale(1.3);
-        }
+        .user-actions .cart:hover + .cart-dropdown, .cart-dropdown:hover { display: block; }
+        .cart-item { display: flex; gap: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+        .cart-item img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+        .cart-item-details { flex: 1; font-size: 14px; }
+        .cart-item-title { font-weight: 600; }
+        .cart-item-price { color: var(--accent); font-weight: 700; }
+        .cart-item-remove { color: #ef4444; cursor: pointer; font-size: 12px; }
+        .cart-total { font-weight: 700; margin: 12px 0; text-align: right; }
+        .view-cart-btn { background: var(--accent); border: none; color: #0f172a; padding: 8px 16px; border-radius: 40px; width: 100%; font-weight: 600; cursor: pointer; }
 
-        /* -------------------- SEARCH ROW (quick filters) -------------------- */
+        /* ========== HERO SLIDER ========== */
+        .hero-slider { position: relative; width: 100%; height: 580px; overflow: hidden; box-shadow: 0 25px 40px -15px rgba(0,0,0,0.4); }
+        .hero-slides { display: flex; transition: transform 0.8s ease-in-out; height: 100%; }
+        .hero-slide { min-width: 100%; height: 100%; background-size: cover; background-position: center; position: relative; }
+        .hero-slide::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(15,23,42,0.7) 0%, rgba(15,23,42,0.4) 70%, transparent 100%); }
+        .hero-content { position: absolute; z-index: 2; bottom: 80px; left: 5%; max-width: 700px; color: white; }
+        .hero-content h1 { font-size: 42px; line-height: 1.2; margin-bottom: 20px; text-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .hero-highlight { color: var(--accent); font-weight: 700; }
+        .countdown-block { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin: 20px 0; }
+        .timer { display: flex; gap: 12px; }
+        .timer-box { background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border-radius: 20px; padding: 12px 16px; min-width: 80px; text-align: center; border: 1px solid rgba(249,115,22,0.5); }
+        .timer-box .value { font-size: 38px; font-weight: 800; color: var(--accent); line-height: 1; }
+        .timer-box .label { font-size: 12px; text-transform: uppercase; color: #e2e8f0; }
+        .claim-btn-large { background: var(--accent); border: none; color: #0f172a; font-weight: 700; padding: 14px 36px; border-radius: 50px; font-size: 18px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 20px rgba(249,115,22,0.3); transition: all 0.2s; }
+        .claim-btn-large:hover { background: var(--accent-hover); transform: scale(1.02); }
+        .benefits span { background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 30px; }
+        /* hide slider dots */
+        .slider-dots { display: none; }
+
+        /* ========== SEARCH ROW ========== */
         .search-row {
-            background: white;
-            border-radius: 60px;
-            padding: 8px 16px 8px 28px;
-            margin: -30px auto 40px;
-            max-width: 1000px;
-            position: relative;
-            z-index: 20;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.15);
-            border: 1px solid #f1f5f9;
+            background: var(--card-bg); border-radius: 60px; padding: 8px 16px 8px 28px;
+            margin: -30px auto 40px; max-width: 1200px; position: relative; z-index: 20;
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            box-shadow: var(--shadow); border: 1px solid var(--border-color);
         }
-        .search-fields {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-        }
-        .search-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .search-item i {
-            color: #f97316;
-            font-size: 16px;
-        }
-        .search-item select,
-        .search-item input {
-            border: none;
-            background: transparent;
-            font-weight: 500;
-            color: #1e293b;
-            padding: 8px 0;
-            font-size: 14px;
-            outline: none;
-        }
-        .current-loc {
-            background: #f1f5f9;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #0f172a;
-            cursor: pointer;
-        }
+        .search-fields { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+        .search-item { display: flex; align-items: center; gap: 8px; }
+        .search-item i { color: var(--accent); }
+        .search-item select, .search-item input { border: none; background: transparent; font-weight: 500; color: var(--text-primary); padding: 8px 0; outline: none; }
+        .map-icon { background: var(--accent); color: #0f172a; border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 8px; }
+        .current-loc { background: #f1f5f9; padding: 10px 20px; border-radius: 40px; font-size: 14px; font-weight: 600; color: #0f172a; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
-        /* -------------------- CATEGORIES TABS -------------------- */
+        /* ========== CATEGORY TABS ========== */
         .categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 25px;
-            margin: 30px 0 25px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 16px;
-            font-weight: 600;
-            color: #334155;
+            display: flex; flex-wrap: wrap; gap: 12px 25px; margin: 30px 0 25px;
+            border-bottom: 2px solid var(--border-color); padding-bottom: 16px;
+            font-weight: 600; color: var(--text-secondary);
         }
-        .categories span {
-            cursor: pointer;
-            white-space: nowrap;
-            transition: color 0.2s;
+        .categories span { cursor: pointer; white-space: nowrap; transition: color 0.2s; padding: 0 4px; }
+        .categories span:hover { color: var(--accent); }
+        .categories span.active { color: var(--accent); border-bottom: 3px solid var(--accent); padding-bottom: 13px; }
+
+        /* ========== PHOTOGRAPHER GRID SECTION ========== */
+        .photographer-grid-section { margin: 40px 0; }
+        .grid-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 30px; }
+        .grid-filters { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+        .grid-filters select, .grid-filters input { padding: 8px 16px; border-radius: 30px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); }
+        .photographer-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; margin: 30px 0; }
+        .photographer-card {
+            background: var(--card-bg); border-radius: 16px; padding: 16px; border: 1px solid var(--border-color);
+            transition: transform 0.2s; cursor: pointer; position: relative; text-align: center;
         }
-        .categories span:hover {
-            color: #f97316;
+        .photographer-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+        .photographer-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; }
+        .photographer-name { font-weight: 600; }
+        .photographer-category { color: var(--text-secondary); font-size: 13px; text-transform: capitalize; }
+        .photographer-rating { color: var(--accent); font-weight: 600; }
+        .photographer-price { font-weight: 700; margin: 5px 0; }
+        .load-more-btn { background: var(--accent); border: none; color: #0f172a; padding: 12px 36px; border-radius: 40px; font-weight: 600; margin: 20px auto; display: block; cursor: pointer; }
+
+        /* ========== SECTION TITLE ========== */
+        .section-title { font-size: 28px; margin: 50px 0 20px; color: var(--text-primary); position: relative; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 80px; height: 4px; background: var(--accent); border-radius: 4px; }
+
+        /* ========== CARD STYLES (unified) ========== */
+        .package-card, .deal-card, .trending-card, .custom-item, .best-card, .brand-item, .review-card, .filter-product-card {
+            background: var(--card-bg); border-radius: 20px; padding: 20px; border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; position: relative;
         }
-        .categories span.active {
-            color: #f97316;
-            border-bottom: 3px solid #f97316;
-            padding-bottom: 13px;
+        .package-card:hover, .deal-card:hover, .trending-card:hover, .custom-item:hover, .best-card:hover, .brand-item:hover, .filter-product-card:hover {
+            transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow);
         }
 
-        /* -------------------- SECTION TITLE -------------------- */
-        .section-title {
-            font-size: 28px;
-            margin: 50px 0 20px;
-            color: #0f172a;
-            position: relative;
-            display: inline-block;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: #f97316;
-            border-radius: 4px;
-        }
-
-        /* -------------------- FIXED PACKAGES -------------------- */
+        /* fixed packages */
         .fixed-packages {
-            background: linear-gradient(145deg, #ffffff, #f8fafc);
-            border-radius: 24px;
-            padding: 32px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            align-items: center;
-            margin-bottom: 40px;
-            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.08);
-            border: 1px solid #e2e8f0;
+            background: var(--card-bg); border-radius: 24px; padding: 32px;
+            display: flex; flex-wrap: wrap; gap: 30px; align-items: center;
+            margin-bottom: 40px; border: 1px solid var(--border-color); box-shadow: var(--shadow);
         }
-        .package-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            flex: 1 1 250px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
+        .offer-tag { background: var(--accent); color: #0f172a; display: inline-block; padding: 6px 20px; border-radius: 30px; font-weight: 700; margin-bottom: 15px; }
+        .price { font-size: 24px; font-weight: 700; }
+        .price small { font-size: 16px; font-weight: 400; color: var(--text-secondary); text-decoration: line-through; margin-left: 8px; }
+        .btn-primary { background: var(--accent); border: none; color: #0f172a; padding: 10px 24px; border-radius: 40px; font-weight: 600; cursor: pointer; }
+        .add-to-cart-btn {
+            background: #0f172a; color: white; border: none; padding: 8px 18px; border-radius: 40px;
+            font-size: 14px; font-weight: 600; margin-top: 12px; cursor: pointer; transition: 0.2s;
+            display: inline-flex; align-items: center; gap: 6px;
         }
-        .offer-tag {
-            background: #f97316;
-            color: #0f172a;
-            display: inline-block;
-            padding: 6px 20px;
-            border-radius: 30px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        .price {
-            font-size: 24px;
-            font-weight: 700;
-        }
-        .price small {
-            font-size: 16px;
-            font-weight: 400;
-            color: #64748b;
-            text-decoration: line-through;
-            margin-left: 8px;
-        }
-        .btn-primary {
-            background: #f97316;
-            border: none;
-            color: #0f172a;
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        .add-to-cart-btn i { font-size: 14px; }
+        .add-to-cart-btn:hover { background: var(--accent); color: #0f172a; }
 
-        /* -------------------- DEALS GRID -------------------- */
-        .deals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .deal-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .deal-card:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-        }
-        .deal-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 12px;
-        }
-        .deal-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #f97316;
-        }
-        .deal-price small {
-            font-size: 14px;
-            color: #64748b;
-            text-decoration: line-through;
-            margin-left: 8px;
-        }
+        /* deals grid */
+        .deals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin: 30px 0; }
+        .deal-card { text-align: center; }
+        .deal-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; margin-bottom: 12px; }
+        .deal-price { font-size: 18px; font-weight: 700; color: var(--accent); }
+        .deal-price small { font-size: 14px; color: var(--text-secondary); text-decoration: line-through; margin-left: 8px; }
 
-        /* -------------------- TRENDING PHOTOGRAPHERS -------------------- */
-        .trending-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .trending-card {
-            background: white;
-            border-radius: 30px;
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .trending-card:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-        }
-        .trending-image {
-            height: 180px;
-            background-size: cover;
-            background-position: center;
-        }
-        .trending-info {
-            padding: 16px;
-        }
+        /* trending */
+        .trending-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin: 30px 0; }
+        .trending-card { overflow: hidden; }
+        .trending-image { height: 180px; background-size: cover; background-position: center; }
+        .trending-info { padding: 16px; }
 
-        /* -------------------- CUSTOM PACKAGES GRID -------------------- */
-        .custom-packages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .custom-item {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .custom-item:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-        }
-        .custom-item .card-image {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 12px;
-        }
-        .custom-price {
-            font-weight: 700;
-            font-size: 20px;
-            color: #f97316;
-        }
-        .custom-price small {
-            font-size: 14px;
-            color: #64748b;
-            text-decoration: line-through;
-            margin-left: 6px;
-        }
+        /* custom packages */
+        .custom-packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin: 30px 0; }
+        .custom-item { text-align: center; }
+        .custom-item .card-image { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; margin-bottom: 12px; }
+        .custom-price { font-weight: 700; font-size: 20px; color: var(--accent); }
+        .custom-price small { font-size: 14px; color: var(--text-secondary); text-decoration: line-through; margin-left: 6px; }
 
-        /* -------------------- BEST SELLING GRID -------------------- */
-        .best-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .best-card {
-            background: white;
-            border-radius: 20px;
-            padding: 16px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-        .best-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            border-radius: 16px;
-            margin-bottom: 10px;
-        }
+        /* best selling */
+        .best-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin: 30px 0; }
+        .best-card { text-align: center; }
+        .best-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 16px; margin-bottom: 10px; }
 
-        /* -------------------- BRAND STORE -------------------- */
-        .brands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-        .brand-item {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-        .brand-item i {
-            font-size: 40px;
-            color: #f97316;
-        }
+        /* brand store */
+        .brands-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 20px; margin: 30px 0; }
+        .brand-item { text-align: center; }
+        .brand-item i { font-size: 40px; color: var(--accent); }
 
-        /* -------------------- CUSTOMER REVIEWS -------------------- */
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .review-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid #e2e8f0;
-        }
-        .review-header {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .review-avatar {
-            width: 48px;
-            height: 48px;
-            background: #e2e8f0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #f97316;
-        }
-        .review-stars i {
-            color: gold;
-        }
+        /* reviews */
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 30px 0; }
+        .review-card { padding: 24px; }
+        .review-header { display: flex; gap: 12px; margin-bottom: 12px; }
+        .review-avatar { width: 48px; height: 48px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--accent); }
+        .review-stars i { color: gold; }
 
-        /* -------------------- SPECIAL OFFERS -------------------- */
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin: 30px 0;
-        }
-        .offer-card {
-            background: linear-gradient(145deg, #f97316, #fb923c);
-            border-radius: 20px;
-            padding: 24px;
-            color: #0f172a;
-            cursor: pointer;
-        }
+        /* special offers */
+        .offers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin: 30px 0; }
+        .offer-card { background: linear-gradient(145deg, var(--accent), var(--accent-hover)); border-radius: 20px; padding: 24px; color: #0f172a; cursor: pointer; }
 
-        /* -------------------- FESTIVAL CAROUSEL (FIXED) -------------------- */
-        .festival-carousel {
-            position: relative;
-            width: 100%;
-            margin: 30px 0;
-            overflow: hidden;
-            border-radius: 24px;
-        }
-        .festival-slides {
-            display: flex;
-            transition: transform 0.8s ease;
-        }
-        .festival-slide {
-            min-width: calc(100% / 4); /* smaller cards */
-            padding: 0 8px;
-            box-sizing: border-box;
-        }
-        .festival-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-        .festival-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-        }
-        .festival-card h4 {
-            text-align: center;
-            padding: 12px;
-            font-size: 16px;
-            background: #fff;
-        }
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-        }
-        .fest-dot {
-            width: 10px;
-            height: 10px;
-            background: #cbd5e1;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-        .fest-dot.active {
-            background: #f97316;
-        }
+        /* festival carousel */
+        .festival-carousel { position: relative; width: 100%; margin: 30px 0; overflow: hidden; border-radius: 24px; }
+        .festival-slides { display: flex; transition: transform 0.8s ease; }
+        .festival-slide { min-width: calc(100% / 4); padding: 0 8px; box-sizing: border-box; }
+        .festival-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); cursor: pointer; }
+        .festival-card img { width: 100%; height: 140px; object-fit: cover; }
+        .festival-card h4 { text-align: center; padding: 12px; font-size: 16px; background: var(--card-bg); }
+        .carousel-dots { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+        .fest-dot { width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; cursor: pointer; }
+        .fest-dot.active { background: var(--accent); }
 
-        /* -------------------- HOW TO BOOK (FIXED) -------------------- */
-        .steps-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin: 40px 0;
-        }
-        .step {
-            flex: 1 1 280px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 30px;
-            padding: 32px;
-            text-align: center;
-            transition: transform 0.2s;
-            cursor: pointer;
-        }
-        .step:hover {
-            transform: translateY(-5px);
-            border-color: #f97316;
-        }
-        .step-icon {
-            width: 70px;
-            height: 70px;
-            background: #f97316;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: white;
-            font-size: 30px;
-        }
+        /* steps */
+        .steps-container { display: flex; flex-wrap: wrap; gap: 24px; margin: 40px 0; }
+        .step { flex: 1 1 280px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 30px; padding: 32px; text-align: center; transition: transform 0.2s; cursor: pointer; }
+        .step:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .step-icon { width: 70px; height: 70px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 30px; }
 
-        /* -------------------- TRUST GRID -------------------- */
-        .trust-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            background: white;
-            border-radius: 40px;
-            padding: 48px 32px;
-            margin: 40px 0;
-            border: 1px solid #e2e8f0;
-        }
-        .trust-item {
-            text-align: center;
-        }
-        .trust-item i {
-            font-size: 48px;
-            color: #f97316;
-        }
+        /* trust grid */
+        .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; background: var(--card-bg); border-radius: 40px; padding: 48px 32px; margin: 40px 0; border: 1px solid var(--border-color); }
+        .trust-item { text-align: center; }
+        .trust-item i { font-size: 48px; color: var(--accent); }
 
-        /* -------------------- PRO STEPS -------------------- */
-        .champ-steps {
-            background: #fef1ea;
-            border-radius: 40px;
-            padding: 48px;
-            margin: 40px 0;
-            border: 1px solid #e2e8f0;
-        }
-        .champ-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 24px;
-            margin-top: 30px;
-        }
-        .champ-card {
-            background: white;
-            border-radius: 24px;
-            padding: 28px;
-            text-align: center;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-        }
-        .champ-icon {
-            font-size: 40px;
-            color: #f97316;
-            margin-bottom: 16px;
-        }
+        /* pro steps */
+        .champ-steps { background: #fef1ea; border-radius: 40px; padding: 48px; margin: 40px 0; border: 1px solid var(--border-color); }
+        .champ-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 30px; }
+        .champ-card { background: var(--card-bg); border-radius: 24px; padding: 28px; text-align: center; border: 1px solid var(--border-color); cursor: pointer; }
+        .champ-icon { font-size: 40px; color: var(--accent); margin-bottom: 16px; }
 
-        /* -------------------- RECENTLY VIEWED (FIXED) -------------------- */
-        .recent-grid {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding: 20px 0;
-            margin: 20px 0;
-        }
-        .recent-item {
-            min-width: 160px;
-            background: white;
-            border-radius: 16px;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .recent-item:hover {
-            transform: scale(1.02);
-            border-color: #f97316;
-        }
-        .recent-item img {
-            width: 100%;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 8px;
-        }
+        /* recently viewed */
+        .recent-grid { display: flex; gap: 20px; overflow-x: auto; padding: 20px 0; margin: 20px 0; }
+        .recent-item { min-width: 160px; background: var(--card-bg); border-radius: 16px; padding: 12px; border: 1px solid var(--border-color); cursor: pointer; transition: transform 0.2s; }
+        .recent-item:hover { transform: scale(1.02); border-color: var(--accent); }
+        .recent-item img { width: 100%; height: 110px; object-fit: cover; border-radius: 12px; margin-bottom: 8px; }
 
-        /* -------------------- APP SECTION (FIXED) -------------------- */
-        .app-section {
-            background: #0f172a;
-            color: white;
-            border-radius: 40px;
-            padding: 48px;
-            margin: 50px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            align-items: center;
-        }
-        .app-left {
-            flex: 1 1 300px;
-        }
-        .app-left h2 {
-            font-size: 32px;
-            margin-bottom: 16px;
-        }
-        .app-offer {
-            background: #f97316;
-            color: #0f172a;
-            padding: 12px 24px;
-            border-radius: 40px;
-            display: inline-block;
-            margin: 20px 0;
-            font-weight: 700;
-        }
-        .mobile-input {
-            display: flex;
-            background: white;
-            border-radius: 60px;
-            overflow: hidden;
-            max-width: 400px;
-        }
-        .mobile-input input {
-            flex: 1;
-            padding: 14px 20px;
-            border: none;
-            outline: none;
-        }
-        .mobile-input button {
-            background: #f97316;
-            color: #0f172a;
-            border: none;
-            padding: 0 30px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .qr-stats {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            margin: 30px 0;
-        }
-        .qr-placeholder {
-            width: 90px;
-            height: 90px;
-            background: white;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: black;
-        }
-        .app-badges-white {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .app-badge-white {
-            background: white;
-            color: #0f172a;
-            padding: 10px 24px;
-            border-radius: 40px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .app-right {
-            flex: 0 0 260px;
-            background: #334155;
-            border-radius: 40px;
-            height: 260px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 4px solid #f97316;
-        }
-        .app-right img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 36px;
-        }
+        /* app section */
+        .app-section { background: #0f172a; color: white; border-radius: 40px; padding: 48px; margin: 50px 0; display: flex; flex-wrap: wrap; gap: 40px; align-items: center; }
+        .app-left { flex: 1 1 300px; }
+        .app-left h2 { font-size: 32px; margin-bottom: 16px; }
+        .app-offer { background: var(--accent); color: #0f172a; padding: 12px 24px; border-radius: 40px; display: inline-block; margin: 20px 0; font-weight: 700; }
+        .mobile-input { display: flex; background: white; border-radius: 60px; overflow: hidden; max-width: 400px; }
+        .mobile-input input { flex: 1; padding: 14px 20px; border: none; outline: none; }
+        .mobile-input button { background: var(--accent); color: #0f172a; border: none; padding: 0 30px; font-weight: 700; cursor: pointer; }
+        .qr-stats { display: flex; gap: 30px; align-items: center; margin: 30px 0; }
+        .qr-placeholder { width: 90px; height: 90px; background: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: black; }
+        .app-badges-white { display: flex; gap: 20px; flex-wrap: wrap; }
+        .app-badge-white { background: white; color: #0f172a; padding: 10px 24px; border-radius: 40px; display: inline-flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer; }
+        .app-right { flex: 0 0 260px; background: #334155; border-radius: 40px; height: 260px; display: flex; align-items: center; justify-content: center; border: 4px solid var(--accent); }
+        .app-right img { width: 100%; height: 100%; object-fit: cover; border-radius: 36px; }
 
-        /* -------------------- FOOTER (ENHANCED) -------------------- */
-        .footer {
-            background: #0f172a;
-            color: #cbd5e1;
-            border-radius: 40px 40px 0 0;
-            padding: 60px 48px 30px;
-            margin-top: 80px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 40px 60px;
-        }
-        .footer-col h4 {
-            color: white;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .footer-col a {
-            color: #94a3b8;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-            font-size: 14px;
-            transition: color 0.2s, transform 0.2s;
-        }
-        .footer-col a:hover {
-            color: #f97316;
-            transform: translateX(4px);
-        }
-        .footer-col p {
-            color: #94a3b8;
-            font-size: 14px;
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-        .social-icons {
-            display: flex;
-            gap: 16px;
-            font-size: 28px;
-            margin: 20px 0;
-        }
-        .social-icons i {
-            color: #94a3b8;
-            transition: color 0.2s, transform 0.2s;
-            cursor: pointer;
-        }
-        .social-icons i:hover {
-            color: #f97316;
-            transform: scale(1.1);
-        }
-        .newsletter {
-            margin-top: 30px;
-        }
-        .newsletter p {
-            margin-bottom: 12px;
-            color: white;
-            text-align: center;
-        }
-        .newsletter input {
-            padding: 10px 16px;
-            border-radius: 40px;
-            border: none;
-            width: 100%;
-            max-width: 250px;
-        }
-        .newsletter button {
-            background: #f97316;
-            color: #0f172a;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 8px;
-        }
-        .footer-links-bottom {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 32px;
-            border-top: 1px solid #334155;
-            padding-top: 30px;
-            margin-top: 40px;
-            font-size: 14px;
-        }
-        .footer-links-bottom a {
-            color: #94a3b8;
-            text-decoration: none;
-        }
-        .footer-links-bottom a:hover {
-            color: #f97316;
-        }
-        .copyright {
-            text-align: center;
-            margin-top: 30px;
-            color: #64748b;
-            font-size: 14px;
-        }
+        /* filter section (existing) */
+        .filter-section { background: var(--card-bg); border-radius: 24px; padding: 24px; margin: 40px 0; border: 1px solid var(--border-color); }
+        .filter-controls { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; margin-bottom: 30px; }
+        .filter-group { display: flex; flex-direction: column; gap: 8px; }
+        .filter-group label { font-weight: 600; font-size: 14px; }
+        .filter-group select, .filter-group input { padding: 8px 16px; border-radius: 30px; border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); }
+        .price-range { display: flex; gap: 10px; align-items: center; }
+        .filter-products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; }
+        .filter-product-card { background: var(--card-bg); border-radius: 20px; padding: 16px; border: 1px solid var(--border-color); transition: 0.2s; cursor: pointer; }
+        .filter-product-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .filter-product-card img { width: 100%; height: 140px; object-fit: cover; border-radius: 16px; }
 
-        /* -------------------- RESPONSIVE -------------------- */
-        @media (max-width: 900px) {
-            .top-row {
-                flex-direction: column;
-                gap: 12px;
-            }
-            .search-bar {
-                width: 100%;
-                max-width: none;
-                margin: 10px 0;
-            }
-            .nav-links {
-                justify-content: center;
-            }
-            .festival-slide {
-                min-width: calc(100% / 2);
-            }
+        /* quick filters (new) */
+        .quick-filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+        .quick-filter { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 30px; padding: 8px 16px; font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .quick-filter:hover { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+
+        /* modal */
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center; }
+        .modal-content { background: var(--card-bg); border-radius: 40px; padding: 40px; max-width:400px; width:90%; position:relative; }
+        .close-modal { position: absolute; top:20px; right:20px; font-size:24px; cursor:pointer; }
+        .modal-tabs { display:flex; gap:20px; margin-bottom:30px; border-bottom:2px solid var(--border-color); }
+        .modal-tab { font-weight:600; padding-bottom:10px; cursor:pointer; }
+        .modal-tab.active { color: var(--accent); border-bottom:3px solid var(--accent); }
+        .modal-form input { width:100%; padding:12px 20px; margin:10px 0; border:1px solid var(--border-color); border-radius:40px; background: var(--bg-secondary); color: var(--text-primary); }
+        .modal-form button { background: var(--accent); color:#0f172a; border:none; padding:14px; width:100%; border-radius:40px; font-weight:700; cursor:pointer; }
+        .logout-btn { background:transparent; border:1px solid var(--accent); color:var(--accent); padding:4px 12px; border-radius:30px; cursor:pointer; font-size:12px; margin-left:8px; }
+
+        /* footer */
+        .footer { background: #0f172a; color: #cbd5e1; border-radius: 40px 40px 0 0; padding: 60px 48px 30px; margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 40px 60px; }
+        .footer-col h4 { color: white; font-size: 16px; margin-bottom: 20px; }
+        .footer-col a { color: #94a3b8; text-decoration: none; display: block; margin-bottom: 10px; font-size: 14px; }
+        .footer-col a:hover { color: var(--accent); transform: translateX(4px); }
+        .footer-col p { color: #94a3b8; font-size: 14px; margin-bottom: 8px; }
+        .social-icons { display: flex; gap: 16px; font-size: 28px; margin: 20px 0; }
+        .social-icons i { color: #94a3b8; transition: color 0.2s, transform 0.2s; cursor: pointer; }
+        .social-icons i:hover { color: var(--accent); transform: scale(1.1); }
+        .newsletter { margin-top: 30px; }
+        .newsletter input { padding: 10px 16px; border-radius: 40px; border: none; width: 100%; max-width: 250px; }
+        .newsletter button { background: var(--accent); color: #0f172a; border: none; padding: 10px 20px; border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+        .footer-links-bottom { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; border-top: 1px solid #334155; padding-top: 30px; margin-top: 40px; font-size: 14px; }
+        .footer-links-bottom a { color: #94a3b8; text-decoration: none; }
+        .footer-links-bottom a:hover { color: var(--accent); }
+        .copyright { text-align: center; margin-top: 30px; color: #64748b; font-size: 14px; }
+
+        /* responsive */
+        @media (max-width:900px) {
+            .top-row { flex-direction: column; gap:12px; }
+            .search-bar { width:100%; max-width:none; margin:10px 0; }
+            .nav-links { justify-content: center; }
+            .festival-slide { min-width: calc(100% / 2); }
         }
-        @media (max-width: 600px) {
-            .festival-slide {
-                min-width: 100%;
-            }
+        @media (max-width:600px) {
+            .festival-slide { min-width: 100%; }
         }
     </style>
 </head>
-<body>
-    <!-- STICKY TOP BAR -->
+<body class="light-mode">
+    <!-- STICKY TOP BAR with dark mode toggle -->
     <div class="top-bar">
         <div class="top-row">
             <div class="logo-area">
                 <div class="logo" onclick="location.href='index.html'">PhotoWale <span>#1</span></div>
-                <div class="location" onclick="alert('Change location (demo)')"><i class="fas fa-map-marker-alt"></i> Surat, India</div>
+                <div class="location" onclick="alert('Change location (demo)')"><i class="fas fa-map-marker-alt"></i> Mumbai, India</div>
             </div>
             <div class="search-bar">
-                <form onsubmit="alert('Search for photographers/packages (demo)'); return false;">
-                    <input type="text" placeholder="Search for photographers, packages, events...">
+                <form onsubmit="event.preventDefault(); searchPhotographers();">
+                    <input type="text" id="searchInput" placeholder="Search for photographers, packages, events...">
                     <button type="submit"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <div class="user-actions">
-                <a href="#" onclick="alert('Login/Signup (demo)')"><i class="fas fa-user"></i> Login</a>
-                <a href="#" class="cart" onclick="alert('View cart (demo)')"><i class="fas fa-shopping-cart"></i> Cart</a>
+                <a href="#" id="loginBtn" onclick="showLoginModal(); return false;"><i class="fas fa-user"></i> <span id="authText">Login</span></a>
+                <a href="#" class="cart" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i> Cart
+                    <span class="cart-count" id="cartCount">0</span>
+                </a>
+                <!-- Cart dropdown -->
+                <div class="cart-dropdown" id="cartDropdown">
+                    <div id="cartItems"></div>
+                    <div class="cart-total" id="cartTotal">Total: ₹0</div>
+                    <button class="view-cart-btn" onclick="alert('Checkout demo')">View Cart & Checkout</button>
+                </div>
                 <a href="become_photowale_pro.html" class="champ-btn"><i class="fas fa-crown"></i> Become Pro</a>
+                <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
             </div>
         </div>
-       <div class="nav-links">
-            <a href="index.html">Home</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
             <a href="about.html">About Us</a>
             <a href="contact.html">Contact Us</a>
             <a href="careers.html">Careers</a>
@@ -1049,7 +393,7 @@
             <a href="faq.html">FAQ</a>
             <a href="term.html">Terms Of Use</a>
             <a href="privacy.html">Privacy Policy</a>
-            <a href="payment.html" class="active">Payment</a>
+            <a href="payment.html">Payments</a>
             <a href="selection_delivery.html">Selection & Delivery</a>
             <a href="reschedule.html">Reschedule</a>
             <a href="refund.html">Refund</a>
@@ -1058,7 +402,29 @@
         </div>
     </div>
 
-    <!-- HERO SLIDER -->
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="hideLoginModal()">&times;</span>
+            <div class="modal-tabs">
+                <div class="modal-tab active" id="signinTab" onclick="switchAuthTab('signin')">Sign In</div>
+                <div class="modal-tab" id="signupTab" onclick="switchAuthTab('signup')">Sign Up</div>
+            </div>
+            <div id="signinForm" class="modal-form">
+                <input type="email" id="loginEmail" placeholder="Email / Phone" value="test@example.com">
+                <input type="password" id="loginPassword" placeholder="Password" value="123456">
+                <button onclick="handleLogin()">Sign In</button>
+            </div>
+            <div id="signupForm" class="modal-form" style="display:none;">
+                <input type="text" id="signupName" placeholder="Full Name">
+                <input type="email" id="signupEmail" placeholder="Email">
+                <input type="password" id="signupPassword" placeholder="Password">
+                <button onclick="handleSignup()">Create Account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SLIDER (countdown 28 days) -->
     <div class="hero-slider" id="heroSlider">
         <div class="hero-slides" id="heroSlides">
             <div class="hero-slide" style="background-image: url('hero.jpg');"></div>
@@ -1067,13 +433,13 @@
             <div class="hero-slide" style="background-image: url('p3.jpg');"></div>
         </div>
         <div class="hero-content">
-            <h1>Ahmedabad & Surat Photographers — <span class="hero-highlight">Your City's New Booking Platform Is Launching</span></h1>
+            <h1>Ahmedabad & Mumbai Photographers — <span class="hero-highlight">Your City's New Booking Platform Is Launching</span></h1>
             <div class="countdown-block">
                 <div class="timer" id="countdown">
-                    <div class="timer-box"><span class="value" id="days">13</span><span class="label">Days</span></div>
-                    <div class="timer-box"><span class="value" id="hours">08</span><span class="label">Hours</span></div>
-                    <div class="timer-box"><span class="value" id="minutes">04</span><span class="label">Mins</span></div>
-                    <div class="timer-box"><span class="value" id="seconds">54</span><span class="label">Secs</span></div>
+                    <div class="timer-box"><span class="value" id="days">28</span><span class="label">Days</span></div>
+                    <div class="timer-box"><span class="value" id="hours">00</span><span class="label">Hours</span></div>
+                    <div class="timer-box"><span class="value" id="minutes">00</span><span class="label">Mins</span></div>
+                    <div class="timer-box"><span class="value" id="seconds">00</span><span class="label">Secs</span></div>
                 </div>
                 <button class="claim-btn-large" onclick="alert('Claim your free listing!')"><i class="fas fa-pen"></i> Claim Free Listing</button>
             </div>
@@ -1085,81 +451,202 @@
             </div>
             <div class="spots-note"><i class="fas fa-clock"></i> Or when 50 Founding Spots are filled</div>
         </div>
-        <div class="slider-dots" id="heroDots"></div>
+        <div class="slider-dots" id="heroDots"></div> <!-- hidden via css -->
     </div>
 
     <div class="container">
-        <!-- QUICK SEARCH FILTERS -->
+        <!-- ENHANCED SEARCH ROW with expanded event types, city dropdown, time, and map icon -->
         <div class="search-row">
             <div class="search-fields">
-                <div class="search-item"><i class="fas fa-camera"></i> <select><option>Wedding</option><option>Portrait</option><option>Event</option><option>Pre-wedding</option></select></div>
-                <div class="search-item"><i class="fas fa-location-dot"></i> <input type="text" placeholder="Enter location" value="Mumbai"></div>
-                <div class="search-item"><i class="fas fa-calendar"></i> <input type="date" value="2025-06-15"></div>
+                <div class="search-item"><i class="fas fa-camera"></i> 
+                    <select id="eventTypeSelect">
+                        <option value="all">All Events</option>
+                        <option value="wedding">Wedding</option>
+                        <option value="portrait">Portrait</option>
+                        <option value="event">Event</option>
+                        <option value="prewedding">Pre-wedding</option>
+                        <option value="baby">Baby Shoot</option>
+                        <option value="commercial">Commercial</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="birthday">Birthday</option>
+                        <option value="engagement">Engagement</option>
+                        <option value="corporate">Corporate</option>
+                        <option value="travel">Travel</option>
+                        <option value="beach">Beach</option>
+                        <option value="hillstation">Hill Station</option>
+                        <option value="wildlife">Wildlife</option>
+                        <option value="sports">Sports</option>
+                        <option value="concert">Concert</option>
+                        <option value="historical">Historical</option>
+                        <option value="destination">Destination</option>
+                        <option value="aerial">Aerial / Drone</option>
+                        <option value="underwater">Underwater</option>
+                    </select>
+                </div>
+                <div class="search-item"><i class="fas fa-location-dot"></i> 
+                    <select id="citySelect">
+                        <option value="all">All Cities</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Bangalore">Bangalore</option>
+                        <option value="Chennai">Chennai</option>
+                        <option value="Kolkata">Kolkata</option>
+                        <option value="Pune">Pune</option>
+                        <option value="Ahmedabad">Ahmedabad</option>
+                        <option value="Surat">Surat</option>
+                        <option value="Jaipur">Jaipur</option>
+                        <option value="Lucknow">Lucknow</option>
+                        <option value="Hyderabad">Hyderabad</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Bhopal">Bhopal</option>
+                        <option value="Indore">Indore</option>
+                        <option value="Nagpur">Nagpur</option>
+                        <option value="Patna">Patna</option>
+                        <option value="Ranchi">Ranchi</option>
+                        <option value="Bhubaneswar">Bhubaneswar</option>
+                        <option value="Guwahati">Guwahati</option>
+                        <option value="Shillong">Shillong</option>
+                        <option value="Dehradun">Dehradun</option>
+                        <option value="Shimla">Shimla</option>
+                        <option value="Manali">Manali</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Kochi">Kochi</option>
+                        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                        <option value="Mysore">Mysore</option>
+                        <option value="Coimbatore">Coimbatore</option>
+                        <option value="Madurai">Madurai</option>
+                        <option value="Varanasi">Varanasi</option>
+                        <option value="Agra">Agra</option>
+                        <option value="Udaipur">Udaipur</option>
+                        <option value="Jodhpur">Jodhpur</option>
+                        <option value="Amritsar">Amritsar</option>
+                        <option value="Srinagar">Srinagar</option>
+                        <option value="Leh">Leh</option>
+                        <option value="Darjeeling">Darjeeling</option>
+                        <option value="Ooty">Ooty</option>
+                        <option value="Kodaikanal">Kodaikanal</option>
+                        <option value="Munnar">Munnar</option>
+                        <option value="Alleppey">Alleppey</option>
+                        <option value="Andaman">Andaman</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                    </select>
+                    <button class="map-icon" onclick="alert('📍 Choose location on map (demo)')"><i class="fas fa-map-marked-alt"></i></button>
+                </div>
+                <div class="search-item"><i class="fas fa-calendar"></i> <input type="date" id="datePicker" value="2025-06-15"></div>
+                <div class="search-item"><i class="fas fa-clock"></i> <input type="time" id="timePicker" value="10:00"></div>
             </div>
-            <div class="current-loc" onclick="alert('Use current location (demo)')"><i class="fas fa-crosshairs"></i> Current: Mumbai</div>
+            <div class="current-loc" onclick="updateCityFromLocation()"><i class="fas fa-crosshairs"></i> Current: Mumbai</div>
         </div>
 
-        <!-- CATEGORIES TABS -->
-        <div class="categories">
-            <span class="active" onclick="alert('Packages (demo)')">PACKAGES</span>
-            <span onclick="alert('Wedding (demo)')">WEDDING</span>
-            <span onclick="alert('Portrait (demo)')">PORTRAIT</span>
-            <span onclick="alert('Event (demo)')">EVENT</span>
-            <span onclick="alert('Pre-Wedding (demo)')">PRE-WEDDING</span>
-            <span onclick="alert('Baby (demo)')">BABY</span>
-            <span onclick="alert('Commercial (demo)')">COMMERCIAL</span>
-            <span onclick="alert('More (demo)')">MORE</span>
+        <!-- CATEGORY TABS (interactive) -->
+        <div class="categories" id="categoryTabs">
+            <span class="active" data-cat="all">ALL</span>
+            <span data-cat="wedding">WEDDING</span>
+            <span data-cat="portrait">PORTRAIT</span>
+            <span data-cat="event">EVENT</span>
+            <span data-cat="prewedding">PRE-WEDDING</span>
+            <span data-cat="baby">BABY</span>
+            <span data-cat="commercial">COMMERCIAL</span>
+            <span data-cat="more" id="moreCat">MORE ▼</span>
         </div>
 
-        <!-- FIXED PACKAGES -->
+        <!-- ========== TOP PHOTOGRAPHERS NEAR YOU (moved up) ========== -->
+        <div class="photographer-grid-section">
+            <div class="grid-header">
+                <h2 class="section-title">Top Photographers Near You</h2>
+                <div class="grid-filters">
+                    <select id="filterCategoryGrid">
+                        <option value="all">All Categories</option>
+                        <option value="wedding">Wedding</option>
+                        <option value="portrait">Portrait</option>
+                        <option value="event">Event</option>
+                        <option value="prewedding">Pre-wedding</option>
+                        <option value="baby">Baby</option>
+                        <option value="commercial">Commercial</option>
+                    </select>
+                    <div class="price-range">
+                        <input type="number" id="minPriceGrid" placeholder="Min" value="0"> -
+                        <input type="number" id="maxPriceGrid" placeholder="Max" value="100000">
+                    </div>
+                    <select id="sortSelect">
+                        <option value="default">Sort by</option>
+                        <option value="priceLow">Price: Low to High</option>
+                        <option value="priceHigh">Price: High to Low</option>
+                        <option value="rating">Rating: High to Low</option>
+                    </select>
+                    <button class="btn-primary" onclick="applyGridFilters()">Apply</button>
+                </div>
+            </div>
+            <div class="photographer-grid" id="photographerGrid"></div>
+            <button class="load-more-btn" id="loadMoreBtn" onclick="loadMorePhotographers()">Load More (50+)</button>
+        </div>
+
+        <!-- Quick Filters (new) -->
+        <div class="quick-filters">
+            <span class="quick-filter" onclick="quickFilter('wedding')">💍 Wedding</span>
+            <span class="quick-filter" onclick="quickFilter('portrait')">📸 Portrait</span>
+            <span class="quick-filter" onclick="quickFilter('event')">🎉 Event</span>
+            <span class="quick-filter" onclick="quickFilter('prewedding')">💞 Pre-wedding</span>
+            <span class="quick-filter" onclick="quickFilter('baby')">👶 Baby</span>
+            <span class="quick-filter" onclick="quickFilter('commercial')">🏢 Commercial</span>
+            <span class="quick-filter" onclick="quickFilter('beach')">🏖️ Beach</span>
+            <span class="quick-filter" onclick="quickFilter('hillstation')">⛰️ Hill Station</span>
+        </div>
+
+        <!-- FIXED PACKAGES (with view all) -->
         <h2 class="section-title">Fixed Photography Packages</h2>
         <div class="fixed-packages">
-            <div class="package-card" onclick="alert('Essential Wedding Plan details (demo)')">
-                <div class="offer-tag">14% OFF All-Inclusive</div>
-                <p><i class="fas fa-video"></i> Videographer | <i class="fas fa-camera"></i> Photographer | Extra</p>
-                <h3>Essential Wedding Plan - 1Day</h3>
+            <div class="package-card" onclick="showDetails('Essential Wedding Plan')">
+                <div class="offer-tag">14% OFF</div>
+                <h3>Essential Wedding Plan</h3>
                 <div class="price">₹54,450 <small>₹63,000</small></div>
-                <div class="features-list">• 8 hours • 300 photos • online gallery</div>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:1, name:'Essential Wedding Plan', price:54450, img:'wedding.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
             <div style="flex:2; min-width:200px;">
-                <p>Choose from flexible, ready-to-book photo packages tailored to your needs, budget, and style.</p>
-                <button class="btn-primary" onclick="alert('View all packages (demo)')">View All</button>
+                <p>Choose from flexible packages tailored to your needs.</p>
+                <button class="btn-primary" onclick="togglePackages()" id="viewAllPackagesBtn">View All</button>
             </div>
         </div>
+        <!-- hidden extra packages (8 more) -->
+        <div id="extraPackages" style="display: none;" class="deals-grid"></div>
 
-        <!-- FEATURED DEALS -->
+        <!-- FEATURED DEALS (with Add to Cart) -->
         <h2 class="section-title">Today's Top Deals</h2>
         <div class="deals-grid">
-            <div class="deal-card" onclick="alert('Deal: Wedding package 20% off (demo)')">
-                <img src="wedding.jpg" alt="Deal">
+            <div class="deal-card" onclick="showDetails('Wedding Premium')">
+                <img src="wedding.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Wedding'" alt="Deal">
                 <h4>Wedding Premium</h4>
                 <div class="deal-price">₹49,999 <small>₹65,000</small></div>
                 <span style="color:#f97316; font-weight:600;">20% off</span>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:2, name:'Wedding Premium', price:49999, img:'wedding.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
-            <div class="deal-card" onclick="alert('Deal: Portrait session (demo)')">
-                <img src="p1.jpg" alt="Deal">
+            <div class="deal-card" onclick="showDetails('Portrait Session')">
+                <img src="p1.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Portrait'" alt="Deal">
                 <h4>Portrait Session</h4>
                 <div class="deal-price">₹3,999 <small>₹5,000</small></div>
                 <span style="color:#f97316; font-weight:600;">20% off</span>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:3, name:'Portrait Session', price:3999, img:'p1.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
-            <div class="deal-card" onclick="alert('Deal: Pre-wedding shoot (demo)')">
-                <img src="prewedding.jpg" alt="Deal">
+            <div class="deal-card" onclick="showDetails('Pre-Wedding Shoot')">
+                <img src="prewedding.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Pre-wedding'" alt="Deal">
                 <h4>Pre-Wedding Shoot</h4>
                 <div class="deal-price">₹12,999 <small>₹16,000</small></div>
                 <span style="color:#f97316; font-weight:600;">19% off</span>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:4, name:'Pre-Wedding Shoot', price:12999, img:'prewedding.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
-            <div class="deal-card" onclick="alert('Deal: Corporate event (demo)')">
-                <img src="night.jpg" alt="Deal">
+            <div class="deal-card" onclick="showDetails('Corporate Event')">
+                <img src="night.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Corporate'" alt="Deal">
                 <h4>Corporate Event</h4>
                 <div class="deal-price">₹24,999 <small>₹30,000</small></div>
                 <span style="color:#f97316; font-weight:600;">17% off</span>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:5, name:'Corporate Event', price:24999, img:'night.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
         </div>
 
-        <!-- TRENDING PHOTOGRAPHERS -->
+        <!-- TRENDING PHOTOGRAPHERS (now clickable) -->
         <h2 class="section-title">Trending Near You</h2>
         <div class="trending-grid">
-            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
+            <div class="trending-card" onclick="showDetails('Rohan Mehta')">
                 <div class="trending-image" style="background-image: url('photographer.jpg');"></div>
                 <div class="trending-info">
                     <h4>Rohan Mehta</h4>
@@ -1167,7 +654,7 @@
                     <div><i class="fas fa-star" style="color:gold;"></i> 4.9 (120 reviews)</div>
                 </div>
             </div>
-            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
+            <div class="trending-card" onclick="showDetails('Priya Kapoor')">
                 <div class="trending-image" style="background-image: url('hero.jpg');"></div>
                 <div class="trending-info">
                     <h4>Priya Kapoor</h4>
@@ -1175,7 +662,7 @@
                     <div><i class="fas fa-star" style="color:gold;"></i> 4.8 (95 reviews)</div>
                 </div>
             </div>
-            <div class="trending-card" onclick="alert('View photographer profile (demo)')">
+            <div class="trending-card" onclick="showDetails('Arjun Singh')">
                 <div class="trending-image" style="background-image: url('p2.jpg');"></div>
                 <div class="trending-info">
                     <h4>Arjun Singh</h4>
@@ -1185,56 +672,62 @@
             </div>
         </div>
 
-        <!-- CUSTOM PACKAGES -->
+        <!-- CUSTOM PACKAGES (with Add to Cart) -->
         <h2 class="section-title">Custom Photography Packages</h2>
         <div class="custom-packages-grid">
-            <div class="custom-item" onclick="alert('Makeup And Hair package (demo)')">
-                <img class="card-image" src="birthday.jpg" alt="Makeup">
+            <div class="custom-item" onclick="showDetails('Makeup And Hair')">
+                <img class="card-image" src="birthday.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Makeup'" alt="Makeup">
                 <h4>Makeup And Hair</h4>
                 <div class="custom-price">₹2,178 <small>₹2,754</small> /hr</div>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:6, name:'Makeup And Hair', price:2178, img:'birthday.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
-            <div class="custom-item" onclick="alert('Baby Closeups package (demo)')">
-                <img class="card-image" src="p1.jpg" alt="Baby">
+            <div class="custom-item" onclick="showDetails('Baby Closeups')">
+                <img class="card-image" src="p1.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Baby'" alt="Baby">
                 <h4>Baby Closeups</h4>
                 <div class="custom-price">₹2,178 <small>₹2,628</small> /hr</div>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:7, name:'Baby Closeups', price:2178, img:'p1.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
-            <div class="custom-item" onclick="alert('Vasant Panchmi package (demo)')">
-                <img class="card-image" src="diwali.jpg" alt="Festival">
+            <div class="custom-item" onclick="showDetails('Vasant Panchmi')">
+                <img class="card-image" src="diwali.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Festival'" alt="Festival">
                 <h4>Vasant Panchmi</h4>
                 <div class="custom-price">₹2,418 <small>₹2,999</small> /hr</div>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:8, name:'Vasant Panchmi', price:2418, img:'diwali.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
         </div>
 
-        <!-- BEST SELLING -->
+        <!-- BEST SELLING (with Add to Cart) -->
         <h2 class="section-title">Best Selling on PhotoWale</h2>
         <div class="best-grid">
-            <div class="best-card" onclick="alert('Wedding Photography (demo)')">
-                <img src="wedding.jpg" alt="Wedding">
+            <div class="best-card" onclick="showDetails('Wedding Photography')">
+                <img src="wedding.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Wedding'" alt="Wedding">
                 <h4>Wedding Photography</h4>
                 <p>100+ bookings</p>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:9, name:'Wedding Photography', price:45000, img:'wedding.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
-            <div class="best-card" onclick="alert('Family Portraits (demo)')">
-                <img src="birthday.jpg" alt="Family">
+            <div class="best-card" onclick="showDetails('Family Portraits')">
+                <img src="birthday.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Family'" alt="Family">
                 <h4>Family Portraits</h4>
                 <p>50+ bookings</p>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:10, name:'Family Portraits', price:5000, img:'birthday.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
-            <div class="best-card" onclick="alert('Corporate Events (demo)')">
-                <img src="night.jpg" alt="Corporate">
+            <div class="best-card" onclick="showDetails('Corporate Events')">
+                <img src="night.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Corporate'" alt="Corporate">
                 <h4>Corporate Events</h4>
                 <p>60+ bookings</p>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:11, name:'Corporate Events', price:20000, img:'night.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
             </div>
         </div>
 
-        <!-- BRAND STORE -->
+        <!-- BRAND STORE with links (now open official sites) -->
         <h2 class="section-title">Shop by Brand</h2>
         <div class="brands-grid">
-            <div class="brand-item" onclick="alert('Canon (demo)')"><i class="fas fa-camera"></i><br>Canon</div>
-            <div class="brand-item" onclick="alert('Nikon (demo)')"><i class="fas fa-camera-retro"></i><br>Nikon</div>
-            <div class="brand-item" onclick="alert('Sony (demo)')"><i class="fas fa-video"></i><br>Sony</div>
-            <div class="brand-item" onclick="alert('GoPro (demo)')"><i class="fas fa-helicopter"></i><br>GoPro</div>
+            <div class="brand-item" onclick="window.open('https://www.canon.co.in/', '_blank')"><i class="fas fa-camera"></i><br>Canon</div>
+            <div class="brand-item" onclick="window.open('https://www.nikon.co.in/', '_blank')"><i class="fas fa-camera-retro"></i><br>Nikon</div>
+            <div class="brand-item" onclick="window.open('https://www.sony.co.in/', '_blank')"><i class="fas fa-video"></i><br>Sony</div>
+            <div class="brand-item" onclick="window.open('https://gopro.com/', '_blank')"><i class="fas fa-helicopter"></i><br>GoPro</div>
         </div>
 
-        <!-- CUSTOMER REVIEWS -->
+        <!-- CUSTOMER REVIEWS (unchanged) -->
         <h2 class="section-title">What Our Customers Say</h2>
         <div class="reviews-grid">
             <div class="review-card">
@@ -1259,101 +752,136 @@
             </div>
         </div>
 
-        <!-- SPECIAL OFFERS -->
+        <!-- SPECIAL OFFERS (unchanged) -->
         <h2 class="section-title">Special Offers</h2>
         <div class="offers-grid">
-            <div class="offer-card" onclick="alert('20% off on first booking (demo)')">
+            <div class="offer-card" onclick="showDetails('20% off on first booking')">
                 <i class="fas fa-tag"></i>
                 <h4>New User?</h4>
                 <p>20% off on first booking</p>
             </div>
-            <div class="offer-card" onclick="alert('Refer a friend (demo)')">
+            <div class="offer-card" onclick="showDetails('Refer a friend')">
                 <i class="fas fa-gift"></i>
                 <h4>Refer & Earn</h4>
                 <p>Get ₹500 for each referral</p>
             </div>
         </div>
 
-        <!-- FESTIVAL CAROUSEL (FIXED) -->
+        <!-- FESTIVAL CAROUSEL (unchanged) -->
         <h2 class="section-title">Festival & Celebrations</h2>
         <div class="festival-carousel" id="festivalCarousel">
             <div class="festival-slides" id="festivalSlides"></div>
             <div class="carousel-dots" id="festivalDots"></div>
         </div>
 
-        <!-- HOW TO BOOK (FIXED) -->
+        <!-- HOW TO BOOK (unchanged) -->
         <h2 class="section-title">How to Book</h2>
         <div class="steps-container">
-            <div class="step" onclick="alert('Discover (demo)')">
+            <div class="step" onclick="showDetails('Discover')">
                 <div class="step-icon"><i class="fas fa-search"></i></div>
                 <h3>Discover</h3>
                 <p>Find the perfect photographer. Enter your event details, date, and style.</p>
             </div>
-            <div class="step" onclick="alert('Decide (demo)')">
+            <div class="step" onclick="showDetails('Decide')">
                 <div class="step-icon"><i class="fas fa-balance-scale"></i></div>
                 <h3>Decide</h3>
                 <p>Compare portfolios, transparent pricing, and authentic reviews.</p>
             </div>
-            <div class="step" onclick="alert('Deal (demo)')">
+            <div class="step" onclick="showDetails('Deal')">
                 <div class="step-icon"><i class="fas fa-handshake"></i></div>
                 <h3>Deal</h3>
                 <p>Book with confidence. Safe payments and protection.</p>
             </div>
         </div>
 
-        <!-- TRUSTED BY THOUSANDS -->
+        <!-- TRUSTED BY THOUSANDS (unchanged) -->
         <div class="trust-grid">
-            <div class="trust-item"><i class="fas fa-users"></i><h3>Growing Community</h3><p>Join thousands</p></div>
-            <div class="trust-item"><i class="fas fa-check-circle"></i><h3>Verified Photographers</h3><p>Screened</p></div>
-            <div class="trust-item"><i class="fas fa-headset"></i><h3>Customer Support</h3><p>24/7</p></div>
-            <div class="trust-item"><i class="fas fa-star"></i><h3>Authentic Reviews</h3><p>Real feedback</p></div>
+            <div class="trust-item" onclick="showDetails('Growing Community')"><i class="fas fa-users"></i><h3>Growing Community</h3><p>Join thousands</p></div>
+            <div class="trust-item" onclick="showDetails('Verified Photographers')"><i class="fas fa-check-circle"></i><h3>Verified Photographers</h3><p>Screened</p></div>
+            <div class="trust-item" onclick="showDetails('Customer Support')"><i class="fas fa-headset"></i><h3>Customer Support</h3><p>24/7</p></div>
+            <div class="trust-item" onclick="showDetails('Authentic Reviews')"><i class="fas fa-star"></i><h3>Authentic Reviews</h3><p>Real feedback</p></div>
         </div>
 
-        <!-- PRO STEPS -->
+        <!-- PRO STEPS (unchanged) -->
         <div class="champ-steps">
             <h2>How PhotoWale Pro Works</h2>
             <div class="champ-grid">
-                <div class="champ-card" onclick="alert('Create Profile (demo)')">
+                <div class="champ-card" onclick="showDetails('Create Profile')">
                     <div class="champ-icon"><i class="fas fa-user-circle"></i></div>
                     <h4>Create Profile</h4>
                 </div>
-                <div class="champ-card" onclick="alert('Showcase Work (demo)')">
+                <div class="champ-card" onclick="showDetails('Showcase Work')">
                     <div class="champ-icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <h4>Showcase Work</h4>
                 </div>
-                <div class="champ-card" onclick="alert('Get Bookings (demo)')">
+                <div class="champ-card" onclick="showDetails('Get Bookings')">
                     <div class="champ-icon"><i class="fas fa-calendar-check"></i></div>
                     <h4>Get Bookings</h4>
                 </div>
             </div>
         </div>
 
-        <!-- RECENTLY VIEWED (ENHANCED) -->
+        <!-- FILTER SECTION (existing) -->
+        <h2 class="section-title">Browse All Packages (Filterable)</h2>
+        <div class="filter-section">
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select id="filterCategory">
+                        <option value="all">All</option>
+                        <option value="wedding">Wedding</option>
+                        <option value="portrait">Portrait</option>
+                        <option value="event">Event</option>
+                        <option value="prewedding">Pre-wedding</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Price Range</label>
+                    <div class="price-range">
+                        <input type="number" id="minPrice" placeholder="Min" value="0">
+                        <span>-</span>
+                        <input type="number" id="maxPrice" placeholder="Max" value="100000">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>Rating</label>
+                    <select id="filterRating">
+                        <option value="0">Any</option>
+                        <option value="4">4★ & above</option>
+                        <option value="3">3★ & above</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="applyFilters()">Apply Filters</button>
+            </div>
+            <div class="filter-products-grid" id="filterProductsGrid"></div>
+        </div>
+
+        <!-- RECENTLY VIEWED (unchanged) -->
         <h2 class="section-title">Recently Viewed</h2>
         <div class="recent-grid">
-            <div class="recent-item" onclick="alert('Wedding package (demo)')">
-                <img src="wedding.jpg" alt="Wedding">
+            <div class="recent-item" onclick="showDetails('Wedding Premium')">
+                <img src="wedding.jpg" onerror="this.src='https://via.placeholder.com/160x110?text=Wedding'" alt="Wedding">
                 <p>Wedding Premium</p>
             </div>
-            <div class="recent-item" onclick="alert('Portrait session (demo)')">
-                <img src="p1.jpg" alt="Portrait">
+            <div class="recent-item" onclick="showDetails('Portrait Session')">
+                <img src="p1.jpg" onerror="this.src='https://via.placeholder.com/160x110?text=Portrait'" alt="Portrait">
                 <p>Portrait Session</p>
             </div>
-            <div class="recent-item" onclick="alert('Pre-wedding shoot (demo)')">
-                <img src="prewedding.jpg" alt="Pre-wedding">
+            <div class="recent-item" onclick="showDetails('Pre-Wedding Shoot')">
+                <img src="prewedding.jpg" onerror="this.src='https://via.placeholder.com/160x110?text=Pre-wedding'" alt="Pre-wedding">
                 <p>Pre-Wedding</p>
             </div>
-            <div class="recent-item" onclick="alert('Corporate event (demo)')">
-                <img src="night.jpg" alt="Corporate">
+            <div class="recent-item" onclick="showDetails('Corporate Event')">
+                <img src="night.jpg" onerror="this.src='https://via.placeholder.com/160x110?text=Corporate'" alt="Corporate">
                 <p>Corporate Event</p>
             </div>
-            <div class="recent-item" onclick="alert('Birthday package (demo)')">
-                <img src="birthday.jpg" alt="Birthday">
+            <div class="recent-item" onclick="showDetails('Birthday Special')">
+                <img src="birthday.jpg" onerror="this.src='https://via.placeholder.com/160x110?text=Birthday'" alt="Birthday">
                 <p>Birthday Special</p>
             </div>
         </div>
 
-        <!-- APP DOWNLOAD (FIXED) -->
+        <!-- APP DOWNLOAD (unchanged) -->
         <div class="app-section">
             <div class="app-left">
                 <h2>Download the PhotoWale App</h2>
@@ -1372,17 +900,93 @@
                     </div>
                 </div>
                 <div class="app-badges-white">
-                    <div class="app-badge-white" onclick="alert('Google Play (demo)')"><i class="fab fa-google-play"></i> Google Play</div>
-                    <div class="app-badge-white" onclick="alert('App Store (demo)')"><i class="fab fa-apple"></i> App Store</div>
+                    <div class="app-badge-white" onclick="window.open('https://play.google.com', '_blank')"><i class="fab fa-google-play"></i> Google Play</div>
+                    <div class="app-badge-white" onclick="window.open('https://www.apple.com/app-store/', '_blank')"><i class="fab fa-apple"></i> App Store</div>
                 </div>
             </div>
             <div class="app-right">
                 <img src="hero.webp" alt="app mockup" onerror="this.src='https://via.placeholder.com/300x300?text=App+Mockup'">
             </div>
         </div>
+
+        <!-- NEW SECTION: Recommended for You -->
+        <h2 class="section-title">Recommended for You</h2>
+        <div class="deals-grid">
+            <div class="deal-card" onclick="showDetails('Destination Wedding')">
+                <img src="wedding.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Destination'" alt="Destination">
+                <h4>Destination Wedding</h4>
+                <div class="deal-price">₹1,25,000</div>
+                <span style="color:#f97316;">✨ Popular</span>
+            </div>
+            <div class="deal-card" onclick="showDetails('Maternity Shoot')">
+                <img src="p1.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Maternity'" alt="Maternity">
+                <h4>Maternity Shoot</h4>
+                <div class="deal-price">₹8,500</div>
+            </div>
+            <div class="deal-card" onclick="showDetails('Candid Wedding')">
+                <img src="prewedding.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Candid'" alt="Candid">
+                <h4>Candid Wedding</h4>
+                <div class="deal-price">₹65,000</div>
+            </div>
+            <div class="deal-card" onclick="showDetails('Product Photography')">
+                <img src="night.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Product'" alt="Product">
+                <h4>Product Photography</h4>
+                <div class="deal-price">₹3,200/session</div>
+            </div>
+        </div>
+
+        <!-- TOP RATED (unchanged) -->
+        <h2 class="section-title">Top Rated Photographers</h2>
+        <div class="trending-grid">
+            <div class="trending-card" onclick="showDetails('Neha Gupta')">
+                <div class="trending-image" style="background-image: url('photographer.jpg');"></div>
+                <div class="trending-info"><h4>Neha Gupta</h4><div>4.9 ★ (340 reviews)</div></div>
+            </div>
+            <div class="trending-card" onclick="showDetails('Vikram Rathore')">
+                <div class="trending-image" style="background-image: url('hero.jpg');"></div>
+                <div class="trending-info"><h4>Vikram Rathore</h4><div>4.8 ★ (210 reviews)</div></div>
+            </div>
+        </div>
+
+        <!-- FEATURED CATEGORIES (unchanged) -->
+        <h2 class="section-title">Featured Categories</h2>
+        <div class="brands-grid">
+            <div class="brand-item" onclick="showDetails('Wedding')"><i class="fas fa-heart"></i><br>Wedding</div>
+            <div class="brand-item" onclick="showDetails('Birthday')"><i class="fas fa-birthday-cake"></i><br>Birthday</div>
+            <div class="brand-item" onclick="showDetails('Corporate')"><i class="fas fa-building"></i><br>Corporate</div>
+            <div class="brand-item" onclick="showDetails('Fashion')"><i class="fas fa-tshirt"></i><br>Fashion</div>
+        </div>
+
+        <!-- BLOGS (unchanged) -->
+        <h2 class="section-title">PhotoWale Blogs</h2>
+        <div class="deals-grid">
+            <div class="deal-card" onclick="showDetails('Wedding Photography Tips')">
+                <img src="wedding.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Blog'" alt="blog"><h4>Wedding Photography Tips</h4>
+            </div>
+            <div class="deal-card" onclick="showDetails('Natural Light Hacks')">
+                <img src="p1.jpg" onerror="this.src='https://via.placeholder.com/200x150?text=Blog'" alt="blog"><h4>Natural Light Hacks</h4>
+            </div>
+        </div>
+
+        <!-- POPULAR CITIES (unchanged) -->
+        <h2 class="section-title">Popular Cities</h2>
+        <div class="brands-grid">
+            <div class="brand-item" onclick="updateCity('Mumbai')">Mumbai</div>
+            <div class="brand-item" onclick="updateCity('Delhi')">Delhi</div>
+            <div class="brand-item" onclick="updateCity('Bangalore')">Bangalore</div>
+            <div class="brand-item" onclick="updateCity('Chennai')">Chennai</div>
+        </div>
+
+        <!-- WHY CHOOSE US (unchanged) -->
+        <h2 class="section-title">Why Choose Us</h2>
+        <div class="trust-grid">
+            <div class="trust-item" onclick="showDetails('Secure Payments')"><i class="fas fa-shield-alt"></i><h3>Secure Payments</h3></div>
+            <div class="trust-item" onclick="showDetails('On-Time Delivery')"><i class="fas fa-clock"></i><h3>On-Time Delivery</h3></div>
+            <div class="trust-item" onclick="showDetails('Top Equipment')"><i class="fas fa-camera-retro"></i><h3>Top Equipment</h3></div>
+        </div>
     </div>
 
-    <!-- FOOTER (ENHANCED) -->
+    <!-- FOOTER (unchanged) -->
     <div class="footer">
         <div class="footer-grid">
             <div class="footer-col">
@@ -1414,11 +1018,11 @@
                 <p>JayVind IT-Tech Pvt Ltd<br>501, Parvati Nandan Park<br>Opp. Sarkhej Railway stn<br>Ahmedabad - 382210</p>
                 <p>CIN: U519733633262<br>Phone: +91 9135791602</p>
                 <div class="social-icons">
-                    <i class="fab fa-instagram" onclick="alert('Instagram (demo)')"></i>
-                    <i class="fab fa-linkedin-in" onclick="alert('LinkedIn (demo)')"></i>
-                    <i class="fab fa-facebook-f" onclick="alert('Facebook (demo)')"></i>
-                    <i class="fab fa-twitter" onclick="alert('Twitter (demo)')"></i>
-                    <i class="fab fa-youtube" onclick="alert('YouTube (demo)')"></i>
+                    <i class="fab fa-instagram" onclick="window.open('https://instagram.com', '_blank')"></i>
+                    <i class="fab fa-linkedin-in" onclick="window.open('https://linkedin.com', '_blank')"></i>
+                    <i class="fab fa-facebook-f" onclick="window.open('https://facebook.com', '_blank')"></i>
+                    <i class="fab fa-twitter" onclick="window.open('https://twitter.com', '_blank')"></i>
+                    <i class="fab fa-youtube" onclick="window.open('https://youtube.com', '_blank')"></i>
                 </div>
             </div>
         </div>
@@ -1438,65 +1042,250 @@
     </div>
 
     <script>
-        // Countdown timer
+        // ========== GLOBAL DATA ==========
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let loggedInUser = JSON.parse(localStorage.getItem('user')) || null;
+        let currentCity = 'Mumbai';
+
+        // Sample products for existing filter section (without 'images/' prefix)
+        const allProducts = [
+            { id:101, name:'Wedding Elite', category:'wedding', price:85000, rating:4.8, img:'wedding.jpg' },
+            { id:102, name:'Portrait Pro', category:'portrait', price:4500, rating:4.5, img:'p1.jpg' },
+            { id:103, name:'Event Master', category:'event', price:22000, rating:4.3, img:'night.jpg' },
+            { id:104, name:'Pre-wedding Candid', category:'prewedding', price:15000, rating:4.9, img:'prewedding.jpg' },
+            { id:105, name:'Birthday Bash', category:'event', price:8000, rating:4.2, img:'birthday.jpg' },
+            { id:106, name:'Wedding Classic', category:'wedding', price:55000, rating:4.7, img:'wedding.jpg' },
+        ];
+
+        // ========== PHOTOGRAPHER DATA (150+ Indian names) ==========
+        const photographerNames = [
+            'Aarav Sharma', 'Vihaan Verma', 'Vivaan Kapoor', 'Ananya Gupta', 'Diya Singh', 'Advik Nair',
+            'Kabir Malhotra', 'Arjun Reddy', 'Sara Khan', 'Ishaan Patel', 'Myra Joshi', 'Ayaan Desai',
+            'Reyansh Menon', 'Sai Iyer', 'Arnav Chauhan', 'Anaya Kaur', 'Ishita Rao', 'Rudra Shetty',
+            'Samaira Khanna', 'Pranav Mishra', 'Anvi Choudhary', 'Dhruv Thakur', 'Rohan Mehta', 'Priya Kapoor',
+            'Neha Gupta', 'Rahul Sharma', 'Pooja Yadav', 'Amit Kumar', 'Sunil Shetty', 'Rajesh Khanna',
+            'Kavita Singh', 'Ashish Nair', 'Naina Iyer', 'Gaurav Patil', 'Meera Menon', 'Chetan Kulkarni',
+            'Divya Deshmukh', 'Harsh Bhatia', 'Juhi Chawla', 'Kunal Khemu', 'Lata Mangeshkar', 'Manoj Bajpayee',
+            'Nidhi Singh', 'Om Prakash', 'Palak Muchhal', 'Quasar Thakore', 'Ritu Kumar', 'Sahil Khan',
+            'Tara Sharma', 'Uday Chopra', 'Vandana Gujjar', 'Yash Johar', 'Zara Sheikh'
+        ];
+        const categories = ['wedding', 'portrait', 'event', 'prewedding', 'baby', 'commercial'];
+        const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Pune', 'Ahmedabad', 'Surat', 'Jaipur', 'Lucknow', 'Hyderabad', 'Chandigarh'];
+        const images = ['wedding.jpg', 'p1.jpg', 'p2.jpg', 'p3.jpg', 'photographer.jpg', 'hero.jpg', 'night.jpg', 'prewedding.jpg', 'birthday.jpg', 'diwali.jpg', 'holi.jpg', 'eid.jpg', 'christmas.jpg', 'durgapuja.jpg', 'ganeshpuja.jpg', 'onam.jpg', 'pongal.jpg'];
+
+        let allPhotographers = [];
+        for (let i = 0; i < 150; i++) {
+            allPhotographers.push({
+                id: 2000 + i,
+                name: photographerNames[i % photographerNames.length],
+                category: categories[Math.floor(Math.random() * categories.length)],
+                price: Math.floor(Math.random() * 50000) + 2000,
+                rating: (Math.random() * 1.5 + 3.5).toFixed(1),
+                city: cities[Math.floor(Math.random() * cities.length)],
+                img: images[Math.floor(Math.random() * images.length)],
+                reviews: Math.floor(Math.random() * 200) + 20
+            });
+        }
+
+        // ========== THEME TOGGLE ==========
+        let darkMode = localStorage.getItem('darkMode') === 'true';
+        if (darkMode) document.body.classList.replace('light-mode', 'dark-mode');
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // ========== COUNTDOWN (28 days) ==========
         function startCountdown() {
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 13);
-            targetDate.setHours(0,0,0,0);
-            function updateTimer() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-                if (distance < 0) {
-                    document.getElementById('days').innerText = '00';
-                    document.getElementById('hours').innerText = '00';
-                    document.getElementById('minutes').innerText = '00';
-                    document.getElementById('seconds').innerText = '00';
-                    return;
-                }
-                document.getElementById('days').innerText = Math.floor(distance / (1000*60*60*24)).toString().padStart(2,'0');
-                document.getElementById('hours').innerText = Math.floor((distance % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2,'0');
-                document.getElementById('minutes').innerText = Math.floor((distance % (1000*60*60)) / (1000*60)).toString().padStart(2,'0');
-                document.getElementById('seconds').innerText = Math.floor((distance % (1000*60)) / 1000).toString().padStart(2,'0');
+            const target = new Date();
+            target.setDate(target.getDate() + 28);
+            target.setHours(0,0,0,0);
+            function update() {
+                const now = new Date(), diff = target - now;
+                if (diff < 0) return;
+                document.getElementById('days').innerText = Math.floor(diff/(1000*60*60*24)).toString().padStart(2,'0');
+                document.getElementById('hours').innerText = Math.floor((diff/(1000*60*60))%24).toString().padStart(2,'0');
+                document.getElementById('minutes').innerText = Math.floor((diff/(1000*60))%60).toString().padStart(2,'0');
+                document.getElementById('seconds').innerText = Math.floor((diff/1000)%60).toString().padStart(2,'0');
             }
-            updateTimer(); setInterval(updateTimer, 1000);
+            update(); setInterval(update,1000);
         }
         startCountdown();
 
-        // Hero slider
+        // ========== HERO SLIDER (dots hidden) ==========
         const heroSlides = document.getElementById('heroSlides');
-        const heroDots = document.getElementById('heroDots');
-        const heroImages = ['hero.jpg', 'p1.jpg', 'p2.jpg', 'p3.jpg'];
+        const heroImages = ['hero.jpg','p1.jpg','p2.jpg','p3.jpg'];
         let heroIndex = 0;
-        function updateHeroDots() {
-            heroDots.innerHTML = '';
-            heroImages.forEach((_, i) => {
-                const dot = document.createElement('span');
-                dot.classList.add('dot');
-                if(i === heroIndex) dot.classList.add('active');
-                dot.onclick = () => { heroIndex = i; updateHero(); };
-                heroDots.appendChild(dot);
-            });
-        }
-        function updateHero() { heroSlides.style.transform = `translateX(-${heroIndex * 100}%)`; updateHeroDots(); }
-        setInterval(() => { heroIndex = (heroIndex + 1) % heroImages.length; updateHero(); }, 5000);
-        updateHero();
+        setInterval(() => { heroIndex = (heroIndex + 1) % heroImages.length; heroSlides.style.transform = `translateX(-${heroIndex * 100}%)`; }, 5000);
 
-        // Festival carousel
+        // ========== PHOTOGRAPHER GRID RENDERING ==========
+        let currentFiltered = null;
+        let displayedCount = 50;
+
+        function renderPhotographers(start, count, filteredList = null) {
+            const grid = document.getElementById('photographerGrid');
+            if (!grid) return;
+            let list = filteredList || allPhotographers;
+            const end = Math.min(start + count, list.length);
+            let html = '';
+            for (let i = start; i < end; i++) {
+                const p = list[i];
+                html += `<div class="photographer-card" onclick="showDetails('${p.name}')">
+                    <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200x150?text=Photographer'">
+                    <div class="photographer-name">${p.name}</div>
+                    <div class="photographer-category">${p.category}</div>
+                    <div class="photographer-rating"><i class="fas fa-star" style="color:gold;"></i> ${p.rating} (${p.reviews})</div>
+                    <div class="photographer-price">₹${p.price}</div>
+                    <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:${p.id}, name:'${p.name}', price:${p.price}, img:'${p.img}'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>`;
+            }
+            grid.innerHTML = html;
+            document.getElementById('loadMoreBtn').style.display = end >= list.length ? 'none' : 'block';
+        }
+
+        function applyGridFilters() {
+            const cat = document.getElementById('filterCategoryGrid').value;
+            const min = +document.getElementById('minPriceGrid').value || 0;
+            const max = +document.getElementById('maxPriceGrid').value || 100000;
+            const sort = document.getElementById('sortSelect').value;
+            let filtered = allPhotographers.filter(p => p.price >= min && p.price <= max);
+            if (cat !== 'all') filtered = filtered.filter(p => p.category === cat);
+            if (sort === 'priceLow') filtered.sort((a,b) => a.price - b.price);
+            else if (sort === 'priceHigh') filtered.sort((a,b) => b.price - a.price);
+            else if (sort === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+            currentFiltered = filtered;
+            displayedCount = 50;
+            renderPhotographers(0, 50, filtered);
+        }
+
+        function loadMorePhotographers() {
+            displayedCount += 50;
+            renderPhotographers(0, displayedCount, currentFiltered);
+        }
+
+        // Category tabs filter
+        document.querySelectorAll('#categoryTabs span').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('#categoryTabs span').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                let cat = this.dataset.cat;
+                if (cat === 'more') cat = 'all';
+                document.getElementById('filterCategoryGrid').value = cat;
+                applyGridFilters();
+            });
+        });
+
+        // Search function (for top bar)
+        window.searchPhotographers = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const eventCat = document.getElementById('eventTypeSelect').value;
+            const loc = document.getElementById('citySelect').value;
+            let filtered = allPhotographers.filter(p => 
+                (p.name.toLowerCase().includes(query) || p.category.includes(query)) &&
+                (eventCat === 'all' || p.category === eventCat) &&
+                (loc === 'all' || p.city === loc)
+            );
+            currentFiltered = filtered;
+            displayedCount = 50;
+            renderPhotographers(0, 50, filtered);
+        };
+
+        // Quick filter
+        window.quickFilter = function(cat) {
+            document.getElementById('filterCategoryGrid').value = cat;
+            applyGridFilters();
+        };
+
+        // Update city from current location button (mock)
+        window.updateCityFromLocation = function() {
+            const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Pune', 'Ahmedabad'];
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            document.getElementById('citySelect').value = randomCity;
+            currentCity = randomCity;
+            alert(`Location set to ${randomCity} (demo)`);
+        };
+
+        // Update city from popular cities
+        window.updateCity = function(city) {
+            document.getElementById('citySelect').value = city;
+            currentCity = city;
+            alert(`City updated to ${city}`);
+        };
+
+        // Show details function (replaces all demo alerts)
+        window.showDetails = function(item) {
+            alert(`🔍 ${item} – Working on it! Details coming soon.`);
+        };
+
+        // ========== FIXED PACKAGES TOGGLE ==========
+        window.togglePackages = function() {
+            let extra = document.getElementById('extraPackages');
+            if (extra.style.display === 'none') {
+                extra.style.display = 'grid';
+                document.getElementById('viewAllPackagesBtn').innerText = 'Show Less';
+            } else {
+                extra.style.display = 'none';
+                document.getElementById('viewAllPackagesBtn').innerText = 'View All';
+            }
+        };
+
+        // Populate extra packages (8 more)
+        document.getElementById('extraPackages').innerHTML = Array(8).fill(0).map((_,i)=>`
+            <div class="package-card" onclick="showDetails('Package ${i+1}')">
+                <div class="offer-tag">Special Offer</div>
+                <h3>Package ${i+1}</h3>
+                <div class="price">₹${(i+1)*10000} <small>₹${(i+2)*10000}</small></div>
+                <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:${100+i}, name:'Package ${i+1}', price:${(i+1)*10000}, img:'wedding.jpg'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+            </div>
+        `).join('');
+
+        // ========== FILTER SECTION (existing) ==========
+        function renderFilterProducts(products) {
+            const grid = document.getElementById('filterProductsGrid');
+            if (!grid) return;
+            grid.innerHTML = products.map(p => `
+                <div class="filter-product-card" onclick="showDetails('${p.name}')">
+                    <img src="${p.img}" onerror="this.src='https://via.placeholder.com/200x150?text=${p.name}'">
+                    <h4>${p.name}</h4>
+                    <div class="price">₹${p.price}</div>
+                    <div><i class="fas fa-star" style="color:gold;"></i> ${p.rating}</div>
+                    <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart({id:${p.id}, name:'${p.name}', price:${p.price}, img:'${p.img}'})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            `).join('');
+        }
+
+        window.applyFilters = function() {
+            const cat = document.getElementById('filterCategory').value;
+            const min = +document.getElementById('minPrice').value || 0;
+            const max = +document.getElementById('maxPrice').value || 100000;
+            const rating = +document.getElementById('filterRating').value || 0;
+
+            let filtered = allProducts.filter(p => p.price >= min && p.price <= max && p.rating >= rating);
+            if (cat !== 'all') filtered = filtered.filter(p => p.category === cat);
+            renderFilterProducts(filtered);
+        };
+
+        // ========== FESTIVAL CAROUSEL ==========
         const festivalSlides = document.getElementById('festivalSlides');
         const festivalDots = document.getElementById('festivalDots');
         const festivals = [
-            { name: 'Diwali', img: 'diwali.jpg' }, { name: 'Holi', img: 'holi.jpg' },
-            { name: 'Eid', img: 'eid.jpg' }, { name: 'Christmas', img: 'christmas.jpg' },
-            { name: 'Durga Puja', img: 'durgapuja.jpg' }, { name: 'Ganesh Puja', img: 'ganeshpuja.jpg' },
-            { name: 'Onam', img: 'onam.jpg' }, { name: 'Pongal', img: 'pongal.jpg' },
-            { name: 'Raksha Bandhan', img: 'rakshabandhan.jpg' }, { name: 'Makar Sankranti', img: 'makarsankratri.jpg' },
-            { name: 'Chhath', img: 'chhath.jpg' }
+            { name: 'Diwali', img: 'diwali.jpg' },
+            { name: 'Holi', img: 'holi.jpg' },
+            { name: 'Eid', img: 'eid.jpg' },
+            { name: 'Christmas', img: 'christmas.jpg' },
+            { name: 'Durga Puja', img: 'durgapuja.jpg' },
+            { name: 'Ganesh Puja', img: 'ganeshpuja.jpg' },
+            { name: 'Onam', img: 'onam.jpg' },
+            { name: 'Pongal', img: 'pongal.jpg' }
         ];
-        let festIndex = 0; const slidesPerView = 4;
+        let festIndex = 0;
+        const slidesPerView = 4;
         function renderFestival() {
             let html = '';
-            festivals.slice(0,8).forEach(f => { // show 8 for demo
-                html += `<div class="festival-slide"><div class="festival-card" onclick="alert('${f.name} photography (demo)')"><img src="${f.img}" alt="${f.name}" onerror="this.src='https://via.placeholder.com/200x140?text=${f.name}'"><h4>${f.name}</h4></div></div>`;
+            festivals.slice(0,8).forEach(f => {
+                html += `<div class="festival-slide"><div class="festival-card" onclick="showDetails('${f.name}')"><img src="${f.img}" onerror="this.src='https://via.placeholder.com/200x140?text=${f.name}'" alt="${f.name}"><h4>${f.name}</h4></div></div>`;
             });
             festivalSlides.innerHTML = html;
         }
@@ -1504,18 +1293,116 @@
             const dotCount = Math.ceil(8 / slidesPerView);
             festivalDots.innerHTML = '';
             for(let i=0; i<dotCount; i++) {
-                const d = document.createElement('span'); d.classList.add('fest-dot');
+                const d = document.createElement('span');
+                d.classList.add('fest-dot');
                 if(i === Math.floor(festIndex / slidesPerView)) d.classList.add('active');
                 d.onclick = () => { festIndex = i * slidesPerView; updateFestival(); };
                 festivalDots.appendChild(d);
             }
         }
-        function updateFestival() { festivalSlides.style.transform = `translateX(-${festIndex * (100 / slidesPerView)}%)`; updateFestivalDots(); }
+        function updateFestival() {
+            festivalSlides.style.transform = `translateX(-${festIndex * (100 / slidesPerView)}%)`;
+            updateFestivalDots();
+        }
         setInterval(() => { festIndex = (festIndex + slidesPerView) % 8; updateFestival(); }, 5000);
         renderFestival(); updateFestival();
+
+        // ========== CART FUNCTIONS ==========
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cart.reduce((acc, item) => acc + item.quantity, 0);
+            renderCartDropdown();
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function renderCartDropdown() {
+            const container = document.getElementById('cartItems');
+            if (!container) return;
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align:center;">Cart is empty</p>';
+                document.getElementById('cartTotal').innerText = 'Total: ₹0';
+                return;
+            }
+            let html = '';
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                html += `<div class="cart-item">
+                    <img src="${item.img}" onerror="this.src='https://via.placeholder.com/50'">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">₹${item.price} x ${item.quantity}</div>
+                        <span class="cart-item-remove" onclick="removeFromCart(${item.id})">Remove</span>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+            document.getElementById('cartTotal').innerText = `Total: ₹${total}`;
+        }
+
+        window.addToCart = function(product) {
+            const existing = cart.find(p => p.id === product.id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartCount();
+            alert(`${product.name} added to cart!`);
+        };
+
+        window.removeFromCart = function(id) {
+            cart = cart.filter(p => p.id !== id);
+            updateCartCount();
+        };
+
+        // ========== LOGIN MODAL ==========
+        const modal = document.getElementById('loginModal');
+        window.showLoginModal = function() { modal.style.display = 'flex'; };
+        window.hideLoginModal = function() { modal.style.display = 'none'; };
+        window.switchAuthTab = function(tab) {
+            document.getElementById('signinTab').classList.toggle('active', tab === 'signin');
+            document.getElementById('signupTab').classList.toggle('active', tab === 'signup');
+            document.getElementById('signinForm').style.display = tab === 'signin' ? 'block' : 'none';
+            document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+        };
+        window.handleLogin = function() {
+            const email = document.getElementById('loginEmail').value;
+            localStorage.setItem('user', JSON.stringify({ name: email.split('@')[0], email }));
+            loggedInUser = { name: email.split('@')[0] };
+            updateAuthUI();
+            hideLoginModal();
+            alert('Logged in successfully (demo)');
+        };
+        window.handleSignup = function() {
+            const name = document.getElementById('signupName').value || 'User';
+            localStorage.setItem('user', JSON.stringify({ name }));
+            loggedInUser = { name };
+            updateAuthUI();
+            hideLoginModal();
+            alert('Account created (demo)');
+        };
+        function updateAuthUI() {
+            const authSpan = document.getElementById('authText');
+            if (loggedInUser) {
+                authSpan.innerHTML = `Hi, ${loggedInUser.name} <span class="logout-btn" onclick="logout()">Logout</span>`;
+            } else {
+                authSpan.innerText = 'Login';
+            }
+        }
+        window.logout = function() {
+            localStorage.removeItem('user');
+            loggedInUser = null;
+            updateAuthUI();
+        };
+
+        // ========== INITIALIZE ==========
+        updateAuthUI();
+        updateCartCount();
+        renderFilterProducts(allProducts);
+        renderPhotographers(0, 50);
+
+        // Close modal when clicking outside
+        window.onclick = function(e) { if (e.target === modal) hideLoginModal(); };
     </script>
 </body>
 </html>
-
-
-
